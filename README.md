@@ -9,7 +9,7 @@ Backend Container : Express (+ dotenv multer mongoose nodemailer cookie-parser j
 
 [Figma Design](https://www.figma.com/file/sWpX4BUzxivFq5kUfn5x3k/Doctor-Appointments-UI-KIt-(Community)-(Copy)?type=design&node-id=0-72&mode=design&t=BjXYiEBLQiw1or6I-0)
 
-[Miro Structure & Board](https://miro.com/app/board/uXjVN5sNUvk=/)
+[Miro Structure & Board](https://miro.com/welcomeonboard/SDRNQko1V2tnSWFnVWhZNkR2SlFNWlJvR0RTVURNNldEeTRMWkZ3M0RZTWRlNmp2TmtCZmY0elRIalZWckRsU3wzNDU4NzY0NTUxMDYyNTY5MTUyfDI=?share_link_id=233654990445)
 
 # SETUP
 
