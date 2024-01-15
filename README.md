@@ -184,13 +184,24 @@ networks:
   frontend_network:
 ````
 
-### Test the compose in terminal:
+Create the compose
 
 ```
 docker compose up
 ```
 
-And open all Ports to check if works
-Here 9999 for Backend, 80 for frontend and 27019 for mongo db (open MongoDb Atlas port 27019)
+### Test the compose in terminal:
+
+
+Open the Backend and Frontend Ports in your Browser to check if works
+
+Here 
+
+9999 for Backend
+
+80 for frontend 
+
+For 27019 at MongoDB (open MongoDB Compass in your computer and open port 27019)
+if you can open it, works
 
 
