@@ -4,8 +4,7 @@
 
 ```javascript
 npm init -y
-npm i express dotenv multer mongoose nodemailer cookie-pa
-rser jsonwebtoken
+npm i express dotenv multer mongoose nodemailer cookie-parser jsonwebtoken
 npm i cloudinary
 npm i -D jest supertest
 
@@ -34,3 +33,24 @@ app.listen(process.env.PORT, () => {
   console.log("Port is: " + process.env.PORT);
 });
 ```
+
+
+### Create .dockerignore
+
+```
+node_modules/
+```
+### Dockerfile
+
+```docker
+FROM node:alpine   
+WORKDIR /app
+COPY . .
+RUN npm i
+ENV PORT 9999
+EXPOSE ${PORT}
+CMD [ "node","--watch","server.js" ]
+```
+
+
+

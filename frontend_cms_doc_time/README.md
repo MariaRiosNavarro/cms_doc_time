@@ -25,4 +25,21 @@ export default {
 
 ```
 
-### Frontend Dockerfile 
+## Docker files in Frontend
+
+### Create .dockerignore
+
+```
+node_modules/
+```
+### Dockerfile
+
+```docker
+FROM node:alpine   
+WORKDIR /app
+COPY . .
+RUN npm i
+ENV PORT 5173
+EXPOSE ${PORT}
+CMD [ "npm","run","dev","--","--host" ]
+```

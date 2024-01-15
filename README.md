@@ -1,7 +1,8 @@
 # Docker Compose - cms_doc_time
 
-Frontend Container:  React + Vite + Tailwind + DaisyUI
-Backend Container : Express
+Frontend Container:  React + React Router + Vite + Tailwind + DaisyUI
+
+Backend Container : Express (+ dotenv multer mongoose nodemailer cookie-parser jsonwebtoken cloudinary jest supertest)
 
 
 # Structure, Miro Board  & Design
@@ -68,8 +69,7 @@ export default {
 
 ```javascript
 npm init -y
-npm i express dotenv multer mongoose nodemailer cookie-pa
-rser jsonwebtoken
+npm i express dotenv multer mongoose nodemailer cookie-parser jsonwebtoken
 npm i cloudinary
 npm i -D jest supertest
 
@@ -99,7 +99,7 @@ app.listen(process.env.PORT, () => {
 
 # Create the Docker Compose 
 
-## Docker file in Frontend
+## Docker files in Frontend
 
 ### Create .dockerignore
 
@@ -113,12 +113,12 @@ FROM node:alpine
 WORKDIR /app
 COPY . .
 RUN npm i
-ENV PORT 5175
+ENV PORT 5173
 EXPOSE ${PORT}
 CMD [ "npm","run","dev","--","--host" ]
 ```
 
-## Docker File in Backend
+## Docker Files in Backend
 
 ### Create .dockerignore
 
@@ -163,7 +163,7 @@ services:
     build: ./frontend_cms_doc_time
     container_name: frontend_cms_doc_time
     ports:
-      - 80:5175
+      - 80:5173
     volumes:
       - ./frontend_cms_doc_time:/app
     networks:
@@ -172,7 +172,7 @@ services:
     image: mongo:latest
     container_name: cms_mongo_db
     ports:
-      - 27019:27019
+      - 27019:27017
     volumes:
       - cms_mongodb_data:/data/db
     networks:
@@ -191,6 +191,6 @@ docker compose up
 ```
 
 And open all Ports to check if works
-Here 9999 for Backend, 80 for frontend and 27019 for mongo db
+Here 9999 for Backend, 80 for frontend and 27019 for mongo db (open MongoDb Atlas port 27019)
 
 
