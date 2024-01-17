@@ -1,5 +1,5 @@
 import express from "express";
-// import cors from "cors";
+import cors from "cors";
 import mongoose from "mongoose";
 import "dotenv/config";
 import morgan from "morgan";
@@ -12,6 +12,14 @@ console.log("hey");
 export const app = express();
 
 // app.use(cors({ origin: process.env.ALLOWED_ORIGIN }));
+
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 app.use(morgan("dev"));
 
