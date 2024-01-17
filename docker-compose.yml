@@ -14,7 +14,7 @@ services:
     build: ./backend_cms_doc_time
     container_name: backend_cms_doc_time
     ports:
-      - $BACKENDPORT:3000
+      - $BACKENDPORT:9999
     volumes:
       - ./backend_cms_doc_time:/app
     networks:
