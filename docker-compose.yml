@@ -1,10 +1,20 @@
 version: '3.8'
 services:
+  database:
+    image: mongo:latest
+    container_name: cms_mongoAtlas_db
+    
+    # ports:
+    #   - 27019:27017
+    volumes:
+      - cms_mongoAtlas_data:/data/db
+    networks:
+      - backend_network
   backend:
     build: ./backend_cms_doc_time
     container_name: backend_cms_doc_time
     ports:
-      - 9999:9999
+      - $BACKENDPORT:3000
     volumes:
       - ./backend_cms_doc_time:/app
     networks:
@@ -16,22 +26,14 @@ services:
     build: ./frontend_cms_doc_time
     container_name: frontend_cms_doc_time
     ports:
-      - 80:5173
+      - $FRONTENDPORT:5173
     volumes:
       - ./frontend_cms_doc_time:/app
     networks:
       - frontend_network
-  database:
-    image: mongo:latest
-    container_name: cms_mongo_db
-    ports:
-      - 27019:27017
-    volumes:
-      - cms_mongodb_data:/data/db
-    networks:
-      - backend_network
+
 volumes:
-  cms_mongodb_data:
+  cms_mongoAtlas_data:
 networks:
   backend_network:
   frontend_network:
