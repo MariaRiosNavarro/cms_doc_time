@@ -15,13 +15,16 @@ const DoctorLogin = () => {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(doctor),
-        credentials: "include", //necessary for the cookies
+        credentials: "include", //necessary for the cookies and to send the token
       }
     );
     if (response.ok) {
       console.log("Doctor is allowed");
     }
   };
+  // We can save the token in local storage or in cookies (in Browser) (vulnerable and legible)
+  // or we can save the token in one useContext (in variables) but after one reload, we lost the token,
+  // Important is to define the cookie as httpOnly and secure in backend
 
   return (
     <main className="h-screen flex justify-center items-center">
