@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { createHmac } from "node:crypto"; //ist in Node dabei
+import { createHmac, randomBytes } from "node:crypto"; //ist in Node dabei
 
 export const createToken = (payload) => {
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "2min" });
@@ -10,7 +10,11 @@ export const verifyToken = (token) => {
 };
 
 export const createHash = (password, salt) => {
-  const hmac = createHmac("sha256", salt); //config, wich algorithmus we want
+  const hmac = createHmac("sha256", salt); //config,  algorithms we want
   hmac.update(password);
-  return hmac.digest("hex"); //Here we encript the data
+  return hmac.digest("hex"); //Here we encrypt the data
+};
+
+export const createSalt = () => {
+  return randomBytes(12).toString("hex");
 };
