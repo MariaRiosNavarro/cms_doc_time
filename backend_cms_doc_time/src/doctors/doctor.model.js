@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const doctorSchema = new mongoose.Schema({
   doc_name: { type: String, required: true },
-  doc_email: { type: String, required: true },
+  doc_email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   salt: { type: String, required: true },
   speciality: { type: String },
