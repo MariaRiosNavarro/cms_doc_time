@@ -69,7 +69,7 @@ export default {
 
 ```javascript
 npm init -y
-npm i express dotenv multer mongoose nodemailer cookie-parser jsonwebtoken
+npm i express dotenv multer mongoose nodemailer cookie-parser jsonwebtoken morgan
 npm i cloudinary
 npm i -D jest supertest
 
@@ -204,4 +204,8 @@ Here
 For 27019 at MongoDB (open MongoDB Compass in your computer and open port 27019)
 if you can open it, works
 
+
+-------
+
+DAY 2
 

@@ -26,6 +26,9 @@ export const login = async (req, res) => {
 };
 
 export const register = async (req, res) => {
+  const doctor = await DoctorModel.create(req.body);
+  console.log("doctor register", doctor);
+
   res.end();
 };
 

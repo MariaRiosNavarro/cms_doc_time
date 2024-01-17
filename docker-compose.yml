@@ -3,9 +3,6 @@ services:
   database:
     image: mongo:latest
     container_name: cms_mongoAtlas_db
-    
-    # ports:
-    #   - 27019:27017
     volumes:
       - cms_mongoAtlas_data:/data/db
     networks:
@@ -13,6 +10,8 @@ services:
   backend:
     build: ./backend_cms_doc_time
     container_name: backend_cms_doc_time
+    environment:
+      - MONGODB_URI=$MONGO_ATLAS_URI
     ports:
       - $BACKENDPORT:9999
     volumes:
