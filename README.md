@@ -144,6 +144,10 @@ CMD [ "node","--watch","server.js" ]
 
 ### Create the compose file in the root 
 
+2 posibilities:
+
+-With mongodb local:
+
 ````
 version: '3.8'
 services:
@@ -184,11 +188,44 @@ networks:
   frontend_network:
 ````
 
-Create the compose
+-With mongodb Atlas(Cloud):
+```
+version: '3.8'
+services:
+  backend:
+    build: ./backend_cms_doc_time
+    container_name: backend_cms_doc_time
+    environment:
+      - MONGODB_URI=$MONGO_ATLAS_URI
+    ports:
+      - $BACKENDPORT:9999
+    volumes:
+      - ./backend_cms_doc_time:/app
+    networks:
+      - backend_network
+      - frontend_network
+  frontend:
+    build: ./frontend_cms_doc_time
+    container_name: frontend_cms_doc_time
+    ports:
+      - $FRONTENDPORT:5173
+    volumes:
+      - ./frontend_cms_doc_time:/app
+    networks:
+      - frontend_network
+networks:
+  backend_network:
+  frontend_network:
+
+```
+
+- Create the compose
 
 ```
 docker compose up
 ```
+
+
 
 ### Test the compose in terminal:
 
@@ -207,5 +244,4 @@ if you can open it, works
 
 -------
 
-DAY 2
 
