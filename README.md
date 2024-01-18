@@ -4,6 +4,13 @@ Frontend Container:  React + React Router + Vite + Tailwind + DaisyUI
 
 Backend Container : Express (+ dotenv multer mongoose nodemailer cookie-parser jsonwebtoken cloudinary jest supertest)
 
+## For now works:
+
+-Doctor register (frontend & backend)
+-Doctor login (with salt & token/cookie) (frontend & backend)
+
+
+
 
 # Structure, Miro Board  & Design
 
