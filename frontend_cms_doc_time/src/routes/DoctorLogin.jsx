@@ -28,9 +28,9 @@ const DoctorLogin = () => {
 
   return (
     <main className="h-screen flex justify-center items-center">
-      <div className="w-64 bg-primary text-black rounded">
+      <div className="w-64 ">
         <div
-          className="bg-primary p-4 flex flex-col gap-2 rounded"
+          className="bg-info text-black p-4 flex flex-col gap-2 rounded-xl"
           //   onSubmit={login}
         >
           <h3 className="text-center font-bold">Doctor Login</h3>
@@ -50,7 +50,12 @@ const DoctorLogin = () => {
             id="password"
             name="password"
           />
-          <input className="btn my-4" type="submit" onClick={login} />
+          <input
+            className="btn btn-primary my-4"
+            type="submit"
+            value="login"
+            onClick={login}
+          />
         </div>
       </div>
     </main>
