@@ -1,9 +1,10 @@
 import { useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const DoctorLogin = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
+  const navigate = useNavigate();
 
   const login = async () => {
     const doctor = {
@@ -21,6 +22,9 @@ const DoctorLogin = () => {
     );
     if (response.ok) {
       console.log("Doctor is allowed");
+      const json = await response.json();
+      const id = json.data;
+      navigate("/doctor/" + id);
     }
   };
   // We can save the token in local storage or in cookies (in Browser) (vulnerable and legible)

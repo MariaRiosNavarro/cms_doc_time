@@ -14,6 +14,7 @@ export const login = async (req, res) => {
   //so we can give him/her a token.
 
   const token = createToken({ doctor: doctor._id });
+  const docId = doctor._id;
 
   //send a res with the jwt as httpOnly cookie
   // We package that token in a secure cookie in front of the frontend.
@@ -22,6 +23,7 @@ export const login = async (req, res) => {
       httpOnly: true, //can not read it in client side/frontend - React con not do anything
       secure: true,
     })
+    .json({ data: docId })
     .end();
 };
 
