@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { createHmac, randomBytes } from "node:crypto"; //ist in Node dabei
 
 export const createToken = (payload) => {
-  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "2min" });
+  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "5min" });
 };
 
 export const verifyToken = (token) => {
