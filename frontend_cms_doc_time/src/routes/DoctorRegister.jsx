@@ -1,26 +1,34 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 const DoctorRegister = () => {
+  const [message, setMessage] = useState("");
   const emailRef = useRef();
   const passwordRef = useRef();
+  const passwordConfirmationRef = useRef();
 
-  const login = async () => {
+  const signup = async () => {
+    if (passwordRef.current.value !== passwordConfirmationRef.current.value) {
+      setMessage("The Password is not the same");
+      return;
+    }
     const doctor = {
-      email: emailRef.current.value,
+      doc_email: emailRef.current.value,
       password: passwordRef.current.value,
     };
+
+    console.log(doctor);
     const response = await fetch(
-      import.meta.env.VITE_BACKEND_URL + "/api/auth/login",
+      import.meta.env.VITE_BACKEND_URL + "/api/auth/register",
       {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(doctor),
-        credentials: "include", //necessary for the cookies and to send the token
+        // credentials: "include", //necessary for the cookies and to send the token
       }
     );
     if (response.ok) {
-      console.log("Doctor is allowed");
+      console.log("Doctor is register");
     }
   };
   // We can save the token in local storage or in cookies (in Browser) (vulnerable and legible)
@@ -53,18 +61,18 @@ const DoctorRegister = () => {
           />
           <label htmlFor="confirm-password">Confirm password</label>
           <input
-            ref={passwordRef}
+            ref={passwordConfirmationRef}
             className="bg-white px-2 py-1 rounded"
             type="password"
             id="confirm-password"
             name="confirm-password"
           />
-
+          {message && <p className="rounded bg-warning p-2">{message}</p>}
           <input
             className="btn btn-primary my-4"
             type="submit"
             value="sign up"
-            onClick={login}
+            onClick={signup}
           />
           <div>
             <Link
