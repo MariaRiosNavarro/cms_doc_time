@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DoctorLogin from "./routes/DoctorLogin";
+import DoctorRegister from "./routes/DoctorRegister";
 import Header from "./components/Header.jsx";
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/login" element={<DoctorLogin />} />
+          <Route path="/register" element={<DoctorRegister />} />
         </Routes>
       </BrowserRouter>
     </>
