@@ -9,7 +9,7 @@ const doctorSchema = new mongoose.Schema({
   description: { type: String },
   address: { type: String },
   avatar: { type: String },
-  // opening_hours: [{ type: mongoose.Schema.Types.ObjectId, ref: "Schedule" }],
+  opening_hours: [{ type: mongoose.Schema.Types.ObjectId, ref: "Schedule" }],
   // doc_appointments: [
   //   { type: mongoose.Schema.Types.ObjectId, ref: "Appointment" },
   // ],
