@@ -10,6 +10,10 @@ const DoctorRegister = () => {
   const signup = async () => {
     if (passwordRef.current.value !== passwordConfirmationRef.current.value) {
       setMessage("The Password is not the same");
+      setTimeout(() => {
+        setMessage("");
+        passwordConfirmationRef.current.value = "";
+      }, 3000);
       return;
     }
     const doctor = {
@@ -24,7 +28,6 @@ const DoctorRegister = () => {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(doctor),
-        // credentials: "include", //necessary for the cookies and to send the token
       }
     );
     if (response.ok) {
