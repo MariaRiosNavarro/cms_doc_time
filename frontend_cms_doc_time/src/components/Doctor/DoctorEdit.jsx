@@ -163,32 +163,40 @@ const DoctorEdit = ({ id }) => {
               <h2 className="card-title">About Doctor</h2>
               {/* {/* -------------------------------------Doctor Name */}
               <h3 ref={doc_nameRef} contentEditable>
+                Name:
                 {doctor?.doc_name ? doctor.doc_name : "?"}
               </h3>
               {/* {/* -------------------------------------Doctor Speciality */}
               <h4 ref={specialityRef} contentEditable>
+                {" "}
+                Speciality:
                 {doctor?.speciality ? doctor.speciality : "?"}
               </h4>
               {/* {/* -------------------------------------Doctor Description */}
               <p ref={descriptionRef} contentEditable>
+                {" "}
+                About:
                 {doctor?.description ? doctor.description : "?"}
               </p>
               {/* {/* -------------------------------------Doctor Address */}
               <div ref={addressRef} contentEditable>
+                {" "}
+                Address:
                 {doctor?.address ? doctor.address : "?"}
               </div>
               <h2 className="card-title">Working time</h2>
               {/* {/* -------------------------------------Doctor Opening Hours */}
               <p>
+                Schedule:
                 {doctor?.opening_hours ? doctor.opening_hours : "Change below"}
               </p>
               <div>{/* <ScheduleForm onSubmit={updateSchedule} /> */}</div>
 
-              <h2 className="card-title">Comunication</h2>
+              {/* <h2 className="card-title">Comunication</h2>
               <div className="flex gap-4 items-center">
                 <MessageSVG />
                 <a href={`mailto:${doctor?.doc_email}`}>{doctor?.doc_email}</a>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="flex justify-center items-center gap-4 mt-4">
