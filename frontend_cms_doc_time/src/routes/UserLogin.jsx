@@ -26,18 +26,16 @@ const UserLogin = () => {
         console.log("User is allowed");
         const json = await response.json();
         const id = json.id;
-        const collectionId = json.data;
-        console.log("json-----------------", json);
-
-        // if (json.role === "admin") {
-        //   navigate("/admin/" + id);
-        // } else if (json.role === "doctor") {
-        //   navigate("/doctor/" + collectionId);
-        // } else if (json.role === "patient") {
-        //   navigate("/patient/" + collectionId);
-        // } else {
-        //   navigate("/sign-up");
-        // }
+        const roleIdRef = json.roleIdRef;
+        if (json.role === "admin") {
+          navigate("/admin/" + id);
+        } else if (json.role === "doctor") {
+          navigate("/doctor/" + roleIdRef);
+        } else if (json.role === "patient") {
+          navigate("/patient/" + roleIdRef);
+        } else {
+          navigate("/sign-up");
+        }
       } else {
         if (response.status === 401) {
           setMessage("You are not registered or your password/user is wrong");

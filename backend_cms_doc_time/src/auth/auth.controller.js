@@ -16,6 +16,7 @@ export const login = async (req, res) => {
 
   const token = createToken({ user: user._id, role: user.role });
   const userId = user._id;
+  const roleIdRef = user.roleIdRef;
 
   //send a res with the jwt as httpOnly cookie
   // We package that token in a secure cookie in front of the frontend.
@@ -24,7 +25,12 @@ export const login = async (req, res) => {
       httpOnly: true, //can not read it in client side/frontend - React con not do anything
       secure: true,
     })
-    .json({ id: userId, email: user.email, role: user.role });
+    .json({
+      id: userId,
+      email: user.email,
+      role: user.role,
+      roleIdRef: roleIdRef,
+    });
 };
 
 export const register = async (req, res) => {
