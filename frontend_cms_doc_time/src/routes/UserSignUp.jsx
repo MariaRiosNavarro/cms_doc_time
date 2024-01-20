@@ -34,6 +34,8 @@ const UserSignUp = () => {
     );
     if (response.ok) {
       console.log("User is register");
+      let res = await response.json();
+      console.log(res);
     }
   };
   // We can save the token in local storage or in cookies (in Browser) (vulnerable and legible)

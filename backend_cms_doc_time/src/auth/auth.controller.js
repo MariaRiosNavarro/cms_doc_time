@@ -1,6 +1,6 @@
 import { UserModel } from "../users/users.model.js";
 import { createHash, createToken, createSalt } from "./auth.service.js";
-import { addRegisteredUserToCollection } from "../middlewares/auth.middleware.js";
+import { addRegisteredUserToCollection } from "../utils/functions.js";
 
 export const login = async (req, res) => {
   const user = await UserModel.findOne({ email: req.body.email });
@@ -37,18 +37,33 @@ export const register = async (req, res) => {
   newUser.password = createHash(newUser.password, newUser.salt);
   await newUser.save();
 
-  console.log(req.body);
+  // Use the same data to register in the role collection with a reference of the id in the User collection, to use in der detail pages & co
   let email = req.body.email;
   let role = req.body.role;
-  let registerInCollection = { email: email, role: role };
+  let userIdRef = newUser._id;
+  let registerInCollection = { email: email, role: role, userIdRef: userIdRef };
 
-  addRegisteredUserToCollection(role, registerInCollection);
+  let roleIdRef = await addRegisteredUserToCollection(
+    role,
+    registerInCollection
+  );
+
+  // Update registered Email with the collection reference id
+
+  const updateRegistered = await UserModel.findByIdAndUpdate(
+    userIdRef,
+    roleIdRef,
+    {
+      new: true,
+    }
+  );
 
   res.status(201).json({
     // success: true,
     // message: "User successfully registered ✅",
     email: req.body.email,
     role: req.body.role,
+    userIdRef: updateRegistered.userIdRef,
   });
 };
 

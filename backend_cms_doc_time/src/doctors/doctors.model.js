@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const doctorSchema = new mongoose.Schema({
   role: { type: String, enum: ["doctor"], required: true },
   name: { type: String },
+  userIdRef: { type: String },
   email: { type: String, required: true, unique: true },
   // password: { type: String, required: true },
   // salt: { type: String, required: true },
