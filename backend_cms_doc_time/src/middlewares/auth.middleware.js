@@ -1,4 +1,6 @@
 import { verifyToken } from "../auth/auth.service.js";
+import { PatientModel } from "../patients/patients.model.js";
+import { DoctorModel } from "../doctors/doctors.model.js";
 
 export const checkToken = (req, res, next) => {
   const token = req.cookies.users_cms_auth;
@@ -32,3 +34,19 @@ export function onlyForAdminOrDoctor(req, res, next) {
     res.status(401).end();
   }
 }
+
+export const addRegisteredUserToCollection = async (role, data) => {
+  console.log("userRole kommt zu ende", role);
+  console.log("data draussen--------------", data);
+  if (role === "doctor") {
+    const newDoctor = new DoctorModel(data);
+    console.log("data drin--------------", data);
+
+    console.log("Doctor kommt zu ende????????????", newDoctor);
+    await newDoctor.save();
+  } else {
+    const newPatient = new PatientModel(data);
+    console.log("Patient kommt zu ende", newPatient);
+    await newPatient.save();
+  }
+};

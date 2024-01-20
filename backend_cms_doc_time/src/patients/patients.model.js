@@ -4,11 +4,11 @@ const patientSchema = new mongoose.Schema({
   role: { type: String, enum: ["patient"], required: true },
   name: { type: String },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  salt: { type: String, required: true },
+
   gender: { type: String },
   age: { type: Number },
-  // issue: { type: String },
+  issue: { type: Number },
+
   // patient_appointments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Appointment' }],
 });
 

@@ -1,5 +1,6 @@
 import { UserModel } from "../users/users.model.js";
 import { createHash, createToken, createSalt } from "./auth.service.js";
+import { addRegisteredUserToCollection } from "../middlewares/auth.middleware.js";
 
 export const login = async (req, res) => {
   const user = await UserModel.findOne({ email: req.body.email });
@@ -36,16 +37,19 @@ export const register = async (req, res) => {
   newUser.password = createHash(newUser.password, newUser.salt);
   await newUser.save();
 
-  console.log(req.body.email);
+  console.log(req.body);
+  let email = req.body.email;
+  let role = req.body.role;
+  let registerInCollection = { email: email, role: role };
 
-  res
-    .status(201)
-    .json({
-      success: true,
-      message: "User successfully registered ✅",
-      // data: newUser,
-    })
-    .end();
+  addRegisteredUserToCollection(role, registerInCollection);
+
+  res.status(201).json({
+    // success: true,
+    // message: "User successfully registered ✅",
+    email: req.body.email,
+    role: req.body.role,
+  });
 };
 
 export const logout = async (req, res) => {

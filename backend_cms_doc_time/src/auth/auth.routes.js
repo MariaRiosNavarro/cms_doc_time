@@ -5,7 +5,10 @@ import {
   register,
   checkAndSendReqWithUserAndRole,
 } from "./auth.controller.js";
-import { checkToken } from "../middlewares/auth.middleware.js";
+import {
+  checkToken,
+  // addRegisteredUserToCollection,
+} from "../middlewares/auth.middleware.js";
 
 export const router = new express.Router();
 
