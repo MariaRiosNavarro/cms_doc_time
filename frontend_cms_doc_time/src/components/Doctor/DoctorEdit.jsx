@@ -16,7 +16,7 @@ const DoctorEdit = ({ id }) => {
   const avatarRef = useRef();
   const patientsRef = useRef();
   const yearsRef = useRef();
-  const doc_nameRef = useRef();
+  const nameRef = useRef();
   const specialityRef = useRef();
   const descriptionRef = useRef();
   const addressRef = useRef();
@@ -82,7 +82,7 @@ const DoctorEdit = ({ id }) => {
 
     newDoctorFormData.append("patients", Number(patientsRef.current.value));
     newDoctorFormData.append("years", Number(yearsRef.current.value));
-    newDoctorFormData.append("doc_name", doc_nameRef.current.value);
+    newDoctorFormData.append("name", nameRef.current.value);
     newDoctorFormData.append("speciality", specialityRef.current.value);
     newDoctorFormData.append("description", descriptionRef.current.value);
 
@@ -170,15 +170,15 @@ const DoctorEdit = ({ id }) => {
               <h2 className="card-title text-gray-500 pb-4">About Doctor</h2>
               {/* {/* -------------------------------------Doctor Name */}
               <div className="flex gap-x-2">
-                <label htmlFor="doc_name" className="font-bold text-primary">
+                <label htmlFor="name" className="font-bold text-primary">
                   Name:
                 </label>
                 <input
-                  ref={doc_nameRef}
-                  name="doc_name"
-                  id="doc_name"
+                  ref={nameRef}
+                  name="name"
+                  id="name"
                   className="border-b border-secondary w-[3rem]"
-                  placeholder={doctor?.doc_name ? doctor.doc_name : ""}
+                  placeholder={doctor?.name ? doctor.name : ""}
                 />
               </div>
 
@@ -245,7 +245,7 @@ const DoctorEdit = ({ id }) => {
               {/* <h2 className="card-title">Comunication</h2>
               <div className="flex gap-4 items-center">
                 <MessageSVG />
-                <a href={`mailto:${doctor?.doc_email}`}>{doctor?.doc_email}</a>
+                <a href={`mailto:${doctor?.email}`}>{doctor?.email}</a>
               </div> */}
             </div>
           </div>

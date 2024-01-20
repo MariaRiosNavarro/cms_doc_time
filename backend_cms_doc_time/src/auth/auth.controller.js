@@ -2,7 +2,7 @@ import { DoctorModel } from "../doctors/doctor.model.js";
 import { createHash, createToken, createSalt } from "./auth.service.js";
 
 export const login = async (req, res) => {
-  const doctor = await DoctorModel.findOne({ doc_email: req.body.email });
+  const doctor = await DoctorModel.findOne({ email: req.body.email });
   if (!doctor) return res.status(401).end(); //check if the doctor has a email
   if (doctor.password !== createHash(req.body.password, doctor.salt))
     //check if the doctor use the correct password
@@ -29,7 +29,7 @@ export const login = async (req, res) => {
 
 export const register = async (req, res) => {
   const registeredDoctorEmail = await DoctorModel.findOne({
-    doc_email: req.body.email,
+    email: req.body.email,
   }); //check email
   if (registeredDoctorEmail) return res.status(401).end();
   const newDoctor = new DoctorModel(req.body); //create doctor

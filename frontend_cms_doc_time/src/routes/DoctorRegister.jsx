@@ -17,7 +17,7 @@ const DoctorRegister = () => {
       return;
     }
     const doctor = {
-      doc_email: emailRef.current.value,
+      email: emailRef.current.value,
       password: passwordRef.current.value,
     };
 
