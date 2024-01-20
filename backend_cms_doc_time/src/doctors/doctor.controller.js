@@ -159,8 +159,8 @@ export const editOneDoctor = async (req, res) => {
     }
 
     //save new data & add image if it is in the request
-    const newDoctorData = { ...req.body };
-
+    const newDoctorData = req.body;
+    console.log("body..........", newDoctorData);
     // cloudinary
     if (req.file) {
       const b64 = Buffer.from(req.file.buffer).toString("base64");

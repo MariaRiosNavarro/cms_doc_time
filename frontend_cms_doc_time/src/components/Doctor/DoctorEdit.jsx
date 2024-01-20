@@ -3,12 +3,14 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "../General/Loading";
 import ScheduleForm from "./ScheduleForm";
-import MessageSVG from "../Svg/MessageSvg";
+// import MessageSVG from "../Svg/MessageSvg";
 
 const DoctorEdit = ({ id }) => {
   const [doctor, setDoctor] = useState("");
   const [loading, setLoading] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [useFile, setUseFile] = useState(false);
+  const [scheduleData, setScheduleData] = useState([]);
   const navigate = useNavigate();
 
   const avatarRef = useRef();
@@ -52,21 +54,18 @@ const DoctorEdit = ({ id }) => {
 
   //Handle Files
 
-  let file;
-
   const handleFile = (e) => {
-    file = e.target.file;
+    const selectedFile = e.target.files[0];
     setUseFile(true);
-    return file;
   };
 
-  // Update Schedule
-  const updateSchedule = (newSchedule) => {
-    setDoctor((prevDoctor) => ({
-      ...prevDoctor,
-      schedule: newSchedule,
-    }));
-  };
+  // // Update Schedule
+  // const updateSchedule = (newSchedule) => {
+  //   setDoctor((prevDoctor) => ({
+  //     ...prevDoctor,
+  //     schedule: newSchedule,
+  //   }));
+  // };
 
   const updateAccount = async (e) => {
     e.preventDefault();
@@ -76,25 +75,39 @@ const DoctorEdit = ({ id }) => {
       newDoctorFormData.append("avatar", avatarRef.current.files[0]);
     }
 
-    //Dynamical Header
-    const headers = useFile
-      ? {} //for form with files
-      : {
-          "Content-Type": "application/json", // for form without files
-        };
+    // I use the updateSchedule function to get the updated schedule.
+
+    newDoctorFormData.append("schedule", JSON.stringify(scheduleData));
+
+    newDoctorFormData.append("patients", Number(patientsRef.current.value));
+    newDoctorFormData.append("years", Number(yearsRef.current.value));
+    newDoctorFormData.append("doc_name", doc_nameRef.current.value);
+    newDoctorFormData.append("speciality", specialityRef.current.value);
+    newDoctorFormData.append("description", descriptionRef.current.value);
+
+    console.log("form data:------------------");
+    newDoctorFormData.forEach((value, key) => {
+      console.log(`${key}: ${value}`);
+    });
 
     try {
       const response = await fetch(
         import.meta.env.VITE_BACKEND_URL + "/api/doctors/" + id,
         {
           method: "PUT",
-          headers: headers,
-          body: newDoctorFormData,
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(newDoctorFormData),
+          credentials: "include",
         }
       );
+
       if (response.ok) {
         console.log(newDoctorFormData);
         console.log(response);
+      } else {
+        console.log("Request failed with status:", response.status);
+        const errorBody = await response.text();
+        console.log("Error Body:", errorBody);
       }
     } catch (error) {
       console.log(error.message);
@@ -118,41 +131,34 @@ const DoctorEdit = ({ id }) => {
         <input
           type="file"
           className="file-input file-input-bordered file-input-primary w-full max-w-xs"
-          onClick={handleFile}
+          onChange={handleFile}
+          name="avatar"
           ref={avatarRef}
         />
-        <h3>Click on ? to edit</h3>
+        <h3>click on the line to edit</h3>
         <article>
-          <div className="stats shadow max-w-[375px] min-h-[7rem]">
+          <div className="stats shadow flex flex-col">
             {/* ------------------------------Stat patients */}
-            <div className="stat w-[120px] relative h-[7rem]">
-              <div className="stat-title">Patients</div>
-              <div
-                className="stat-value text-primary text-center "
+            <div className="stat  relative h-[8rem]">
+              <h3 className="stat-title">Patients</h3>
+              <input
+                className="stat-value text-primary text-center border-b  border-secondary max-w-[385px] w-[70%]"
                 ref={patientsRef}
-                contentEditable
-              >
-                {doctor?.patients ? doctor.patients : "?"}
-              </div>
+                name="patients"
+                id="patients"
+                placeholder={doctor?.patients ? doctor.patients : " "}
+              ></input>
             </div>
             {/*  ------------------------------Stat years */}
-            <div className="stat w-[120px] relative h-[7rem]">
-              <div className="stat-title">Experience</div>
-              <div
-                className="stat-value text-secondary text-center "
+            <div className="stat  relative h-[8rem]">
+              <h3 className="stat-title leading-4">Experience Years</h3>
+              <input
+                className="stat-value text-secondary text-center border-b  border-secondary max-w-[385px] w-[70%]"
                 ref={yearsRef}
-                contentEditable
-              >
-                {doctor?.years ? doctor.years : "?"}
-              </div>
-              <div className="stat-title text-center">Years</div>
-            </div>
-            {/* {/*  ------------------------------Stat  Rating */}
-            <div className="stat w-[120px] relative h-[7rem]">
-              <div className="stat-title">Rating</div>
-              <div className="stat-value text-accent text-center ">
-                {doctor?.rating ? doctor.rating : "✩"}
-              </div>
+                name="years"
+                id="years"
+                placeholder={doctor?.years ? doctor.years : ""}
+              ></input>
             </div>
           </div>
         </article>
@@ -160,37 +166,80 @@ const DoctorEdit = ({ id }) => {
         <article>
           <div className="card w-96 bg-base-100 shadow-xl">
             <div className="card-body">
-              <h2 className="card-title">About Doctor</h2>
+              <h2 className="card-title text-gray-500 pb-4">About Doctor</h2>
               {/* {/* -------------------------------------Doctor Name */}
-              <h3 ref={doc_nameRef} contentEditable>
-                Name:
-                {doctor?.doc_name ? doctor.doc_name : "?"}
-              </h3>
-              {/* {/* -------------------------------------Doctor Speciality */}
-              <h4 ref={specialityRef} contentEditable>
-                {" "}
-                Speciality:
-                {doctor?.speciality ? doctor.speciality : "?"}
-              </h4>
-              {/* {/* -------------------------------------Doctor Description */}
-              <p ref={descriptionRef} contentEditable>
-                {" "}
-                About:
-                {doctor?.description ? doctor.description : "?"}
-              </p>
-              {/* {/* -------------------------------------Doctor Address */}
-              <div ref={addressRef} contentEditable>
-                {" "}
-                Address:
-                {doctor?.address ? doctor.address : "?"}
+              <div className="flex gap-x-2">
+                <label htmlFor="doc_name" className="font-bold text-primary">
+                  Name:
+                </label>
+                <input
+                  ref={doc_nameRef}
+                  name="doc_name"
+                  id="doc_name"
+                  className="border-b border-secondary w-[3rem]"
+                  placeholder={doctor?.doc_name ? doctor.doc_name : ""}
+                />
               </div>
-              <h2 className="card-title">Working time</h2>
+
+              {/* {/* -------------------------------------Doctor Speciality */}
+              <div className="flex gap-x-2">
+                <label htmlFor="speciality" className="font-bold text-primary">
+                  Speciality:
+                </label>
+                <input
+                  ref={specialityRef}
+                  name="speciality"
+                  id="speciality"
+                  className="border-b border-secondary w-[3rem]"
+                  placeholder={doctor?.speciality ? doctor.speciality : ""}
+                ></input>
+              </div>
+
+              {/* {/* -------------------------------------Doctor Description */}
+
+              <div className="flex gap-x-2">
+                <label htmlFor="description" className="font-bold text-primary">
+                  About:
+                </label>
+                <input
+                  ref={descriptionRef}
+                  id="description"
+                  name="description"
+                  className="border-b border-secondary w-[3rem]"
+                  placeholder={doctor?.description ? doctor.description : ""}
+                ></input>
+              </div>
+              {/* {/* -------------------------------------Doctor Address */}
+
+              <div className="flex gap-x-2 pb-4">
+                <label htmlFor="address" className="font-bold text-primary">
+                  Address:
+                </label>
+                <input
+                  ref={addressRef}
+                  id="address"
+                  name="address"
+                  className="border-b border-secondary w-[3rem]"
+                  placeholder={doctor?.address ? doctor.address : ""}
+                ></input>
+              </div>
+
+              <h3 className="card-title text-gray-500 pb-4">Working time</h3>
               {/* {/* -------------------------------------Doctor Opening Hours */}
-              <p>
-                Schedule:
-                {doctor?.opening_hours ? doctor.opening_hours : "Change below"}
-              </p>
-              <div>{/* <ScheduleForm onSubmit={updateSchedule} /> */}</div>
+              <div className="pb-4">
+                Schedule Info:
+                <span className="px-4">
+                  {doctor?.schedule ? doctor.schedule : "Change below ↓"}
+                </span>
+              </div>
+              <div>
+                {" "}
+                <ScheduleForm
+                  // ref={scheduleRef}
+                  scheduleData={scheduleData}
+                  setScheduleData={setScheduleData}
+                />
+              </div>
 
               {/* <h2 className="card-title">Comunication</h2>
               <div className="flex gap-4 items-center">

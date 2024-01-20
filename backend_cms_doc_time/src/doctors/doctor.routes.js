@@ -14,4 +14,5 @@ router.get("/:id", getOneDoctor);
 
 // Protected Routes with the login
 router.put("/:id", checkToken, editOneDoctor);
+// router.put("/:id", editOneDoctor);
 router.delete("/:id", checkToken, removeOneDoctor);
