@@ -1,13 +1,13 @@
 import { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const DoctorLogin = () => {
+const UserLogin = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
 
   const login = async () => {
-    const doctor = {
+    const user = {
       email: emailRef.current.value,
       password: passwordRef.current.value,
     };
@@ -16,15 +16,15 @@ const DoctorLogin = () => {
       {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify(doctor),
+        body: JSON.stringify(user),
         credentials: "include", //necessary for the cookies and to send the token
       }
     );
     if (response.ok) {
-      console.log("Doctor is allowed");
+      console.log("User is allowed");
       const json = await response.json();
       const id = json.data;
-      navigate("/doctor/" + id);
+      navigate("/user/" + id);
     }
   };
   // We can save the token in local storage or in cookies (in Browser) (vulnerable and legible)
@@ -38,7 +38,7 @@ const DoctorLogin = () => {
           className="bg-info text-black p-4 flex flex-col gap-2 rounded-xl w-[20rem]"
           //   onSubmit={login}
         >
-          <h3 className="text-center font-bold">Doctor Login</h3>
+          <h3 className="text-center font-bold">User Login</h3>
           <label htmlFor="email">Email</label>
           <input
             ref={emailRef}
@@ -88,7 +88,7 @@ const DoctorLogin = () => {
           </div> */}
           <div>
             <Link
-              to="/register"
+              to="/sign-up"
               className="w-[100%] block text-end py-4 text-gray-500 mb-4"
             >
               Need an account? <span className="underline">SIGN UP</span>
@@ -100,4 +100,4 @@ const DoctorLogin = () => {
   );
 };
 
-export default DoctorLogin;
+export default UserLogin;

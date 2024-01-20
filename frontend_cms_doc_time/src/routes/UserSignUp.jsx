@@ -1,13 +1,14 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
-const DoctorRegister = () => {
+const UserSignUp = () => {
   const [message, setMessage] = useState("");
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmationRef = useRef();
+  const roleRef = useRef();
 
-  const signup = async () => {
+  const signUp = async () => {
     if (passwordRef.current.value !== passwordConfirmationRef.current.value) {
       setMessage("The Password is not the same");
       setTimeout(() => {
@@ -16,22 +17,23 @@ const DoctorRegister = () => {
       }, 3000);
       return;
     }
-    const doctor = {
+    const user = {
       email: emailRef.current.value,
       password: passwordRef.current.value,
+      role: roleRef.current.value,
     };
 
-    console.log(doctor);
+    console.log(user);
     const response = await fetch(
       import.meta.env.VITE_BACKEND_URL + "/api/auth/register",
       {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify(doctor),
+        body: JSON.stringify(user),
       }
     );
     if (response.ok) {
-      console.log("Doctor is register");
+      console.log("User is register");
     }
   };
   // We can save the token in local storage or in cookies (in Browser) (vulnerable and legible)
@@ -45,7 +47,23 @@ const DoctorRegister = () => {
           className="bg-info text-black p-4 flex flex-col gap-2 rounded-xl  w-[20rem]"
           //   onSubmit={login}
         >
-          <h3 className="text-center font-bold">Doctor Sign up</h3>
+          <h3 className="text-center font-bold">User Sign up</h3>
+          <label htmlFor="role">Choose your role</label>
+          <select
+            ref={roleRef}
+            name="role"
+            className="select select-bordered select-primary select-s w-full max-w-s"
+          >
+            <option value={"patient"} role="patient">
+              Patient
+            </option>
+            <option value={"doctor"} role="doctor">
+              Doctor
+            </option>
+            <option value={"admin"} role="admin" disabled>
+              Admin
+            </option>
+          </select>
           <label htmlFor="email">Email</label>
           <input
             ref={emailRef}
@@ -75,14 +93,14 @@ const DoctorRegister = () => {
             className="btn btn-primary my-4"
             type="submit"
             value="sign up"
-            onClick={signup}
+            onClick={signUp}
           />
           <div>
             <Link
               to="/login"
               className="w-[100%] block text-end py-4 text-gray-500 mb-4"
             >
-              Have you already an Account?{" "}
+              Have you already an Account?
               <span className="underline">LOGIN</span>
             </Link>
           </div>
@@ -92,4 +110,4 @@ const DoctorRegister = () => {
   );
 };
 
-export default DoctorRegister;
+export default UserSignUp;

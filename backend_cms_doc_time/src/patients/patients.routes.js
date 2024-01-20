@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllPatients } from "./users.controller.js";
+import { getAllPatients } from "./patients.controller.js";
 import { checkToken } from "../middlewares/auth.middleware.js";
 
 export const router = new express.Router();

@@ -18,11 +18,11 @@
 import express from "express";
 import multer from "multer";
 import { checkToken, onlyForAdmin } from "../middlewares/auth.middleware.js";
-import { createNewUser, getActualUser, getAllUser } from "./user.controller.js";
+import { addNewUser, getActualUser, getAllUser } from "./users.controller.js";
 
 const upload = multer({ storage: new multer.memoryStorage() });
 export const router = new express.Router();
 
 router.get("/", checkToken, onlyForAdmin, getAllUser);
-router.post("/", checkToken, onlyForAdmin, upload.none(), createNewUser);
+router.post("/", checkToken, onlyForAdmin, upload.none(), addNewUser);
 router.get("/actual", checkToken, getActualUser);

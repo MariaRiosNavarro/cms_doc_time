@@ -1,4 +1,4 @@
-import { PatientModel } from "./patients.model";
+import { PatientModel } from "./patients.model.js";
 
 // --------------------------------------------------------------------GET ALL
 

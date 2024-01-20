@@ -1,4 +1,4 @@
-import { UserModel } from "../users/user.model.js";
+import { UserModel } from "../users/users.model.js";
 import { createHash, createToken, createSalt } from "./auth.service.js";
 
 export const login = async (req, res) => {

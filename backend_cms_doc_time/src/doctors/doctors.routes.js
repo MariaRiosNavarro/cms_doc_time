@@ -7,7 +7,7 @@ import {
 } from "./doctors.controller.js";
 import {
   checkToken,
-  checkAndSendReqWithUserAndRole,
+  // checkAndSendReqWithUserAndRole,
   onlyForAdminOrDoctor,
 } from "../middlewares/auth.middleware.js";
 
