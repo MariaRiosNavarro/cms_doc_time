@@ -1,4 +1,4 @@
-import { DoctorModel } from "./doctor.model.js";
+import { DoctorModel } from "./doctors.model.js";
 import { v2 as cloudinary } from "cloudinary";
 
 // const cloud_url = process.env.CLOUDINARY_URL;

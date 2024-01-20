@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const doctorSchema = new mongoose.Schema({
+  role: "doctor",
   name: { type: String },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
