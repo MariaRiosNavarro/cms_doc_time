@@ -1,30 +1,52 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const DoctorLogin = () => {
+const UserLogin = () => {
+  const [message, setMessage] = useState("");
   const emailRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
 
   const login = async () => {
-    const doctor = {
+    const user = {
       email: emailRef.current.value,
       password: passwordRef.current.value,
     };
-    const response = await fetch(
-      import.meta.env.VITE_BACKEND_URL + "/api/auth/login",
-      {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(doctor),
-        credentials: "include", //necessary for the cookies and to send the token
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_BACKEND_URL + "/api/auth/login",
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(user),
+          credentials: "include", //necessary for the cookies and to send the token
+        }
+      );
+      if (response.ok) {
+        console.log("User is allowed");
+        const json = await response.json();
+        const id = json.id;
+        const roleIdRef = json.roleIdRef;
+        if (json.role === "admin") {
+          navigate("/admin/" + id);
+        } else if (json.role === "doctor") {
+          navigate("/doctor/" + roleIdRef);
+        } else if (json.role === "patient") {
+          navigate("/patient/" + roleIdRef);
+        } else {
+          navigate("/sign-up");
+        }
+      } else {
+        if (response.status === 401) {
+          setMessage("You are not registered or your password/user is wrong");
+        }
+        // setTimeout(() => {
+        //   navigate("/sign-up");
+        // }, 4000);
       }
-    );
-    if (response.ok) {
-      console.log("Doctor is allowed");
-      const json = await response.json();
-      const id = json.data;
-      navigate("/doctor/" + id);
+    } catch (error) {
+      console.log(error);
+      navigate("/sign-up");
     }
   };
   // We can save the token in local storage or in cookies (in Browser) (vulnerable and legible)
@@ -34,11 +56,16 @@ const DoctorLogin = () => {
   return (
     <main className="h-screen flex justify-center items-center">
       <div className="">
+        {message && (
+          <p className="rounded-xl bg-warning p-5 font-bold  w-[20rem] mb-[2rem] text-center">
+            {message}
+          </p>
+        )}
         <div
           className="bg-info text-black p-4 flex flex-col gap-2 rounded-xl w-[20rem]"
           //   onSubmit={login}
         >
-          <h3 className="text-center font-bold">Doctor Login</h3>
+          <h3 className="text-center font-bold">User Login</h3>
           <label htmlFor="email">Email</label>
           <input
             ref={emailRef}
@@ -88,7 +115,7 @@ const DoctorLogin = () => {
           </div> */}
           <div>
             <Link
-              to="/register"
+              to="/sign-up"
               className="w-[100%] block text-end py-4 text-gray-500 mb-4"
             >
               Need an account? <span className="underline">SIGN UP</span>
@@ -100,4 +127,4 @@ const DoctorLogin = () => {
   );
 };
 
-export default DoctorLogin;
+export default UserLogin;

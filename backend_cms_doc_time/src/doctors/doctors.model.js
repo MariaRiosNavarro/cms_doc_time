@@ -1,10 +1,12 @@
 import mongoose from "mongoose";
 
 const doctorSchema = new mongoose.Schema({
-  doc_name: { type: String },
-  doc_email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  salt: { type: String, required: true },
+  role: { type: String, enum: ["doctor"], required: true },
+  name: { type: String },
+  userIdRef: { type: String },
+  email: { type: String, required: true, unique: true },
+  // password: { type: String, required: true },
+  // salt: { type: String, required: true },
   speciality: { type: String },
   description: { type: String },
   address: { type: String },

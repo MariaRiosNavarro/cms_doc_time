@@ -5,7 +5,9 @@ import "dotenv/config";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import { router as authRouter } from "./auth/auth.routes.js";
-import { router as doctorRouter } from "./doctors/doctor.routes.js";
+import { router as doctorsRouter } from "./doctors/doctors.routes.js";
+import { router as usersRouter } from "./users/users.routes.js";
+import { router as patientsRouter } from "./patients/patients.routes.js";
 
 await mongoose.connect(process.env.MONGO_ATLAS_URI);
 
@@ -28,4 +30,6 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 app.use("/api/auth", authRouter);
-app.use("/api/doctors", doctorRouter);
+app.use("/api/doctors", doctorsRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/patients", patientsRouter);

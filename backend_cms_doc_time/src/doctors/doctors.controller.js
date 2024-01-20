@@ -1,4 +1,4 @@
-import { DoctorModel } from "./doctor.model.js";
+import { DoctorModel } from "./doctors.model.js";
 import { v2 as cloudinary } from "cloudinary";
 
 // const cloud_url = process.env.CLOUDINARY_URL;
@@ -82,44 +82,44 @@ export const getOneDoctor = async (req, res) => {
 
 // --------------------------------------------------------------------ADD ONE
 
-// export const addOneDoctor = async (req, res) => {
-//   try {
-//     const doctor = new DoctorModel(req.body);
+export const addOneDoctor = async (req, res) => {
+  try {
+    const doctor = new DoctorModel(req.body);
 
-//     // cloudinary
-//     if (req.file) {
-//       const b64 = Buffer.from(req.file.buffer).toString("base64");
-//       let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
-//       const cldRes = await handleUpload(dataURI);
-//       console.log(cldRes.secure_url);
-//       doctor.img = cldRes.secure_url;
-//     }
+    // // cloudinary
+    // if (req.file) {
+    //   const b64 = Buffer.from(req.file.buffer).toString("base64");
+    //   let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+    //   const cldRes = await handleUpload(dataURI);
+    //   console.log(cldRes.secure_url);
+    //   doctor.img = cldRes.secure_url;
+    // }
 
-//     // Save the new doctor in db
-//     await doctor.save();
+    // Save the new doctor in db
+    await doctor.save();
 
-//     //Confirmation back
+    //Confirmation back
 
-//     res
-//       .status(201)
-//       .json({
-//         success: true,
-//         message: "doctor successfully added ✅",
-//         data: doctor, //new
-//       })
-//       .end();
+    res
+      .status(201)
+      .json({
+        success: true,
+        message: "doctor successfully added ✅",
+        data: doctor, //new
+      })
+      .end();
 
-//     // Error Handling
-//   } catch (error) {
-//     // Handle errors
-//     console.error("Error adding one doctor -------🤒", error);
-//     res.status(500).json({
-//       success: false,
-//       message: "Error adding one doctor ❌",
-//       error: error.message, //new
-//     });
-//   }
-// };
+    // Error Handling
+  } catch (error) {
+    // Handle errors
+    console.error("Error adding one doctor -------🤒", error);
+    res.status(500).json({
+      success: false,
+      message: "Error adding one doctor ❌",
+      error: error.message, //new
+    });
+  }
+};
 
 // --------------------------------------------------------------------DELETE ONE
 

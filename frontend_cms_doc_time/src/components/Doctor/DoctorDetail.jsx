@@ -76,7 +76,7 @@ const DoctorDetail = ({ id, btnFunction, btnMessage }) => {
         <div className="card w-96 bg-base-100 shadow-xl">
           <div className="card-body">
             <h2 className="card-title">About Doctor</h2>
-            <h3>Name:{doctor?.doc_name ? doctor.doc_name : "Unknown"}</h3>
+            <h3>Name:{doctor?.name ? doctor.name : "Unknown"}</h3>
             <h4>
               Speciality:{doctor?.speciality ? doctor.speciality : "Unknown"}
             </h4>
@@ -90,7 +90,7 @@ const DoctorDetail = ({ id, btnFunction, btnMessage }) => {
             <h2 className="card-title">Comunication</h2>
             <div className="flex gap-4 items-center pb-4">
               <MessageSVG />
-              <a href={`mailto:${doctor?.doc_email}`}>{doctor?.doc_email}</a>
+              <a href={`mailto:${doctor?.email}`}>{doctor?.email}</a>
             </div>
             <button
               className="btn btn-primary mx-auto my-0"
