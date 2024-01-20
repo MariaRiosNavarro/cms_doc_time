@@ -55,6 +55,7 @@ const DoctorEdit = ({ id }) => {
   //Handle Files
 
   const handleFile = (e) => {
+    // eslint-disable-next-line no-unused-vars
     const selectedFile = e.target.files[0];
     setUseFile(true);
   };
