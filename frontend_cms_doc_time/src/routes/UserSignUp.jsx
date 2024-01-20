@@ -54,7 +54,7 @@ const UserSignUp = () => {
           <select
             ref={roleRef}
             name="role"
-            className="select select-bordered select-primary select-s w-full max-w-s"
+            className="select select-bordered select-primary select-s w-full max-w-s bg-slate-100"
           >
             <option value={"patient"} role="patient">
               Patient

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   //   use theme from local storage if available or set cupcake theme
@@ -27,7 +28,7 @@ const Header = () => {
   return (
     <div>
       <h1 className="text-center text-primary p-8 text-4xl font-bold rounded-xl mx-auto">
-        Doc Time
+        <Link to="/">Doc Time</Link>
       </h1>
       <label className="swap swap-rotate absolute right-6 top-8">
         <input

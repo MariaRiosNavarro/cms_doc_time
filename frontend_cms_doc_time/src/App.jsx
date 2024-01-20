@@ -6,12 +6,14 @@ import DoctorDashboardPage from "./routes/DoctorDashboardPage.jsx";
 import AdminDashboardPage from "./routes/AdminDashboardPage.jsx";
 import PatientDashboardPage from "./routes/PatientDashboardPage.jsx";
 import DoctorAppointmentsCheck from "./routes/DoctorAppointmentsCheck.jsx";
+import Home from "./components/General/Home.jsx";
 function App() {
   return (
     <>
       <BrowserRouter>
         <Header />
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<UserLogin />} />
           <Route path="/sign-up" element={<UserSignUp />} />
           <Route path="/doctor/:id" element={<DoctorDashboardPage />} />
