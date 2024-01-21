@@ -13,7 +13,7 @@ const DoctorDashboardPage = () => {
   };
 
   const checkAppointment = () => {
-    navigate("/doctor/" + id + "/appointments-check");
+    navigate("/doctor-dashboard/" + id + "/appointments-check");
   };
 
   return (

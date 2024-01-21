@@ -7,22 +7,35 @@ import AdminDashboardPage from "./routes/AdminDashboardPage.jsx";
 import PatientDashboardPage from "./routes/PatientDashboardPage.jsx";
 import DoctorAppointmentsCheck from "./routes/DoctorAppointmentsCheck.jsx";
 import Home from "./components/General/Home.jsx";
+import DoctorDetail from "./components/Doctor/DoctorDetail.jsx";
 function App() {
   return (
     <>
       <BrowserRouter>
         <Header />
         <Routes>
+          {/* Free Routes */}
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<UserLogin />} />
           <Route path="/sign-up" element={<UserSignUp />} />
-          <Route path="/doctor/:id" element={<DoctorDashboardPage />} />
-          <Route path="/patient/:id" element={<PatientDashboardPage />} />
-          <Route path="/admin/:id" element={<AdminDashboardPage />} />
+          <Route path="/doctor:id" element={<DoctorDetail />} />
+
+          {/* Route only for Patient & Admin */}
           <Route
-            path="/doctor/:id/appointments-check"
+            path="/patient-dashboard/:id"
+            element={<PatientDashboardPage />}
+          />
+          {/* Routes only for Doctor & Admin */}
+          <Route
+            path="/doctor-dashboard/:id"
+            element={<DoctorDashboardPage />}
+          />
+          <Route
+            path="/doctor-dashboard/:id/appointments-check"
             element={<DoctorAppointmentsCheck />}
           />
+          {/* Routes only for Admin */}
+          <Route path="/admin/:id" element={<AdminDashboardPage />} />
         </Routes>
       </BrowserRouter>
     </>

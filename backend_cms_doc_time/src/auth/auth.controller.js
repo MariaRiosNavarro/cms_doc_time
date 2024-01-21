@@ -20,6 +20,7 @@ export const login = async (req, res) => {
 
   //send a res with the jwt as httpOnly cookie
   // We package that token in a secure cookie in front of the frontend.
+  //important this token name (here "user_cms_auth", need you for the middleware checkToken->const token = req.cookies.user_cms_auth;)
   res
     .cookie("user_cms_auth", token, {
       httpOnly: true, //can not read it in client side/frontend - React con not do anything
