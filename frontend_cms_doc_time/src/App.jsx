@@ -8,6 +8,10 @@ import PatientDashboardPage from "./routes/PatientDashboardPage.jsx";
 import DoctorAppointmentsCheck from "./routes/DoctorAppointmentsCheck.jsx";
 import Home from "./components/General/Home.jsx";
 import DoctorDetail from "./components/Doctor/DoctorDetail.jsx";
+import DoctorProtectorRoutes from "./routes/Protector/DoctorProtectorRoutes.jsx";
+import PatientProtectorRoutes from "./routes/Protector/PatientProtectorRoutes.jsx";
+import AdminProtectorRoutes from "./routes/Protector/AdminProtectorRoutes.jsx";
+
 function App() {
   return (
     <>
@@ -20,22 +24,29 @@ function App() {
           <Route path="/sign-up" element={<UserSignUp />} />
           <Route path="/doctor:id" element={<DoctorDetail />} />
 
-          {/* Route only for Patient & Admin */}
-          <Route
-            path="/patient-dashboard/:id"
-            element={<PatientDashboardPage />}
-          />
-          {/* Routes only for Doctor & Admin */}
-          <Route
-            path="/doctor-dashboard/:id"
-            element={<DoctorDashboardPage />}
-          />
-          <Route
-            path="/doctor-dashboard/:id/appointments-check"
-            element={<DoctorAppointmentsCheck />}
-          />
+          {/* Route only for Patient */}
+          <Route element={<PatientProtectorRoutes />}>
+            <Route
+              path="/patient-dashboard/:id"
+              element={<PatientDashboardPage />}
+            />
+          </Route>
+
+          <Route element={<DoctorProtectorRoutes />}>
+            {/* Routes only for Doctor*/}
+            <Route
+              path="/doctor-dashboard/:id"
+              element={<DoctorDashboardPage />}
+            />
+            <Route
+              path="/doctor-dashboard/:id/appointments-check"
+              element={<DoctorAppointmentsCheck />}
+            />
+          </Route>
           {/* Routes only for Admin */}
-          <Route path="/admin/:id" element={<AdminDashboardPage />} />
+          <Route element={<AdminProtectorRoutes />}>
+            <Route path="/admin/:id" element={<AdminDashboardPage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>

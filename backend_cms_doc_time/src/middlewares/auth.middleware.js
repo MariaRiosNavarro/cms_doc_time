@@ -1,5 +1,7 @@
 import { verifyToken } from "../auth/auth.service.js";
 
+// use check token for the login routes, only for registered & login users can use this routes
+
 export const checkToken = (req, res, next) => {
   const token = req.cookies.user_cms_auth;
   try {

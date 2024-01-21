@@ -15,5 +15,7 @@ export const router = new express.Router();
 router.post("/login", login);
 router.post("/register", register);
 router.get("/logout", logout);
-// for secure routes, we use it in the Protector in Frontend
+
+// for secure routes, we use it in the Protector in Frontend, we check the token, and later in the
+// checkAndSendReqWithUserAndRole give the req data
 router.get("/check", checkToken, checkAndSendReqWithUserAndRole);
