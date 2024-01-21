@@ -4,7 +4,8 @@ export const checkToken = (req, res, next) => {
   const token = req.cookies.user_cms_auth;
   try {
     // We pass the payload, we may need it later in the route, so we add it to the req that goes further in the function
-    req.user_cms_auth = verifyToken(token);
+    req.payload = verifyToken(token);
+
     next();
   } catch (error) {
     console.log(error.message);
@@ -27,8 +28,6 @@ export const onlyForAdmin = (req, res, next) => {
 
 export const onlyForDoctor = (req, res, next) => {
   if (req.payload.role === "doctor") {
-    console.log(payload);
-
     // res.roleIdRef;
     next();
   } else {

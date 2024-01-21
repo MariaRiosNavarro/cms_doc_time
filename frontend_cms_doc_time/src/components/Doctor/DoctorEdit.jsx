@@ -128,6 +128,7 @@ const DoctorEdit = ({ id }) => {
             <img src={doctor?.avatar ? doctor.avatar : placeholder} />
           </div>
         </article>
+        <p>{id}</p>
         <h2>Change Image</h2>
         <input
           type="file"

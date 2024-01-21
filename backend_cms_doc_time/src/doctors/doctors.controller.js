@@ -160,7 +160,7 @@ export const removeOneDoctor = async (req, res) => {
 
 export const editOneDoctor = async (req, res) => {
   try {
-    // console.log("PAYLOAD", req.payload);
+    console.log("PAYLOAD", req.payload);
     const { id } = req.params;
 
     if (!id) {

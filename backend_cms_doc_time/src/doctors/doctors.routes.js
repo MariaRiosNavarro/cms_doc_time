@@ -24,8 +24,8 @@ router.get("/:id", getOneDoctor);
 router.put(
   "/:id",
   checkToken,
-  // onlyForDoctor,
+  onlyForDoctor,
   upload.single("avatar"),
   editOneDoctor
 );
-router.delete("/:id", checkToken, removeOneDoctor);
+router.delete("/:id", checkToken, onlyForDoctor, removeOneDoctor);
