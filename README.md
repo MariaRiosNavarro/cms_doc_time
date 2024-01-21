@@ -6,11 +6,19 @@ Backend Container : Express (+ dotenv multer mongoose nodemailer cookie-parser j
 
 ## For now works:
 
--Doctor register (frontend & backend)
--Doctor login (with salt & token/cookie) (frontend & backend)
+-User register, 3 roles (admin, doctor, patient) (frontend & backend)
+-Login (with salt & token/cookie) (frontend & backend)
+-Frontend: Doctor Dashboard & Editpage done, but i need to fix the Put route.
 
 
+# To do:
 
+fix in register auth ( main-id save in role-collection as reference and not as string like now. role-id in main-user-collection save as reference und not as object like now)
+
+fix Doctor Edit Page (schedule) - Data does not reach the backend
+Add delete route Doctor & patient
+Add patient Edit Page
+Frontend/Design - patient+admin dashboard, home, doctors-list
 
 # Structure, Miro Board  & Design
 
@@ -252,3 +260,10 @@ if you can open it, works
 -------
 
 
+# REGISTER & LOGIN 
+
+
+# SEGURITY ROUTES BACKEND & FRONTEND
+
+
+# ROLES LOGIN
