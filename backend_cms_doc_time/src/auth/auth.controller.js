@@ -14,7 +14,11 @@ export const login = async (req, res) => {
   //our user is correct and validate
   //so we can give him/her a token.
 
-  const token = createToken({ user: user._id, role: user.role });
+  const token = createToken({
+    userId: user._id,
+    roleId: user.roleIdRef,
+    role: user.role,
+  });
   const userId = user._id;
   const roleIdRef = user.roleIdRef;
 

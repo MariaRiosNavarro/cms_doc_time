@@ -25,8 +25,11 @@ export const onlyForAdmin = (req, res, next) => {
   }
 };
 
-export const onlyForAdminOrDoctor = (req, res, next) => {
-  if (req.payload.role === "admin" || req.payload.role === "doctor") {
+export const onlyForDoctor = (req, res, next) => {
+  if (req.payload.role === "doctor") {
+    console.log(payload);
+
+    // res.roleIdRef;
     next();
   } else {
     res.status(401).end();
