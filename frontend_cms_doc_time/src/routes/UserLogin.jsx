@@ -30,9 +30,9 @@ const UserLogin = () => {
         if (json.role === "admin") {
           navigate("/admin/" + id);
         } else if (json.role === "doctor") {
-          navigate("/doctor/" + roleIdRef);
+          navigate("/doctor-dashboard/" + roleIdRef);
         } else if (json.role === "patient") {
-          navigate("/patient/" + roleIdRef);
+          navigate("/patient-dashboard/" + roleIdRef);
         } else {
           navigate("/sign-up");
         }

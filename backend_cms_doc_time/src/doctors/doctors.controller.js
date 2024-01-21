@@ -18,27 +18,29 @@ async function handleUpload(file) {
   return res;
 }
 
-// check -> dont really work for now
-async function handleDelete(file) {
-  const res = await cloudinary.uploader.destroy(file, {
-    resource_type: "image",
-  });
-  return res;
-}
+// TODO: Remove Images fo cloudinary, dont work
+
+// // check -> dont really work for now
+// async function handleDelete(file) {
+//   const res = await cloudinary.uploader.destroy(file, {
+//     resource_type: "image",
+//   });
+//   return res;
+// }
 
 // --------------------------------------------------------------------GET ALL
 
 export const getAllDoctors = async (req, res) => {
   try {
     //Wait & recibe Data
-    const Doctors = await DoctorModel.find();
+    const doctors = await DoctorModel.find();
     res
       .status(200)
       //Confirmation back & data to frontend
       .json({
         success: true,
         message: "Doctors successfully retrieved ✅",
-        data: Doctors,
+        data: doctors,
       });
   } catch (error) {
     // Handle errors
@@ -127,12 +129,19 @@ export const removeOneDoctor = async (req, res) => {
   try {
     console.log("PAYLOAD", req.payload);
     const { id } = req.params;
+
+    // handle delete image -  check in the future - dont work for now
+
     // Save doctor to remove later the img
-    const doctor = await DoctorModel.findOne({ _id: id });
-    let image = doctor.img;
-    // delete image -  check in the future - dont work for now
-    if (image) await handleDelete(image);
-    // Remove the Boot
+    // const doctor = await DoctorModel.findOne({ _id: id });
+    // let image = doctor.avatar;
+    // console.log(doctor);
+    //
+    // if (image)
+    //   await cloudinary.destroy(image, {
+    //     resource_type: "image",
+    //   });
+
     await DoctorModel.findOneAndDelete({ _id: id });
 
     //sucess true
@@ -161,27 +170,35 @@ export const editOneDoctor = async (req, res) => {
     //save new data & add image if it is in the request
     const newDoctorData = req.body;
     console.log("body..........", newDoctorData);
+
+    if (req.file) {
+      console.log("file");
+    } else {
+      console.log("no file");
+    }
     // cloudinary
     if (req.file) {
       const b64 = Buffer.from(req.file.buffer).toString("base64");
       let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
 
       // check if old Data has a Image
-      const oldData = await DoctorModel.findById(id);
-      const oldImage = oldData.img;
+      // const oldData = await DoctorModel.findById(id);
+      // const oldImage = oldData.img;
 
       // remove the old image if the req has a new image
       // error handling no oldimage need it
 
-      if (req.file && oldImage) {
-        await handleDelete(oldImage);
-      } else {
-        console.log("Image don´t change");
-      }
+      // Todo: Handle Delete function dont work
+
+      // if (req.file && oldImage) {
+      //   await handleDelete(oldImage);
+      // } else {
+      //   console.log("Don´t delete anything");
+      // }
 
       const cldRes = await handleUpload(dataURI);
       console.log(cldRes.secure_url);
-      newDoctorData.img = cldRes.secure_url;
+      newDoctorData.avatar = cldRes.secure_url;
     }
 
     // Update Data
@@ -195,7 +212,7 @@ export const editOneDoctor = async (req, res) => {
     );
 
     //  Confirmation back
-    res.status(201).json({
+    res.status(200).json({
       success: true,
       message: `doctor with id= ${id} successfully updated ✅`,
       data: newDoctorData,

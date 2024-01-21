@@ -43,6 +43,7 @@ const DoctorDetail = ({ id, btnFunction, btnMessage }) => {
           <img src={doctor.avatar ? doctor.avatar : placeholder} />
         </div>
       </article>
+      <p>{id}</p>
       <article>
         <div className="stats shadow max-w-[375px] min-h-[7rem]">
           {/* Stat patients */}

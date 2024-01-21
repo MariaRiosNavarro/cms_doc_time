@@ -34,6 +34,7 @@ const DoctorEdit = ({ id }) => {
           console.log("response no", responseData);
         } else {
           setLoading(false);
+          console.log("----------------ID in GET---------------", id);
           setDoctor(responseData.data);
         }
       } catch (error) {
@@ -86,10 +87,12 @@ const DoctorEdit = ({ id }) => {
     newDoctorFormData.append("speciality", specialityRef.current.value);
     newDoctorFormData.append("description", descriptionRef.current.value);
 
-    console.log("form data:------------------");
+    console.log("DATA:------------------");
     newDoctorFormData.forEach((value, key) => {
       console.log(`${key}: ${value}`);
     });
+
+    console.log("----------------ID in PUT---------------", id);
 
     try {
       const response = await fetch(
@@ -101,6 +104,7 @@ const DoctorEdit = ({ id }) => {
           credentials: "include",
         }
       );
+      console.log(id);
 
       if (response.ok) {
         console.log(newDoctorFormData);
@@ -128,6 +132,7 @@ const DoctorEdit = ({ id }) => {
             <img src={doctor?.avatar ? doctor.avatar : placeholder} />
           </div>
         </article>
+        <p>{id}</p>
         <h2>Change Image</h2>
         <input
           type="file"

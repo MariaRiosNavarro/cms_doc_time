@@ -14,12 +14,17 @@ export const login = async (req, res) => {
   //our user is correct and validate
   //so we can give him/her a token.
 
-  const token = createToken({ user: user._id, role: user.role });
+  const token = createToken({
+    userId: user._id,
+    roleId: user.roleIdRef,
+    role: user.role,
+  });
   const userId = user._id;
   const roleIdRef = user.roleIdRef;
 
   //send a res with the jwt as httpOnly cookie
   // We package that token in a secure cookie in front of the frontend.
+  //important this token name (here "user_cms_auth", need you for the middleware checkToken->const token = req.cookies.user_cms_auth;)
   res
     .cookie("user_cms_auth", token, {
       httpOnly: true, //can not read it in client side/frontend - React con not do anything
@@ -79,5 +84,9 @@ export const logout = async (req, res) => {
 
 // is only called with a valid jwt
 export const checkAndSendReqWithUserAndRole = (req, res) => {
-  res.json({ user: req.payload.user, role: req.payload.role });
+  res.json({
+    userId: req.payload.userId,
+    role: req.payload.role,
+    roleId: req.payload.roleId,
+  });
 };

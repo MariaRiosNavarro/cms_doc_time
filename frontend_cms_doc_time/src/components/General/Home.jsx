@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import DoctorList from "../../routes/DoctorList";
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
             Sign Up
           </Link>
         </div>
+        <DoctorList />
       </div>
     </>
   );
