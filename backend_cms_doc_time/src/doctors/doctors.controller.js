@@ -33,14 +33,14 @@ async function handleUpload(file) {
 export const getAllDoctors = async (req, res) => {
   try {
     //Wait & recibe Data
-    const Doctors = await DoctorModel.find();
+    const doctors = await DoctorModel.find();
     res
       .status(200)
       //Confirmation back & data to frontend
       .json({
         success: true,
         message: "Doctors successfully retrieved ✅",
-        data: Doctors,
+        data: doctors,
       });
   } catch (error) {
     // Handle errors
