@@ -3,14 +3,13 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "../General/Loading";
 import ScheduleForm from "./ScheduleForm";
-// import MessageSVG from "../Svg/MessageSvg";
+// import { translateSchedule } from "../../utils/translateSchedule";
 
 const DoctorEdit = ({ id }) => {
   const [doctor, setDoctor] = useState("");
   const [loading, setLoading] = useState(false);
-  // eslint-disable-next-line no-unused-vars
-  const [useFile, setUseFile] = useState(false);
   const [scheduleData, setScheduleData] = useState([]);
+
   const navigate = useNavigate();
 
   const avatarRef = useRef();
@@ -20,6 +19,9 @@ const DoctorEdit = ({ id }) => {
   const specialityRef = useRef();
   const descriptionRef = useRef();
   const addressRef = useRef();
+
+  const placeholder =
+    "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg";
 
   // ----------------------------------------------- FETCH DATA
   useEffect(() => {
@@ -34,40 +36,25 @@ const DoctorEdit = ({ id }) => {
           console.log("response no", responseData);
         } else {
           setLoading(false);
-          console.log("----------------ID in GET---------------", id);
           setDoctor(responseData.data);
+          // const scheduleData = JSON.parse(responseData.data.schedule);
+          // const readableSchedule = JSON.stringify(scheduleData, null, 2);
+          // console.log(readableSchedule);
+          // console.log(scheduleData);
+          //
         }
       } catch (error) {
         console.log(error.message);
       }
     };
     fetchOneDoctor();
-  }, []);
-
-  const placeholder =
-    "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg";
+  }, [id]);
 
   if (loading) {
     return <Loading />;
   }
 
   // ----------------------------------------------- EDIT DATA
-
-  //Handle Files
-
-  const handleFile = (e) => {
-    // eslint-disable-next-line no-unused-vars
-    const selectedFile = e.target.files[0];
-    setUseFile(true);
-  };
-
-  // // Update Schedule
-  // const updateSchedule = (newSchedule) => {
-  //   setDoctor((prevDoctor) => ({
-  //     ...prevDoctor,
-  //     schedule: newSchedule,
-  //   }));
-  // };
 
   const updateAccount = async (e) => {
     e.preventDefault();
@@ -77,41 +64,30 @@ const DoctorEdit = ({ id }) => {
       newDoctorFormData.append("avatar", avatarRef.current.files[0]);
     }
 
-    // I use the updateSchedule function to get the updated schedule.
-
     newDoctorFormData.append("schedule", JSON.stringify(scheduleData));
-
     newDoctorFormData.append("patients", Number(patientsRef.current.value));
     newDoctorFormData.append("years", Number(yearsRef.current.value));
     newDoctorFormData.append("name", nameRef.current.value);
     newDoctorFormData.append("speciality", specialityRef.current.value);
     newDoctorFormData.append("description", descriptionRef.current.value);
 
-    console.log("DATA:------------------");
-    newDoctorFormData.forEach((value, key) => {
-      console.log(`${key}: ${value}`);
-    });
-
-    console.log("----------------ID in PUT---------------", id);
-
     try {
       const response = await fetch(
         import.meta.env.VITE_BACKEND_URL + "/api/doctors/" + id,
         {
           method: "PUT",
-
           credentials: "include",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(newDoctorFormData),
+          body: newDoctorFormData,
         }
       );
-      console.log(id);
 
       if (response.ok) {
-        console.log(newDoctorFormData);
-        console.log(response);
+        console.log("------------------------✅---", await response.json());
       } else {
-        console.log("Request failed with status:", response.status);
+        console.log(
+          "Request failed with status:-----------------------------👺-",
+          response.status
+        );
         const errorBody = await response.text();
         console.log("Error Body:", errorBody);
       }
@@ -124,9 +100,28 @@ const DoctorEdit = ({ id }) => {
     navigate("/");
   };
 
+  // Helper function to convert numeric day to day name
+  const getDayName = (dayNumber) => {
+    const daysOfWeek = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    return daysOfWeek[dayNumber];
+  };
+
   return (
     <>
-      <section className="flex flex-col justify-center items-center w-[100%] my-0 mx-0 gap-[2rem]">
+      <form
+        onSubmit={updateAccount}
+        className="flex flex-col justify-center items-center w-[100%] my-0 mx-0 gap-[2rem]"
+        // -------------------------------------------------------------------------------------DONT FORGET encType="multipart/form-data"
+        encType="multipart/form-data"
+      >
         {/*--------------------------------------- AVATAR Preview */}
         <article className="avatar">
           <div className="w-24 rounded-full">
@@ -138,7 +133,7 @@ const DoctorEdit = ({ id }) => {
         <input
           type="file"
           className="file-input file-input-bordered file-input-primary w-full max-w-xs"
-          onChange={handleFile}
+          // onChange={handleFile}
           name="avatar"
           ref={avatarRef}
         />
@@ -154,6 +149,7 @@ const DoctorEdit = ({ id }) => {
                   Name:
                 </label>
                 <input
+                  type="text"
                   ref={nameRef}
                   name="name"
                   id="name"
@@ -168,6 +164,7 @@ const DoctorEdit = ({ id }) => {
                   Speciality:
                 </label>
                 <input
+                  type="text"
                   ref={specialityRef}
                   name="speciality"
                   id="speciality"
@@ -183,6 +180,7 @@ const DoctorEdit = ({ id }) => {
                   About:
                 </label>
                 <input
+                  type="text"
                   ref={descriptionRef}
                   id="description"
                   name="description"
@@ -197,6 +195,7 @@ const DoctorEdit = ({ id }) => {
                   Address:
                 </label>
                 <input
+                  type="text"
                   ref={addressRef}
                   id="address"
                   name="address"
@@ -213,6 +212,7 @@ const DoctorEdit = ({ id }) => {
                   Experience Years:
                 </label>
                 <input
+                  type="number"
                   ref={yearsRef}
                   name="years"
                   id="years"
@@ -229,6 +229,7 @@ const DoctorEdit = ({ id }) => {
                   Patients Number:
                 </label>
                 <input
+                  type="number"
                   ref={patientsRef}
                   name="patients"
                   id="patients"
@@ -264,12 +265,12 @@ const DoctorEdit = ({ id }) => {
             <button className="btn btn-error" onClick={deleteAccount}>
               {"Remove Account"}
             </button>
-            <button className="btn btn-primary" onClick={updateAccount}>
+            <button type="submit" className="btn btn-primary">
               {"Update data"}
             </button>
           </div>
         </article>
-      </section>
+      </form>
     </>
   );
 };

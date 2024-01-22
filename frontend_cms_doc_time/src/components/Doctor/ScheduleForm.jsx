@@ -59,8 +59,8 @@ const ScheduleForm = ({ scheduleData, setScheduleData }) => {
 
   useEffect(() => {
     // Log the updated scheduleData when it changes
-    console.log("-------scheduleData------", scheduleData);
-    console.log("-----selectedDays--------", selectedDays);
+    // console.log("-------scheduleData------", scheduleData);
+    // console.log("-----selectedDays--------", selectedDays);
   }, [scheduleData, selectedDays]);
 
   return (
