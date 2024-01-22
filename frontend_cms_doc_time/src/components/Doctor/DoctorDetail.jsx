@@ -6,6 +6,7 @@ import Loading from "../General/Loading";
 const DoctorDetail = ({ id, btnFunction, btnMessage }) => {
   const [doctor, setDoctor] = useState("");
   const [loading, setLoading] = useState(false);
+  const [dbScheduleData, setDbScheduleData] = useState([]);
 
   useEffect(() => {
     setLoading(true);
@@ -20,12 +21,15 @@ const DoctorDetail = ({ id, btnFunction, btnMessage }) => {
         } else {
           setLoading(false);
           setDoctor(responseData.data);
+          setDbScheduleData(JSON.parse(responseData.data.schedule));
         }
       } catch (error) {
         console.log(error.message);
       }
     };
+
     fetchOneDoctor();
+    console.log(dbScheduleData);
   }, []);
 
   const placeholder =
@@ -34,6 +38,20 @@ const DoctorDetail = ({ id, btnFunction, btnMessage }) => {
   if (loading) {
     return <Loading />;
   }
+
+  // Helper function to convert numeric day to day name
+  const getDayName = (dayNumber) => {
+    const daysOfWeek = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    return daysOfWeek[dayNumber];
+  };
 
   return (
     <section className="flex flex-col justify-center items-center w-[100%] my-0 mx-0 gap-[2rem]">
@@ -77,17 +95,55 @@ const DoctorDetail = ({ id, btnFunction, btnMessage }) => {
         <div className="card w-96 bg-base-100 shadow-xl">
           <div className="card-body">
             <h2 className="card-title">About Doctor</h2>
-            <h3>Name:{doctor?.name ? doctor.name : "Unknown"}</h3>
-            <h4>
-              Speciality:{doctor?.speciality ? doctor.speciality : "Unknown"}
+            <h3 className="flex justify-between">
+              Name:{" "}
+              <span className="pl-2 text-secondary font-bold">
+                {doctor?.name ? doctor.name : "Unknown"}
+              </span>
+            </h3>
+            <h4 className="flex justify-between">
+              Speciality:
+              <span className="pl-2 text-secondary font-bold">
+                {doctor?.speciality ? doctor.speciality : "Unknown"}
+              </span>
             </h4>
-            <p>About:{doctor?.description ? doctor.description : "Unknown"}</p>
-            <div>Address:{doctor?.address ? doctor.address : "Unknown"}</div>
+            <div className="flex justify-between ">
+              Address:
+              <span className="pl-2 text-secondary font-bold">
+                {doctor?.address ? doctor.address : "Unknown"}
+              </span>
+            </div>
+            <div className="flex flex-col pb-8">
+              About:
+              <p className="pl-2 text-secondary text-center font-bold">
+                {doctor?.description ? doctor.description : "Unknown "}
+              </p>
+            </div>
+            {/* --------------------------------------------------------------------Schedule /Maybe refactor */}
             <h2 className="card-title">Working time</h2>
-            <p>
-              Schedule:
-              {doctor?.opening_hours ? doctor.opening_hours : "Unknown"}
-            </p>
+            <div className="py-8">
+              {dbScheduleData.map((daySchedule) => (
+                <div key={daySchedule.day}>
+                  <h3 className="text-center font-bold">
+                    {getDayName(daySchedule.day)}
+                  </h3>
+                  {daySchedule.periods.map((period, index) => (
+                    <p className="text-center" key={index}>
+                      {Object.entries(period).map(
+                        ([timeOfDay, { start, end }]) => (
+                          <span key={timeOfDay}>
+                            {timeOfDay.charAt(0).toUpperCase() +
+                              timeOfDay.slice(1)}
+                            : {start} - {end}
+                            <br />
+                          </span>
+                        )
+                      )}
+                    </p>
+                  ))}
+                </div>
+              ))}
+            </div>
             <h2 className="card-title">Comunication</h2>
             <div className="flex gap-4 items-center pb-4">
               <MessageSVG />

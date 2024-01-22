@@ -1,5 +1,6 @@
 import { DoctorModel } from "./doctors.model.js";
 import { v2 as cloudinary } from "cloudinary";
+import { translateSchedule } from "./utils/scheduleUtils.js";
 
 // const cloud_url = process.env.CLOUDINARY_URL;
 
@@ -170,6 +171,20 @@ export const editOneDoctor = async (req, res) => {
     //save new data & add image if it is in the request
     const newDoctorData = req.body;
     console.log("body..........", newDoctorData);
+
+    // transform schedule data, to one readable Array:
+
+    const schedule = req.body.schedule;
+    console.log("------------------------🚀--", schedule);
+
+    // const readableSchedule = translateSchedule(schedule);
+
+    // console.log(
+    //   "------------------------🚀------------------------🚀------------------------🚀--",
+    //   readableSchedule
+    // );
+
+    // newDoctorData.schedule = readableSchedule;
 
     if (req.file) {
       console.log("file");
