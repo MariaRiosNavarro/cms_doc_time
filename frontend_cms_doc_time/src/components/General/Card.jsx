@@ -1,23 +1,44 @@
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
 
 const Card = (props) => {
+  const deleteUser = async () => {
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_BACKEND_URL + "/api/users/" + props._id,
+        {
+          method: "delete",
+          credentials: "include",
+        }
+      );
+      if (response.ok) {
+        console.log("deleted");
+      } else {
+        console.log("no deleted");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div key={props._id} className="card w-96 bg-base-100 shadow-xl">
-      <figure className="px-10 pt-10">
-        <img src={props.avatar} alt="avatar" className="rounded-xl" />
-      </figure>
-      <div className="card-body items-center text-center">
-        <h2 className="card-title">{props?.name ? props.name : ""}</h2>
-        <p>{props?.email ? props.email : ""}</p>
-        <p>{props?.speciality ? props.speciality : ""}</p>
-        <p>{props?.description ? props.description : ""}</p>
-        <div className="card-actions">
-          <Link to={props.link + props._id}>
-            <button className="btn btn-primary">More {props._id}</button>
-          </Link>
+      <article className="card-body items-center text-center">
+        <div className="card w-96 bg-base-100 shadow-xl">
+          <div className="card-body">
+            <h2 className="text-center text-2xl font-bold">
+              Role: {props?.role ? props.role : "Unknown"}
+            </h2>
+            <h3>Name:{props?.name ? props.name : "Unknown"}</h3>
+            <p> Email:{props?.email ? props.email : "Unknown"}</p>
+            <button
+              className="btn btn-primary mx-auto my-0"
+              onClick={deleteUser}
+            >
+              Delete User
+            </button>
+          </div>
         </div>
-      </div>
+      </article>
     </div>
   );
 };

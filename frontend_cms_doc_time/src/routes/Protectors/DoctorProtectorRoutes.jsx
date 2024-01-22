@@ -16,6 +16,13 @@ const DoctorProtectorRoutes = () => {
             credentials: "include",
           }
         );
+        const json = await response.json();
+        const role = json.role;
+        console.log(json.role);
+
+        if (response.ok && (role === "admin" || role === "doctor")) {
+          setAuthorized(true);
+        }
         if (response.ok) {
           setAuthorized(true);
         }
@@ -35,13 +42,7 @@ const DoctorProtectorRoutes = () => {
     return navigate("/");
   }
 
-  return (
-    <>
-      <main>
-        <Outlet />
-      </main>
-    </>
-  );
+  return <Outlet />;
 };
 
 export default DoctorProtectorRoutes;

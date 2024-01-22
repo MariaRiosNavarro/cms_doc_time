@@ -28,4 +28,4 @@ router.put(
   upload.single("avatar"),
   editOneDoctor
 );
-router.delete("/:id", checkToken, onlyForDoctor, removeOneDoctor);
+router.delete("/:id", checkToken, removeOneDoctor);

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Card from "../components/General/Card";
+import DoctorCard from "../components/Doctor/DoctorCard";
 
 const DoctorList = () => {
   const [doctors, setDoctors] = useState([]);
@@ -29,7 +29,7 @@ const DoctorList = () => {
       <h1>DoctorList</h1>
       <section>
         {doctors?.map((doc) => (
-          <Card key={doc._id} {...doc} link="/doctor/" />
+          <DoctorCard key={doc._id} {...doc} link="/doctor/" />
         ))}
       </section>
     </>
