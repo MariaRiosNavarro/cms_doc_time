@@ -9,6 +9,7 @@ const DoctorEdit = ({ id }) => {
   const [doctor, setDoctor] = useState("");
   const [loading, setLoading] = useState(false);
   const [scheduleData, setScheduleData] = useState([]);
+  const [dbScheduleData, setDbScheduleData] = useState([]);
 
   const navigate = useNavigate();
 
@@ -37,11 +38,7 @@ const DoctorEdit = ({ id }) => {
         } else {
           setLoading(false);
           setDoctor(responseData.data);
-          // const scheduleData = JSON.parse(responseData.data.schedule);
-          // const readableSchedule = JSON.stringify(scheduleData, null, 2);
-          // console.log(readableSchedule);
-          // console.log(scheduleData);
-          //
+          setDbScheduleData(JSON.parse(responseData.data.schedule));
         }
       } catch (error) {
         console.log(error.message);
@@ -238,19 +235,42 @@ const DoctorEdit = ({ id }) => {
                 />
               </div>
               {/* {/* -------------------------------------Doctor Opening Hours */}
-              <div className="pt-[2rem]">
+              <div className="py-[2rem]">
                 <h3 className="card-title justify-between text-gray-500 pb-4">
                   Working time
                 </h3>
+                <div className="pb-8">
+                  {dbScheduleData.map((daySchedule) => (
+                    <div key={daySchedule.day}>
+                      <h3 className="text-center font-bold">
+                        {getDayName(daySchedule.day)}
+                      </h3>
+                      {daySchedule.periods.map((period, index) => (
+                        <p className="text-center" key={index}>
+                          {Object.entries(period).map(
+                            ([timeOfDay, { start, end }]) => (
+                              <span key={timeOfDay}>
+                                {timeOfDay.charAt(0).toUpperCase() +
+                                  timeOfDay.slice(1)}
+                                : {start} - {end}
+                                <br />
+                              </span>
+                            )
+                          )}
+                        </p>
+                      ))}
+                    </div>
+                  ))}
+                </div>
 
-                <div className="pb-4">
+                {/* <div className="pb-4">
                   Schedule Info:
                   <span className="px-4">
                     {doctor?.schedule === ""
                       ? doctor.schedule
                       : "Change below ↓"}
                   </span>
-                </div>
+                </div> */}
                 <div>
                   <ScheduleForm
                     // ref={scheduleRef}

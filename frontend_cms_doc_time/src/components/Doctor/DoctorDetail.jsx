@@ -119,7 +119,7 @@ const DoctorDetail = ({ id, btnFunction, btnMessage }) => {
                 {doctor?.description ? doctor.description : "Unknown "}
               </p>
             </div>
-
+            {/* --------------------------------------------------------------------Schedule /Maybe refactor */}
             <h2 className="card-title">Working time</h2>
             <div className="py-8">
               {dbScheduleData.map((daySchedule) => (
