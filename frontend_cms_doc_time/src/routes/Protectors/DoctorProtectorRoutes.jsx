@@ -18,7 +18,6 @@ const DoctorProtectorRoutes = () => {
         );
         const json = await response.json();
         const role = json.role;
-        console.log(json.role);
 
         if (response.ok && (role === "admin" || role === "doctor")) {
           setAuthorized(true);
