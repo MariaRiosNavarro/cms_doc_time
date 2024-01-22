@@ -18,6 +18,11 @@ const DoctorDashboardPage = () => {
 
   return (
     <>
+      <div className="card-actions justify-center p-4">
+        <button onClick={toggleEdit} className="btn btn-secondary">
+          {edit ? "Close Edit" : "Open Edit"}
+        </button>
+      </div>
       {edit ? (
         <DoctorEdit id={id} />
       ) : (
@@ -27,12 +32,6 @@ const DoctorDashboardPage = () => {
           btnMessage="Check Appointment"
         />
       )}
-
-      <div className="card-actions justify-center p-4">
-        <button onClick={toggleEdit} className="btn btn-secondary">
-          {edit ? "Close Edit" : "Open Edit"}
-        </button>
-      </div>
     </>
   );
 };

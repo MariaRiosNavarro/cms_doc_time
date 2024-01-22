@@ -183,7 +183,7 @@ const DoctorEdit = ({ id }) => {
                   ref={nameRef}
                   name="name"
                   id="name"
-                  className="border-b border-secondary w-[3rem]"
+                  className="border-b border-secondary"
                   placeholder={doctor?.name ? doctor.name : ""}
                 />
               </div>
@@ -197,7 +197,7 @@ const DoctorEdit = ({ id }) => {
                   ref={specialityRef}
                   name="speciality"
                   id="speciality"
-                  className="border-b border-secondary w-[3rem]"
+                  className="border-b border-secondary"
                   placeholder={doctor?.speciality ? doctor.speciality : ""}
                 ></input>
               </div>
@@ -212,7 +212,7 @@ const DoctorEdit = ({ id }) => {
                   ref={descriptionRef}
                   id="description"
                   name="description"
-                  className="border-b border-secondary w-[3rem]"
+                  className="border-b border-secondary "
                   placeholder={doctor?.description ? doctor.description : ""}
                 ></input>
               </div>
@@ -226,7 +226,7 @@ const DoctorEdit = ({ id }) => {
                   ref={addressRef}
                   id="address"
                   name="address"
-                  className="border-b border-secondary w-[3rem]"
+                  className="border-b border-secondary "
                   placeholder={doctor?.address ? doctor.address : ""}
                 ></input>
               </div>
@@ -236,7 +236,7 @@ const DoctorEdit = ({ id }) => {
               <div className="pb-4">
                 Schedule Info:
                 <span className="px-4">
-                  {doctor?.schedule ? doctor.schedule : "Change below ↓"}
+                  {doctor?.schedule === "" ? doctor.schedule : "Change below ↓"}
                 </span>
               </div>
               <div>
