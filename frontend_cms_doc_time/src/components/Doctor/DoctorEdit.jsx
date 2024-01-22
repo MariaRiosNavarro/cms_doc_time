@@ -99,9 +99,9 @@ const DoctorEdit = ({ id }) => {
         import.meta.env.VITE_BACKEND_URL + "/api/doctors/" + id,
         {
           method: "PUT",
+          credentials: "include",
           headers: { "content-type": "application/json" },
           body: JSON.stringify(newDoctorFormData),
-          credentials: "include",
         }
       );
       console.log(id);
