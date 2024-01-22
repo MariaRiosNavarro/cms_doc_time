@@ -251,7 +251,6 @@ const DoctorEdit = ({ id }) => {
                   </span>
                 </div>
                 <div>
-                  {" "}
                   <ScheduleForm
                     // ref={scheduleRef}
                     scheduleData={scheduleData}
