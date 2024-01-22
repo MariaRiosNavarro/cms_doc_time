@@ -3,7 +3,6 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "../General/Loading";
 import ScheduleForm from "./ScheduleForm";
-// import { translateSchedule } from "../../utils/translateSchedule";
 
 const DoctorEdit = ({ id }) => {
   const [doctor, setDoctor] = useState("");
