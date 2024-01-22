@@ -115,7 +115,7 @@ const DoctorEdit = ({ id }) => {
       <form
         onSubmit={updateAccount}
         className="flex flex-col justify-center items-center w-[100%] my-0 mx-0 gap-[2rem]"
-        // -------------------------------------------------------------------------------------DONT FORGET encType="multipart/form-data"
+        // -------------------------------------------------------------------------------------DONT FORGET encType="multipart/form-data" & remove "content-type":"application/json" from header
         encType="multipart/form-data"
       >
         {/*--------------------------------------- AVATAR Preview */}
