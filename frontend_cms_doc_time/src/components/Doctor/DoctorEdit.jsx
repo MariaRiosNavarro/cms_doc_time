@@ -143,39 +143,13 @@ const DoctorEdit = ({ id }) => {
           ref={avatarRef}
         />
         <h3>click on the line to edit</h3>
-        <article>
-          <div className="stats shadow flex flex-col">
-            {/* ------------------------------Stat patients */}
-            <div className="stat  relative h-[8rem]">
-              <h3 className="stat-title">Patients</h3>
-              <input
-                className="stat-value text-primary text-center border-b  border-secondary max-w-[385px] w-[70%]"
-                ref={patientsRef}
-                name="patients"
-                id="patients"
-                placeholder={doctor?.patients ? doctor.patients : " "}
-              ></input>
-            </div>
-            {/*  ------------------------------Stat years */}
-            <div className="stat  relative h-[8rem]">
-              <h3 className="stat-title leading-4">Experience Years</h3>
-              <input
-                className="stat-value text-secondary text-center border-b  border-secondary max-w-[385px] w-[70%]"
-                ref={yearsRef}
-                name="years"
-                id="years"
-                placeholder={doctor?.years ? doctor.years : ""}
-              ></input>
-            </div>
-          </div>
-        </article>
         {/* INFOs */}
         <article>
           <div className="card w-96 bg-base-100 shadow-xl">
-            <div className="card-body">
+            <div className="card-body justify-around gap-[1rem]">
               <h2 className="card-title text-gray-500 pb-4">About Doctor</h2>
               {/* {/* -------------------------------------Doctor Name */}
-              <div className="flex gap-x-2">
+              <div className="flex justify-between items-center gap-x-2">
                 <label htmlFor="name" className="font-bold text-primary">
                   Name:
                 </label>
@@ -183,13 +157,13 @@ const DoctorEdit = ({ id }) => {
                   ref={nameRef}
                   name="name"
                   id="name"
-                  className="border-b border-secondary"
+                  className="border-b border-secondary w-[50%]"
                   placeholder={doctor?.name ? doctor.name : ""}
                 />
               </div>
 
               {/* {/* -------------------------------------Doctor Speciality */}
-              <div className="flex gap-x-2">
+              <div className="flex justify-between items-center gap-x-2">
                 <label htmlFor="speciality" className="font-bold text-primary">
                   Speciality:
                 </label>
@@ -197,14 +171,14 @@ const DoctorEdit = ({ id }) => {
                   ref={specialityRef}
                   name="speciality"
                   id="speciality"
-                  className="border-b border-secondary"
+                  className="border-b border-secondary w-[50%]"
                   placeholder={doctor?.speciality ? doctor.speciality : ""}
                 ></input>
               </div>
 
               {/* {/* -------------------------------------Doctor Description */}
 
-              <div className="flex gap-x-2">
+              <div className="flex justify-between items-center gap-x-2">
                 <label htmlFor="description" className="font-bold text-primary">
                   About:
                 </label>
@@ -212,13 +186,13 @@ const DoctorEdit = ({ id }) => {
                   ref={descriptionRef}
                   id="description"
                   name="description"
-                  className="border-b border-secondary "
+                  className="border-b border-secondary w-[50%]"
                   placeholder={doctor?.description ? doctor.description : ""}
                 ></input>
               </div>
               {/* {/* -------------------------------------Doctor Address */}
 
-              <div className="flex gap-x-2 pb-4">
+              <div className="flex justify-between items-center gap-x-2">
                 <label htmlFor="address" className="font-bold text-primary">
                   Address:
                 </label>
@@ -226,33 +200,71 @@ const DoctorEdit = ({ id }) => {
                   ref={addressRef}
                   id="address"
                   name="address"
-                  className="border-b border-secondary "
+                  className="border-b border-secondary w-[50%]"
                   placeholder={doctor?.address ? doctor.address : ""}
                 ></input>
               </div>
-
-              <h3 className="card-title text-gray-500 pb-4">Working time</h3>
-              {/* {/* -------------------------------------Doctor Opening Hours */}
-              <div className="pb-4">
-                Schedule Info:
-                <span className="px-4">
-                  {doctor?.schedule === "" ? doctor.schedule : "Change below ↓"}
-                </span>
-              </div>
-              <div>
-                {" "}
-                <ScheduleForm
-                  // ref={scheduleRef}
-                  scheduleData={scheduleData}
-                  setScheduleData={setScheduleData}
+              {/* {/* -------------------------------------Experience Years */}
+              <div className="flex justify-between items-center gap-x-2">
+                <label
+                  htmlFor="years"
+                  className="font-bold text-primary whitespace-nowrap"
+                >
+                  Experience Years:
+                </label>
+                <input
+                  ref={yearsRef}
+                  name="years"
+                  id="years"
+                  placeholder={doctor?.years ? doctor.years : ""}
+                  className="border-b border-secondary w-[50%]"
                 />
               </div>
+              {/* {/* -------------------------------------Patients Number */}
+              <div className="flex justify-between items-center gap-x-2">
+                <label
+                  htmlFor="patients"
+                  className="font-bold text-primary whitespace-nowrap"
+                >
+                  Patients Number:
+                </label>
+                <input
+                  ref={patientsRef}
+                  name="patients"
+                  id="patients"
+                  className="border-b border-secondary w-[50%]"
+                  placeholder={doctor?.patients ? doctor.patients : " "}
+                />
+              </div>
+              {/* {/* -------------------------------------Doctor Opening Hours */}
+              <div className="pt-[2rem]">
+                <h3 className="card-title justify-between text-gray-500 pb-4">
+                  Working time
+                </h3>
 
-              {/* <h2 className="card-title">Comunication</h2>
+                <div className="pb-4">
+                  Schedule Info:
+                  <span className="px-4">
+                    {doctor?.schedule === ""
+                      ? doctor.schedule
+                      : "Change below ↓"}
+                  </span>
+                </div>
+                <div>
+                  {" "}
+                  <ScheduleForm
+                    // ref={scheduleRef}
+                    scheduleData={scheduleData}
+                    setScheduleData={setScheduleData}
+                  />
+                </div>
+
+                {/* <h2 className="card-title">Comunication</h2>
               <div className="flex gap-4 items-center">
                 <MessageSVG />
                 <a href={`mailto:${doctor?.email}`}>{doctor?.email}</a>
               </div> */}
+              </div>
             </div>
           </div>
           <div className="flex justify-center items-center gap-4 mt-4">
