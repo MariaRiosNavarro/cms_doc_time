@@ -27,7 +27,6 @@ const UserList = () => {
 
   return (
     <>
-      <h1>UserList</h1>
       <section>
         {users?.map((user) => (
           <Card key={user._id} {...user} />

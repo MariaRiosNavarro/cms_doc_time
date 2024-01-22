@@ -4,20 +4,22 @@ import { Outlet } from "react-router-dom";
 
 const AdminDashboardPage = () => {
   const { loginUser } = useLoginContext();
-  console.log(loginUser);
-
   return (
     <>
       <main className="card">
-        <h2 className="card-title text-center justify-center">
-          Hello, {loginUser}
-        </h2>
-        <h3>Your Dashboard</h3>
-        <nav>
-          <Link to={"/admin-dashboard/users"}>Users</Link>
-          {/* <Link to={"/appointments"}>Appointments</Link> */}
-        </nav>
-
+        <div className="bg-primary ">
+          <h2 className="card-title text-base-100 text-center justify-center p-4">
+            login: <span className="text-accent">{loginUser}</span>
+          </h2>
+          <h3 className="text-base-100 text-center text-3xl p-4">
+            Admin Dashboard
+          </h3>
+          <nav className="flex justify-around items-center text-base-100 p-4">
+            <Link to={"/admin-dashboard/users"}>Users</Link>
+            <Link to={"/admin-dashboard/add"}>Add Users</Link>
+            <Link to={"/"}>Appointments</Link>
+          </nav>
+        </div>
         <Outlet />
       </main>
     </>

@@ -9,6 +9,7 @@ import PatientDashboardPage from "./routes/PatientDashboardPage.jsx";
 import DoctorAppointmentsCheck from "./routes/DoctorAppointmentsCheck.jsx";
 import DoctorList from "./routes/DoctorList.jsx";
 import UserList from "./routes/UserList.jsx";
+import UserForm from "./routes/UserForm.jsx";
 import DoctorDetailPage from "./routes/DoctorDetailPage.jsx";
 import DoctorProtectorRoutes from "./routes/Protectors/DoctorProtectorRoutes.jsx";
 import PatientProtectorRoutes from "./routes/Protectors/PatientProtectorRoutes.jsx";
@@ -51,6 +52,7 @@ function App() {
             <Route path="/admin-dashboard" element={<AdminDashboardPage />}>
               <Route path="users" element={<UserList />} />
               {/* <Route path="/appointments" element={<AppointmentsList />} /> */}
+              <Route path="add" element={<UserForm />} />
             </Route>
           </Route>
         </Routes>

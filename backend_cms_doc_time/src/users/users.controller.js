@@ -1,6 +1,84 @@
 import { UserModel } from "./users.model.js";
 import { PatientModel } from "../patients/patients.model.js";
 import { DoctorModel } from "../doctors/doctors.model.js";
+import { createSalt, createHash } from "../auth/auth.service.js";
+
+// --------------------------------------------------------------------ADD ONE
+
+export const addNewUser = async (req, res) => {
+  try {
+    const user = new UserModel(req.body);
+    // user.role = "doctor";
+    user.salt = createSalt();
+    user.password = createHash(user.password, user.salt);
+    await user.save();
+    res.status(201).end();
+  } catch (err) {
+    console.log(err);
+    res.status(500).end();
+  }
+};
+
+// --------------------------------------------------------------------Get ALL
+
+export const getAllUser = async (req, res) => {
+  try {
+    const user = await UserModel.find();
+    res.json(user);
+  } catch (err) {
+    console.log(err);
+    res.status(500).end();
+  }
+};
+
+// --------------------------------------------------------------------Get Actual Payload User
+
+export const getActualUser = async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.payload.userId);
+    res.json(user.email);
+  } catch (err) {
+    console.log(err);
+    res.status(500).end();
+  }
+};
+
+// ------------------------- remove
+
+export const deleteOneUser = async (req, res) => {
+  try {
+    console.log("PAYLOAD", req.payload);
+    const { id } = req.params;
+    // Save user to remove later the img
+
+    //Remove user of the Collection too before i delete from the main Collection
+    const user = await UserModel.findOne({ _id: id });
+    if (user.role === "doctor")
+      await DoctorModel.findOneAndDelete({ _id: user.roleIdRef });
+    if (user.role === "patient")
+      await PatientModel.findOneAndDelete({ _id: user.roleIdRef });
+
+    // TODO: Cloudinary remove dont work
+    // let image = user.avatar;
+    // // delete image -  check in the future - dont work for now
+    // if (image) await handleDelete(image);
+
+    // Remove the User
+    await UserModel.findOneAndDelete({ _id: id });
+
+    //sucess true
+    res.status(200).json({
+      success: true,
+      message: `user with id= ${id} successfully deleted ✅`,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ success: false, message: "Error removing one user❌", error });
+  }
+};
+
+// OLD VERSIONS
 
 // // --------------------------------------------------------------------GET ALL
 
@@ -139,87 +217,3 @@ import { DoctorModel } from "../doctors/doctors.model.js";
 //       .json({ success: false, message: "Error editing one user ❌", error });
 //   }
 // };
-
-// --------------------------------------------------------------------ADD ONE
-
-export const addNewUser = async (req, res) => {
-  try {
-    const user = new UserModel(req.body);
-    user.role = "doctor";
-    user.salt = createSalt();
-    user.password = createHash(user.password, user.salt);
-    await user.save();
-    res.status(201).end();
-  } catch (err) {
-    console.log(err);
-    res.status(500).end();
-  }
-};
-
-// --------------------------------------------------------------------Get ALL
-
-export const getAllUser = async (req, res) => {
-  try {
-    const user = await UserModel.find();
-    res.json(user);
-  } catch (err) {
-    console.log(err);
-    res.status(500).end();
-  }
-};
-
-// --------------------------------------------------------------------Get Actual Payload User
-
-export const getActualUser = async (req, res) => {
-  try {
-    const user = await UserModel.findById(req.payload.userId);
-    console.log("--------------user---------------🎃-", user);
-    console.log(
-      "---------------------------payload--------------------😱",
-      req.payload
-    );
-
-    res.json(user.email);
-  } catch (err) {
-    console.log(
-      "....-----------------------ERROR----------------------❌---",
-      err
-    );
-    res.status(500).end();
-  }
-};
-
-// ------------------------- remove
-
-export const deleteOneUser = async (req, res) => {
-  try {
-    console.log("PAYLOAD", req.payload);
-    const { id } = req.params;
-    // Save user to remove later the img
-
-    //Remove user of the Collection too before i delete from the main Collection
-    const user = await UserModel.findOne({ _id: id });
-    if (user.role === "doctor")
-      await DoctorModel.findOneAndDelete({ _id: user.roleIdRef });
-    if (user.role === "patient")
-      await PatientModel.findOneAndDelete({ _id: user.roleIdRef });
-
-    // TODO: Cloudinary remove dont work
-    // let image = user.avatar;
-    // // delete image -  check in the future - dont work for now
-    // if (image) await handleDelete(image);
-
-    // Remove the User
-    await UserModel.findOneAndDelete({ _id: id });
-
-    //sucess true
-    res.status(200).json({
-      success: true,
-      message: `user with id= ${id} successfully deleted ✅`,
-    });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ success: false, message: "Error removing one user❌", error });
-  }
-};

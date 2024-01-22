@@ -257,12 +257,6 @@ const DoctorEdit = ({ id }) => {
                     setScheduleData={setScheduleData}
                   />
                 </div>
-
-                {/* <h2 className="card-title">Comunication</h2>
-              <div className="flex gap-4 items-center">
-                <MessageSVG />
-                <a href={`mailto:${doctor?.email}`}>{doctor?.email}</a>
-              </div> */}
               </div>
             </div>
           </div>

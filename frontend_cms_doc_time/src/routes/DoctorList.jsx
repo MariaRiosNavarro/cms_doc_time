@@ -26,7 +26,6 @@ const DoctorList = () => {
 
   return (
     <>
-      <h1>DoctorList</h1>
       <section>
         {doctors?.map((doc) => (
           <DoctorCard key={doc._id} {...doc} link="/doctor/" />
