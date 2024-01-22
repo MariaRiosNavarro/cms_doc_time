@@ -22,10 +22,11 @@ function App() {
         <Routes>
           {/* Free Routes */}
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<UserLogin />} />
-          <Route path="/sign-up" element={<UserSignUp />} />
           <Route path="/doctor/:id" element={<DoctorDetailPage />} />
           <Route path="/doctors" element={<DoctorList />} />
+          <Route path="/sign-up" element={<UserSignUp />} />
+          <Route path="/login" element={<UserLogin />} />
+          {/* Protected Routes & LoginProvider to know how is login */}
 
           {/* Route only for Patient */}
           <Route element={<PatientProtectorRoutes />}>
@@ -34,7 +35,6 @@ function App() {
               element={<PatientDashboardPage />}
             />
           </Route>
-
           <Route element={<DoctorProtectorRoutes />}>
             {/* Routes only for Doctor*/}
             <Route

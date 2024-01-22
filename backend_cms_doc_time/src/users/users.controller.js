@@ -172,10 +172,19 @@ export const getAllUser = async (req, res) => {
 
 export const getActualUser = async (req, res) => {
   try {
-    const user = await UserModel.findById(req.payload.user);
-    res.json({ email: user.email, role: user.role, id: user._id });
+    const user = await UserModel.findById(req.payload.userId);
+    console.log("--------------user---------------🎃-", user);
+    console.log(
+      "---------------------------payload--------------------😱",
+      req.payload
+    );
+
+    res.json(user.email);
   } catch (err) {
-    console.log(err);
+    console.log(
+      "....-----------------------ERROR----------------------❌---",
+      err
+    );
     res.status(500).end();
   }
 };
