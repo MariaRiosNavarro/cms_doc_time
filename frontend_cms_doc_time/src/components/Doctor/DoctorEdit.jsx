@@ -78,12 +78,9 @@ const DoctorEdit = ({ id }) => {
       );
 
       if (response.ok) {
-        console.log("------------------------✅---", await response.json());
+        console.log("✅", await response.json());
       } else {
-        console.log(
-          "Request failed with status:-----------------------------👺-",
-          response.status
-        );
+        console.log("Request failed with status:👺-", response.status);
         const errorBody = await response.text();
         console.log("Error Body:", errorBody);
       }
