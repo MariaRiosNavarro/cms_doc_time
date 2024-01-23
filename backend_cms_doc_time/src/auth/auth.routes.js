@@ -11,7 +11,7 @@ export const router = new express.Router();
 
 router.post("/login", login);
 router.post("/register", register);
-router.get("/logout", logout);
+router.post("/logout", logout);
 
 // for secure routes, we use this route it in ours Protectors in Frontend,
 //  we check the token & after that check the role in frontend.

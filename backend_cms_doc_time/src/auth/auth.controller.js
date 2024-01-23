@@ -87,8 +87,13 @@ export const register = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
-  res.clearCookie("user_cms_auth");
-  res.status(200).redirect("/");
+  try {
+    res.clearCookie("user_cms_auth");
+    res.status(200).json({ message: "Logout success" });
+  } catch (error) {
+    console.error("Error in logout:", error);
+    res.status(500).json({ error: "server internal error" });
+  }
 };
 
 // is only called with a valid jwt

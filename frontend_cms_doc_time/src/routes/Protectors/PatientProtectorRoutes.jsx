@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../components/General/Loading";
+import { UserLoginProvider } from "../../context/UserContext";
 
 const PatientProtectorRoutes = () => {
   const navigate = useNavigate();
@@ -40,8 +41,11 @@ const PatientProtectorRoutes = () => {
   if (!authorized && !loading) {
     return navigate("/");
   }
-
-  return <Outlet />;
+  return (
+    <UserLoginProvider>
+      <Outlet />
+    </UserLoginProvider>
+  );
 };
 
 export default PatientProtectorRoutes;

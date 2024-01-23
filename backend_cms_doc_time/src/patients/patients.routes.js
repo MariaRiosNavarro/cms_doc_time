@@ -1,5 +1,9 @@
 import express from "express";
-import { getAllPatients } from "./patients.controller.js";
+import {
+  getAllPatients,
+  editOnePatient,
+  getOnePatient,
+} from "./patients.controller.js";
 import { checkToken } from "../middlewares/auth.middleware.js";
 
 export const router = new express.Router();
@@ -7,8 +11,8 @@ export const router = new express.Router();
 // Protected Routes
 
 // For Now only User + Admin,
-router.put("/:id", checkToken, editOneUser);
-router.get("/:id", checkToken, getOneUser);
+router.put("/:id", checkToken, editOnePatient);
+router.get("/:id", checkToken, getOnePatient);
 // but when I implement the appointments
 // the corresponding doctor in the appointments
 // will be able to see the patient's profile.
