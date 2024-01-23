@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import PatientDetail from "../components/Patient/PatientDetail";
-import PatientEdit from "../components/Patient/PatientEdit";
+// import PatientEdit from "../components/Patient/PatientEdit";
 import { useLoginContext } from "../context/UserContext";
 import { logout } from "../components/General/logoutFunction";
 
@@ -13,10 +13,6 @@ const PatientDashboardPage = () => {
 
   const toggleEdit = () => {
     setEdit((prev) => !prev);
-  };
-
-  const checkAppointment = () => {
-    navigate("/patient-dashboard/" + id + "/appointments-check");
   };
 
   const handleLogout = async () => {
@@ -38,15 +34,8 @@ const PatientDashboardPage = () => {
           logout
         </button>
       </div>
-      {edit ? (
-        <PatientEdit id={id} />
-      ) : (
-        <PatientDetail
-          id={id}
-          btnFunction={checkAppointment}
-          btnMessage="Check Appointment"
-        />
-      )}
+      {/* {edit ? <PatientEdit id={id} /> : <PatientDetail id={id} />} */}
+      <PatientDetail id={id} />
     </>
   );
 };
