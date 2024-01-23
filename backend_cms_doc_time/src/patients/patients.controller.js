@@ -24,3 +24,99 @@ export const getAllPatients = async (req, res) => {
     });
   }
 };
+
+// --------------------------------------------------------------------GET ONE
+
+export const getOnePatient = async (req, res) => {
+  try {
+    const { id } = req.params;
+    //Wait & recibe Data
+    const patient = await PatientModel.findOne({ _id: id });
+    // No Response handling
+
+    if (!patient) {
+      return res.status(404).json({ message: "patient not found" });
+    }
+    //Confirmation back  & data to frontend
+    res.status(200).json({
+      success: true,
+      message: `patient with id= ${id} sucessfully retrieved ✅`,
+      data: patient,
+    });
+  } catch (error) {
+    // Handle errors
+    console.error("Error retrieving all Patients -------🤒", error);
+    res.status(500).json({
+      success: false,
+      message: "Error retrieving one patient ❌",
+      error,
+    });
+  }
+};
+
+// -------------------------------------------------------------------------------PROTECTED ROUTES
+// --------------------------------------------------------------------EDIT ONE
+
+export const editOnePatient = async (req, res) => {
+  try {
+    console.log("PAYLOAD", req.payload);
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({ error: "patient ID is missing" });
+    }
+
+    //save new data & add image if it is in the request
+    const newPatientData = req.body;
+
+    if (req.file) {
+      console.log("file");
+    } else {
+      console.log("no file");
+    }
+    // cloudinary
+    if (req.file) {
+      const b64 = Buffer.from(req.file.buffer).toString("base64");
+      let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+
+      // -- Todo: Handle Delete function fron cloudinary dont work for now
+      // -- check if old Data has a Image
+      // const oldData = await PatientModel.findById(id);
+      // const oldImage = oldData.img;
+      // -  remove the old image if the req has a new image
+      // -   error handling no oldimage need it
+      // if (req.file && oldImage) {
+      //   await handleDelete(oldImage);
+      // } else {
+      //   console.log("Don´t delete anything");
+      // }
+
+      const cldRes = await handleUpload(dataURI);
+      console.log(cldRes.secure_url);
+      newPatientData.avatar = cldRes.secure_url;
+    }
+
+    // Update Data
+
+    const updatepatient = await PatientModel.findByIdAndUpdate(
+      id,
+      newPatientData,
+      {
+        new: true,
+      }
+    );
+
+    //  Confirmation back
+    res.status(200).json({
+      success: true,
+      message: `patient with id= ${id} successfully updated ✅`,
+      data: newPatientData,
+    });
+  } catch (error) {
+    // Handle errors
+    console.error("Error editing one patient -------🤒", error);
+    res
+      .status(500)
+      .json({ success: false, message: "Error editing one patient ❌", error });
+  }
+};

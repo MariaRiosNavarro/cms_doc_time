@@ -87,7 +87,8 @@ export const register = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
-  res.end();
+  res.clearCookie("user_cms_auth");
+  res.status(200).redirect("/");
 };
 
 // is only called with a valid jwt

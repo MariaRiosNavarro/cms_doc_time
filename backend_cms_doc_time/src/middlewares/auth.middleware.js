@@ -4,9 +4,10 @@ import { verifyToken } from "../auth/auth.service.js";
 
 export const checkToken = (req, res, next) => {
   const token = req.cookies.user_cms_auth;
-  console.log("token---------------------------💀-", token);
   try {
-    // We pass the payload, we may need it later in the route, so we add it to the req that goes further in the function
+    // We pass the payload, we may need it later in the route,
+    //  so we add it to the req that goes further in the function
+
     req.payload = verifyToken(token);
 
     next();
@@ -17,10 +18,11 @@ export const checkToken = (req, res, next) => {
 };
 
 /**
- * We use this function in addition to the checktoken middleware
+ * We use this functions in addition to the checktoken middleware
  * this gives us access to req.payload in the function
- * It is important that checktoken is executed first and then onlyForAdmin
+ * It is important that checktoken is executed first and then onlyForAdmin//onlyForDoctor
  */
+
 export const onlyForAdmin = (req, res, next) => {
   if (req.payload.role === "admin") {
     next();
