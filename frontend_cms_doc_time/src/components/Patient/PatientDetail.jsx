@@ -31,7 +31,7 @@ const PatientDetail = ({ id }) => {
     // console.log(patient);
   }, []);
 
-  const placeholder = "https://picsum.photos/200/300";
+  const placeholder = "https://picsum.photos/300/300";
   const checkAppointment = () => {
     navigate("/patient-dashboard/" + id + "/appointments-check");
   };

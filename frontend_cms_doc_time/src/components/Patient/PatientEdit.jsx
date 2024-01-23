@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import Loading from "../General/Loading";
+// import Loading from "../General/Loading";
 
 const PatientEdit = ({ id }) => {
   const [patient, setPatient] = useState("");
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -15,11 +15,10 @@ const PatientEdit = ({ id }) => {
   const ageRef = useRef();
   // const issuesRef = useRef();
 
-  const placeholder =
-    "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg";
+  const placeholder = "https://picsum.photos/200/200";
   // ----------------------------------------------- FETCH DATA
   useEffect(() => {
-    setLoading(true);
+    // setLoading(true);
     const fetchOnePatient = async () => {
       try {
         const response = await fetch(
@@ -29,7 +28,7 @@ const PatientEdit = ({ id }) => {
         if (!response.ok) {
           console.log("response no", responseData);
         } else {
-          setLoading(false);
+          // setLoading(false);
           setPatient(responseData.data);
         }
       } catch (error) {
@@ -38,10 +37,6 @@ const PatientEdit = ({ id }) => {
     };
     fetchOnePatient();
   }, [id]);
-
-  if (loading) {
-    return <Loading />;
-  }
 
   // ----------------------------------------------- EDIT DATA
 
@@ -82,11 +77,15 @@ const PatientEdit = ({ id }) => {
     navigate("/");
   };
 
+  // if (loading) {
+  //   return <Loading />;
+  // }
+
   return (
     <>
       <form
         onSubmit={updateAccount}
-        className="flex flex-col justify-center items-center w-[100%] my-0 mx-0 gap-[2rem]"
+        className="flex flex-col justify-center items-center w-[100%] my-0 mx-0 gap-[2rem] mt-8 "
         // -------------------------------------------------------------------------------------DONT FORGET encType="multipart/form-data" & remove "content-type":"application/json" from header
         encType="multipart/form-data"
       >
@@ -142,30 +141,20 @@ const PatientEdit = ({ id }) => {
 
               {/* {/* -------------------------------------Patient Description */}
 
-              <div className="flex justify-between items-center gap-x-2">
-                <label htmlFor="gender" className="font-bold text-primary">
+              <div className="flex flex-col justify-center items-center gap-x-8 pb-8">
+                <label htmlFor="gender" className="font-bold text-primary pb-8">
                   Gender:
                 </label>
                 <select
                   ref={genderRef}
                   name="gender"
-                  className="select select-bordered select-primary select-s w-full max-w-s bg-slate-100"
+                  className="select select-bordered select-primary select-s w-full max-w-s bg-slate-100 "
                 >
-                  <option value={"trans"} role="admin" disabled>
-                    Trans
-                  </option>
-                  <option value={"man"} role="patient">
-                    Man
-                  </option>
-                  <option value={"woman"} role="doctor">
-                    Woman
-                  </option>
-                  <option value={"non-binary"} role="admin" disabled>
-                    Non-binary
-                  </option>
-                  <option value={"none"} role="admin" disabled>
-                    None of the options/ No Answer
-                  </option>
+                  <option value={"trans"}>Trans</option>
+                  <option value={"non-binary"}>Non-binary</option>
+                  <option value={"man"}>Man</option>
+                  <option value={"woman"}>Woman</option>
+                  <option value={"none"}>None of the options/ No Answer</option>
                 </select>
               </div>
               {/* {/* -------------------------------------Issues */}

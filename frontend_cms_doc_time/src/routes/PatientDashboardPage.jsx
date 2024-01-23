@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import PatientDetail from "../components/Patient/PatientDetail";
-// import PatientEdit from "../components/Patient/PatientEdit";
+import PatientEdit from "../components/Patient/PatientEdit";
 import { useLoginContext } from "../context/UserContext";
 import { logout } from "../components/General/logoutFunction";
 
@@ -34,8 +34,7 @@ const PatientDashboardPage = () => {
           logout
         </button>
       </div>
-      {/* {edit ? <PatientEdit id={id} /> : <PatientDetail id={id} />} */}
-      <PatientDetail id={id} />
+      {edit ? <PatientEdit id={id} /> : <PatientDetail id={id} />}
     </>
   );
 };
