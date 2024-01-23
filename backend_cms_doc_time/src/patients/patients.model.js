@@ -7,7 +7,7 @@ const patientSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   gender: { type: String },
   age: { type: Number },
-  issue: { type: Number },
+  issues: { type: Array },
 
   // patient_appointments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Appointment' }],
 });
