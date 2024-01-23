@@ -29,6 +29,7 @@ const AdminProtectorRoutes = () => {
 
         if (response.ok && role === "admin") {
           setAuthorized(true);
+          console.log(role);
         }
         setLoading(false);
       } catch (error) {

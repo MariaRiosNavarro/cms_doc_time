@@ -10,6 +10,9 @@ Backend Container : Express (+ dotenv multer mongoose nodemailer cookie-parser j
 -Login (with salt & token/cookie) (frontend & backend)
 -Frontend: Doctor Dashboard & Editpage done, but i need to fix the Put route.
 
+Issues:
+Admin dashboard: users will be created but admins, has a internal (500) issue, maybe because has not roleId
+
 
 # To do:
 

@@ -1,11 +1,20 @@
 import { useState } from "react";
+import { useRef } from "react";
 
 const UserForm = () => {
   const [message, setMessage] = useState("");
 
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const roleRef = useRef();
+
   const addUser = async (e) => {
     e.preventDefault();
-    const form = new FormData(e.target);
+    const form = new FormData();
+    form.append("email", emailRef.current.value);
+    form.append("password", passwordRef.current.value);
+    form.append("role", roleRef.current.value);
+
     console.log(form);
 
     const response = await fetch(
@@ -32,6 +41,7 @@ const UserForm = () => {
       <form
         onSubmit={addUser}
         className="flex flex-col justify-center items-center w-[100%] my-[1rem] mx-0 gap-[2rem]"
+        encType="multipart/form-data"
       >
         <div className="h-[1.5rem]">
           {message && <p className="p-4 rounded-xl bg-green-300">{message}</p>}
@@ -46,6 +56,8 @@ const UserForm = () => {
                   Email:
                 </label>
                 <input
+                  ref={emailRef}
+                  id="email"
                   name="email"
                   className="border-b border-secondary w-[50%]"
                 ></input>
@@ -58,6 +70,8 @@ const UserForm = () => {
                   Password:
                 </label>
                 <input
+                  ref={passwordRef}
+                  id="password"
                   type="password"
                   name="password"
                   className="border-b border-secondary w-[50%]"
@@ -68,6 +82,7 @@ const UserForm = () => {
               <select
                 name="role"
                 id="role"
+                ref={roleRef}
                 className="select select-info w-full max-w-xs"
               >
                 <option value={"patient"}>Patient</option>
