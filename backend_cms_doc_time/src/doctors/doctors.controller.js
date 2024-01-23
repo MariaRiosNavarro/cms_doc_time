@@ -1,8 +1,5 @@
 import { DoctorModel } from "./doctors.model.js";
 import { v2 as cloudinary } from "cloudinary";
-import { translateSchedule } from "./utils/scheduleUtils.js";
-
-// const cloud_url = process.env.CLOUDINARY_URL;
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -29,6 +26,7 @@ async function handleUpload(file) {
 //   return res;
 // }
 
+// -------------------------------------------------------------------------------FREE ROUTES
 // --------------------------------------------------------------------GET ALL
 
 export const getAllDoctors = async (req, res) => {
@@ -83,7 +81,79 @@ export const getOneDoctor = async (req, res) => {
   }
 };
 
-// --------------------------------------------------------------------ADD ONE
+// -------------------------------------------------------------------------------PROTECTED ROUTES
+// --------------------------------------------------------------------EDIT ONE
+
+export const editOneDoctor = async (req, res) => {
+  try {
+    console.log("PAYLOAD", req.payload);
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({ error: "doctor ID is missing" });
+    }
+
+    //save new data & add image if it is in the request
+    const newDoctorData = req.body;
+
+    if (req.file) {
+      console.log("file");
+    } else {
+      console.log("no file");
+    }
+    // cloudinary
+    if (req.file) {
+      const b64 = Buffer.from(req.file.buffer).toString("base64");
+      let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+
+      // -- Todo: Handle Delete function fron cloudinary dont work for now
+      // -- check if old Data has a Image
+      // const oldData = await DoctorModel.findById(id);
+      // const oldImage = oldData.img;
+      // -  remove the old image if the req has a new image
+      // -   error handling no oldimage need it
+      // if (req.file && oldImage) {
+      //   await handleDelete(oldImage);
+      // } else {
+      //   console.log("Don´t delete anything");
+      // }
+
+      const cldRes = await handleUpload(dataURI);
+      console.log(cldRes.secure_url);
+      newDoctorData.avatar = cldRes.secure_url;
+    }
+
+    // Update Data
+
+    const updatedoctor = await DoctorModel.findByIdAndUpdate(
+      id,
+      newDoctorData,
+      {
+        new: true,
+      }
+    );
+
+    //  Confirmation back
+    res.status(200).json({
+      success: true,
+      message: `doctor with id= ${id} successfully updated ✅`,
+      data: newDoctorData,
+    });
+  } catch (error) {
+    // Handle errors
+    console.error("Error editing one doctor -------🤒", error);
+    res
+      .status(500)
+      .json({ success: false, message: "Error editing one doctor ❌", error });
+  }
+};
+
+// -------------------------------------------------------------------------------(FOR NOW) UNUSED ROUTES
+
+// --------------------------------------------------------------------ADD ONE -
+// -----(When the user registers (auth-routes) he/she is saved in 2 collections,
+// -----the user collection and the role collection (doctor or patient),
+// -----admin has not collection and it is only in the users collection )
 
 export const addOneDoctor = async (req, res) => {
   try {
@@ -126,6 +196,11 @@ export const addOneDoctor = async (req, res) => {
 
 // --------------------------------------------------------------------DELETE ONE
 
+//--- users, whether doctors or patients,
+//--- can only be deleted by the admin,
+//--- in the users routes we delete der user
+//--- from the role collection too.
+
 export const removeOneDoctor = async (req, res) => {
   try {
     console.log("PAYLOAD", req.payload);
@@ -154,89 +229,5 @@ export const removeOneDoctor = async (req, res) => {
     res
       .status(500)
       .json({ success: false, message: "Error removing one doctor❌", error });
-  }
-};
-
-// --------------------------------------------------------------------EDIT ONE
-
-export const editOneDoctor = async (req, res) => {
-  try {
-    console.log("PAYLOAD", req.payload);
-    const { id } = req.params;
-
-    if (!id) {
-      return res.status(400).json({ error: "doctor ID is missing" });
-    }
-
-    //save new data & add image if it is in the request
-    const newDoctorData = req.body;
-    console.log("body..........", newDoctorData);
-
-    // transform schedule data, to one readable Array:
-
-    const schedule = req.body.schedule;
-    console.log("------------------------🚀--", schedule);
-
-    // const readableSchedule = translateSchedule(schedule);
-
-    // console.log(
-    //   "------------------------🚀------------------------🚀------------------------🚀--",
-    //   readableSchedule
-    // );
-
-    // newDoctorData.schedule = readableSchedule;
-
-    if (req.file) {
-      console.log("file");
-    } else {
-      console.log("no file");
-    }
-    // cloudinary
-    if (req.file) {
-      const b64 = Buffer.from(req.file.buffer).toString("base64");
-      let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
-
-      // check if old Data has a Image
-      // const oldData = await DoctorModel.findById(id);
-      // const oldImage = oldData.img;
-
-      // remove the old image if the req has a new image
-      // error handling no oldimage need it
-
-      // Todo: Handle Delete function dont work
-
-      // if (req.file && oldImage) {
-      //   await handleDelete(oldImage);
-      // } else {
-      //   console.log("Don´t delete anything");
-      // }
-
-      const cldRes = await handleUpload(dataURI);
-      console.log(cldRes.secure_url);
-      newDoctorData.avatar = cldRes.secure_url;
-    }
-
-    // Update Data
-
-    const updatedoctor = await DoctorModel.findByIdAndUpdate(
-      id,
-      newDoctorData,
-      {
-        new: true,
-      }
-    );
-
-    //  Confirmation back
-    res.status(200).json({
-      success: true,
-      message: `doctor with id= ${id} successfully updated ✅`,
-      data: newDoctorData,
-    });
-  } catch (error) {
-    // Handle errors
-    console.error("Error editing one doctor -------🤒", error);
-    res
-      .status(500)
-      .json({ success: false, message: "Error editing one doctor ❌", error });
   }
 };

@@ -15,10 +15,9 @@ Backend Container : Express (+ dotenv multer mongoose nodemailer cookie-parser j
 
 fix in register auth ( main-id save in role-collection as reference and not as string like now. role-id in main-user-collection save as reference und not as object like now)
 
-fix Doctor Edit Page (schedule) - Data does not reach the backend
 Add delete route Doctor & patient
 Add patient Edit Page
-Frontend/Design - patient+admin dashboard, home, doctors-list
+Frontend/Design - patient+admin dashboard, home, 
 
 # Structure, Miro Board  & Design
 
