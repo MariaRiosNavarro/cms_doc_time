@@ -14,6 +14,11 @@ export const login = async (req, res) => {
   //our user is correct and validate
   //so we can give him/her a token.
 
+  // I save the collection Id (roleId)
+  // to to manage the data of the users in
+  // 2 collections (doctors & patients,
+  // admins are only in the users collection)
+
   const token = createToken({
     userId: user._id,
     roleId: user.roleIdRef,
@@ -24,7 +29,9 @@ export const login = async (req, res) => {
 
   //send a res with the jwt as httpOnly cookie
   // We package that token in a secure cookie in front of the frontend.
-  //important this token name (here "user_cms_auth", need you for the middleware checkToken->const token = req.cookies.user_cms_auth;)
+  //important this token name (here "user_cms_auth",
+  // need you for the middleware checkToken->const token = req.cookies.user_cms_auth;)
+
   res
     .cookie("user_cms_auth", token, {
       httpOnly: true, //can not read it in client side/frontend - React con not do anything
@@ -48,7 +55,10 @@ export const register = async (req, res) => {
   newUser.password = createHash(newUser.password, newUser.salt);
   await newUser.save();
 
-  // Use the same data to register in the role collection with a reference of the id in the User collection, to use in der detail pages & co
+  // Use the same data to register in the role collection
+  // with a reference of the id in the User collection,
+  // to use in der detail pages & co
+
   let email = req.body.email;
   let role = req.body.role;
   let userIdRef = newUser._id;
@@ -70,8 +80,6 @@ export const register = async (req, res) => {
   );
 
   res.status(201).json({
-    // success: true,
-    // message: "User successfully registered ✅",
     email: req.body.email,
     role: req.body.role,
     userIdRef: updateRegistered.userIdRef,

@@ -5,10 +5,7 @@ import {
   register,
   checkAndSendReqWithUserAndRole,
 } from "./auth.controller.js";
-import {
-  checkToken,
-  // addRegisteredUserToCollection,
-} from "../middlewares/auth.middleware.js";
+import { checkToken } from "../middlewares/auth.middleware.js";
 
 export const router = new express.Router();
 
@@ -16,6 +13,6 @@ router.post("/login", login);
 router.post("/register", register);
 router.get("/logout", logout);
 
-// for secure routes, we use it in the Protector in Frontend, we check the token, and later in the
-// checkAndSendReqWithUserAndRole give the req data
+// for secure routes, we use this route it in ours Protectors in Frontend,
+//  we check the token & after that check the role in frontend.
 router.get("/check", checkToken, checkAndSendReqWithUserAndRole);
