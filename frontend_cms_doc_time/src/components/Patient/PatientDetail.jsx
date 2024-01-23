@@ -1,20 +1,15 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
-// import Loading from "../General/Loading";
+import Loading from "../General/Loading";
 import { useNavigate } from "react-router-dom";
 
 const PatientDetail = ({ id }) => {
-  const [patient, setPatient] = useState(null);
+  const [patient, setPatient] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const placeholder = "https://picsum.photos/200/300";
-
-  const checkAppointment = () => {
-    navigate("/patient-dashboard/" + id + "/appointments-check");
-  };
 
   useEffect(() => {
-    setLoading(true);
+    // setLoading(true)
     const fetchOnePatient = async () => {
       try {
         const response = await fetch(
@@ -27,10 +22,8 @@ const PatientDetail = ({ id }) => {
         setLoading(false);
         setPatient(responseData.data);
         console.log(responseData);
-
-        // setLoading(false);
       } catch (error) {
-        console.log(error);
+        console.log(error.message);
       }
     };
 
@@ -38,9 +31,14 @@ const PatientDetail = ({ id }) => {
     // console.log(patient);
   }, []);
 
-  // if (loading) {
-  //   return <Loading />;
-  // }
+  const placeholder = "https://picsum.photos/200/300";
+  const checkAppointment = () => {
+    navigate("/patient-dashboard/" + id + "/appointments-check");
+  };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
