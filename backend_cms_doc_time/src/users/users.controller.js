@@ -2,8 +2,10 @@ import { UserModel } from "./users.model.js";
 import { PatientModel } from "../patients/patients.model.js";
 import { DoctorModel } from "../doctors/doctors.model.js";
 import { createSalt, createHash } from "../auth/auth.service.js";
-
+import { addRegisteredUserToCollection } from "../utils/functions.js";
 // --------------------------------------------------------------------ADD ONE
+
+// --- addNewUser is really similar as register in auth, refactor in the future
 
 export const addNewUser = async (req, res) => {
   try {
@@ -12,7 +14,39 @@ export const addNewUser = async (req, res) => {
     user.salt = createSalt();
     user.password = createHash(user.password, user.salt);
     await user.save();
-    res.status(201).end();
+
+    // Use the same data to add in the role collection
+    // with a reference of the id in the User collection,
+    // to use in der detail pages & co
+
+    const email = req.body.email;
+    const role = req.body.role;
+    const userIdRef = user._id;
+    const registerInCollection = {
+      email: email,
+      role: role,
+      userIdRef: userIdRef,
+    };
+    const roleIdRef = await addRegisteredUserToCollection(
+      role,
+      registerInCollection
+    );
+
+    // Update registered Email with the collection reference id
+
+    const updateRegistered = await UserModel.findByIdAndUpdate(
+      userIdRef,
+      roleIdRef,
+      {
+        new: true,
+      }
+    );
+
+    res.status(201).json({
+      email: req.body.email,
+      role: req.body.role,
+      userIdRef: updateRegistered.userIdRef,
+    });
   } catch (err) {
     console.log(err);
     res.status(500).end();

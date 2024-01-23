@@ -20,7 +20,7 @@ const PatientDetail = ({ btnFunction, btnMessage, id }) => {
           console.log("response no", responseData);
         } else {
           setLoading(false);
-          setPatient(responseData.data);
+          setPatient(responseData);
         }
       } catch (error) {
         console.log(error.message);
