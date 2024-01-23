@@ -8,6 +8,11 @@ export const checkToken = (req, res, next) => {
     // We pass the payload, we may need it later in the route,
     //  so we add it to the req that goes further in the function
 
+    // console.log(
+    //   "TOKEN IN BEVOR VERIFY ROLE---🐸-------------------",
+    //   req.payload.role
+    // );
+
     req.payload = verifyToken(token);
 
     next();

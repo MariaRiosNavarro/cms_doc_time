@@ -25,6 +25,12 @@ const UserLogin = () => {
       if (response.ok) {
         console.log("User is allowed");
         const json = await response.json();
+
+        // console.log(
+        //   "---------------------json.role in USERLOGIN ",
+        //   json.roleIdRef
+        // );
+
         // const id = json.id; //We dont need der user Id of the admin in her/his dashboard
         const roleIdRef = json.roleIdRef;
         if (json.role === "admin") {
@@ -33,6 +39,7 @@ const UserLogin = () => {
           navigate("/doctor-dashboard/" + roleIdRef);
         } else if (json.role === "patient") {
           navigate("/patient-dashboard/" + roleIdRef);
+          console.log("HEEEEEEEREEEEEEE___________________");
         } else {
           navigate("/sign-up");
         }

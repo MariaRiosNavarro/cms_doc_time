@@ -20,12 +20,13 @@ const PatientProtectorRoutes = () => {
         const json = await response.json();
         const role = json.role;
 
-        if (response.ok && (role === "admin" || role === "patient")) {
+        console.log("------------------", role);
+
+        if (response.ok && (role === "patient" || role === "admin")) {
           setAuthorized(true);
+          console.log("------------------", response);
         }
-        if (response.ok) {
-          setAuthorized(true);
-        }
+
         setLoading(false);
       } catch (error) {
         console.log(error.message);

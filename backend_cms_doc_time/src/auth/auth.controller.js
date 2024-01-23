@@ -4,7 +4,13 @@ import { addRegisteredUserToCollection } from "../utils/functions.js";
 
 export const login = async (req, res) => {
   const user = await UserModel.findOne({ email: req.body.email });
+
+  console.log("-----------USER in login------------❌-------", user);
+
   if (!user) return res.status(401).end(); //check if the user has a email
+
+  console.log("-----------SALT---------------🐱---", user.salt);
+
   if (user.password !== createHash(req.body.password, user.salt))
     //check if the user use the correct password
     return res.status(401).end();
@@ -26,6 +32,8 @@ export const login = async (req, res) => {
   });
   const userId = user._id;
   const roleIdRef = user.roleIdRef;
+
+  console.log("---------TOKEN----in--login----", token);
 
   //send a res with the jwt as httpOnly cookie
   // We package that token in a secure cookie in front of the frontend.

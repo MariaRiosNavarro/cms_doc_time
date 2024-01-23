@@ -17,6 +17,7 @@ export const UserLoginProvider = ({ children }) => {
       );
       if (response.ok) {
         setLoginUser(await response.json());
+        console.log("--------------PROVIDER------JA");
       }
     }
     getUser();

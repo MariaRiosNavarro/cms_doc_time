@@ -23,9 +23,7 @@ const DoctorProtectorRoutes = () => {
         if (response.ok && (role === "admin" || role === "doctor")) {
           setAuthorized(true);
         }
-        if (response.ok) {
-          setAuthorized(true);
-        }
+
         setLoading(false);
       } catch (error) {
         console.log(error.message);
