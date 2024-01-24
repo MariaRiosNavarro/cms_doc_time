@@ -20,8 +20,7 @@ const DoctorEdit = ({ id }) => {
   const descriptionRef = useRef();
   const addressRef = useRef();
 
-  const placeholder =
-    "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg";
+  const placeholder = "https://picsum.photos/200/200";
 
   // ----------------------------------------------- FETCH DATA
   useEffect(() => {
@@ -56,7 +55,7 @@ const DoctorEdit = ({ id }) => {
     e.preventDefault();
     const newDoctorFormData = new FormData();
 
-    // !-------------------------------Check and add propierties only if it is not empty input
+    // !-------------------------------Check and add propierties only if it is not empty input,so as not to overwrite the database with empty values
 
     if (avatarRef.current && avatarRef.current.files.length > 0) {
       newDoctorFormData.append("avatar", avatarRef.current.files[0]);

@@ -34,6 +34,8 @@ export const getOnePatient = async (req, res) => {
     const patient = await PatientModel.findOne({ _id: id });
     // No Response handling
 
+    console.log(patient);
+
     if (!patient) {
       return res.status(404).json({ message: "patient not found" });
     }
@@ -45,6 +47,8 @@ export const getOnePatient = async (req, res) => {
     });
   } catch (error) {
     // Handle errors
+    console.log(error);
+
     console.error("Error retrieving all Patients -------🤒", error);
     res.status(500).json({
       success: false,

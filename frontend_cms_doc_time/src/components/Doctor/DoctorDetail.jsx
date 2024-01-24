@@ -32,8 +32,7 @@ const DoctorDetail = ({ id, btnFunction, btnMessage }) => {
     console.log(dbScheduleData);
   }, []);
 
-  const placeholder =
-    "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg";
+  const placeholder = "https://picsum.photos/200/200";
 
   if (loading) {
     return <Loading />;
