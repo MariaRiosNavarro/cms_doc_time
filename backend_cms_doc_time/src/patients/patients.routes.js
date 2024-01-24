@@ -1,4 +1,5 @@
 import express from "express";
+import multer from "multer";
 import {
   getAllPatients,
   editOnePatient,
@@ -6,12 +7,14 @@ import {
 } from "./patients.controller.js";
 import { checkToken } from "../middlewares/auth.middleware.js";
 
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 export const router = new express.Router();
 
 // Protected Routes
 
 // For Now only User + Admin,
-router.put("/:id", checkToken, editOnePatient);
+router.put("/:id", checkToken, upload.single("avatar"), editOnePatient);
 router.get("/:id", checkToken, getOnePatient);
 // but when I implement the appointments
 // the corresponding doctor in the appointments

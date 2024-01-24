@@ -13,7 +13,6 @@ const PatientEdit = ({ id }) => {
   const ageRef = useRef();
   // const issuesRef = useRef();
 
-  const placeholder = "https://picsum.photos/200/200";
   // ----------------------------------------------- FETCH DATA
   useEffect(() => {
     const fetchOnePatient = async () => {
@@ -38,14 +37,37 @@ const PatientEdit = ({ id }) => {
 
   const updateAccount = async (e) => {
     e.preventDefault();
-    const newPatientFormData = new FormData();
+    const patientForm = new FormData();
 
     if (avatarRef.current && avatarRef.current.files.length > 0) {
-      newPatientFormData.append("avatar", avatarRef.current.files[0]);
+      patientForm.append("avatar", avatarRef.current.files[0]);
     }
-    newPatientFormData.append("name", nameRef.current.value);
-    newPatientFormData.append("age", ageRef.current.value);
-    newPatientFormData.append("gender", genderRef.current.value);
+
+    const nameValue = nameRef.current.value;
+    if (nameValue !== "") {
+      patientForm.append("name", nameValue);
+    }
+
+    patientForm.append("age", ageRef.current.value);
+    patientForm.append("gender", genderRef.current.value);
+
+    // ESTOS LOGS SE VEN EN LA CONSOLA con valores
+
+    console.log("nameRef value:", nameRef.current.value);
+    console.log("ageRef value:", ageRef.current.value);
+    console.log("genderRef value:", genderRef.current.value);
+
+    // ESTE SOLO FormData{}, necesitamos quizas stringify?
+    console.log("FORM VALUES", patientForm);
+    if (patientForm.has("name")) {
+      console.log("Form has name:", patientForm.get("name"));
+    }
+    if (patientForm.has("age")) {
+      console.log("Form has age:", patientForm.get("age"));
+    }
+    if (patientForm.has("gender")) {
+      console.log("Form has gender:", patientForm.get("gender"));
+    }
 
     try {
       const response = await fetch(
@@ -53,12 +75,15 @@ const PatientEdit = ({ id }) => {
         {
           method: "PUT",
           credentials: "include",
-          body: newPatientFormData,
+          body: patientForm,
+          headers: {},
         }
       );
 
+      const json = await response.json();
       if (response.ok) {
-        console.log("✅", await response.json());
+        console.log("✅", json.data);
+        console.log("✅", json.message);
       } else {
         console.log("Request failed with status:👺-", response.status);
         const errorBody = await response.text();
@@ -73,6 +98,8 @@ const PatientEdit = ({ id }) => {
     navigate("/");
   };
 
+  const placeholder = "https://picsum.photos/200/200";
+
   // if (loading) {
   //   return <Loading />;
   // }
@@ -83,6 +110,7 @@ const PatientEdit = ({ id }) => {
         onSubmit={updateAccount}
         className="flex flex-col justify-center items-center w-[100%] my-0 mx-0 gap-[2rem] mt-8 "
         // -------------------------------------------------------------------------------------DONT FORGET encType="multipart/form-data" & remove "content-type":"application/json" from header
+        // Comente esto pero con o sin el problema permanece
         encType="multipart/form-data"
       >
         {/*--------------------------------------- AVATAR Preview */}
