@@ -56,17 +56,61 @@ const DoctorEdit = ({ id }) => {
     e.preventDefault();
     const newDoctorFormData = new FormData();
 
+    // !-------------------------------Check and add propierties only if it is not empty input
+
     if (avatarRef.current && avatarRef.current.files.length > 0) {
       newDoctorFormData.append("avatar", avatarRef.current.files[0]);
     }
 
-    newDoctorFormData.append("schedule", JSON.stringify(scheduleData));
-    newDoctorFormData.append("patients", Number(patientsRef.current.value));
-    newDoctorFormData.append("years", Number(yearsRef.current.value));
-    newDoctorFormData.append("name", nameRef.current.value);
-    newDoctorFormData.append("speciality", specialityRef.current.value);
-    newDoctorFormData.append("description", descriptionRef.current.value);
-    newDoctorFormData.append("address", addressRef.current.value);
+    if (scheduleData.length > 0) {
+      newDoctorFormData.append("schedule", JSON.stringify(scheduleData));
+    }
+
+    const patientsValue = patientsRef.current.value;
+    if (
+      patientsValue !== null &&
+      patientsValue !== undefined &&
+      patientsValue !== ""
+    ) {
+      newDoctorFormData.append("patients", Number(patientsValue));
+    }
+
+    const yearsValue = yearsRef.current.value;
+    if (yearsValue !== null && yearsValue !== undefined && yearsValue !== "") {
+      newDoctorFormData.append("years", Number(yearsValue));
+    }
+
+    const nameValue = nameRef.current.value;
+    if (nameValue !== null && nameValue !== undefined && nameValue !== "") {
+      newDoctorFormData.append("name", nameValue);
+    }
+
+    const specialityValue = specialityRef.current.value;
+    if (
+      specialityValue !== null &&
+      specialityValue !== undefined &&
+      specialityValue !== ""
+    ) {
+      newDoctorFormData.append("speciality", specialityValue);
+    }
+
+    const descriptionValue = descriptionRef.current.value;
+    if (
+      descriptionValue !== null &&
+      descriptionValue !== undefined &&
+      descriptionValue !== ""
+    ) {
+      newDoctorFormData.append("description", descriptionValue);
+    }
+
+    const addressValue = addressRef.current.value;
+    if (
+      addressValue !== null &&
+      addressValue !== undefined &&
+      addressValue !== ""
+    ) {
+      newDoctorFormData.append("address", addressValue);
+    }
 
     try {
       const response = await fetch(
