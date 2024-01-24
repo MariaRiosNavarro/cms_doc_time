@@ -155,7 +155,7 @@ const DoctorEdit = ({ id }) => {
     <>
       <form
         onSubmit={updateAccount}
-        className="flex flex-col justify-center items-center w-[100%] my-0 mx-0 gap-[2rem]"
+        className="flex flex-col justify-center items-center w-[100%] my-0 mx-0 gap-[2rem] mt-8"
         // -------------------------------------------------------------------------------------DONT FORGET encType="multipart/form-data" & remove "content-type":"application/json" from header
         encType="multipart/form-data"
       >
@@ -165,7 +165,7 @@ const DoctorEdit = ({ id }) => {
             <img src={doctor?.avatar ? doctor.avatar : placeholder} />
           </div>
         </article>
-        <p>{id}</p>
+
         <h2>Change Image</h2>
         <input
           type="file"
@@ -174,7 +174,7 @@ const DoctorEdit = ({ id }) => {
           name="avatar"
           ref={avatarRef}
         />
-        <h3>click on the line to edit</h3>
+        <h3>Click on the line to edit</h3>
         {/* INFOs */}
         <article>
           <div className="card w-96 bg-base-100 shadow-xl">
@@ -190,7 +190,7 @@ const DoctorEdit = ({ id }) => {
                   ref={nameRef}
                   name="name"
                   id="name"
-                  className="border-b border-secondary w-[50%]"
+                  className="border-b border-accent w-[50%]"
                   placeholder={doctor?.name ? doctor.name : ""}
                 />
               </div>
@@ -205,7 +205,7 @@ const DoctorEdit = ({ id }) => {
                   ref={specialityRef}
                   name="speciality"
                   id="speciality"
-                  className="border-b border-secondary w-[50%]"
+                  className="border-b border-accent w-[50%]"
                   placeholder={doctor?.speciality ? doctor.speciality : ""}
                 ></input>
               </div>
@@ -221,7 +221,7 @@ const DoctorEdit = ({ id }) => {
                   ref={descriptionRef}
                   id="description"
                   name="description"
-                  className="border-b border-secondary w-[50%]"
+                  className="border-b border-accent w-[50%]"
                   placeholder={doctor?.description ? doctor.description : ""}
                 ></input>
               </div>
@@ -236,7 +236,7 @@ const DoctorEdit = ({ id }) => {
                   ref={addressRef}
                   id="address"
                   name="address"
-                  className="border-b border-secondary w-[50%]"
+                  className="border-b border-accent w-[50%]"
                   placeholder={doctor?.address ? doctor.address : ""}
                 ></input>
               </div>
@@ -254,7 +254,7 @@ const DoctorEdit = ({ id }) => {
                   name="years"
                   id="years"
                   placeholder={doctor?.years ? doctor.years : ""}
-                  className="border-b border-secondary w-[50%]"
+                  className="border-b border-accent w-[50%]"
                 />
               </div>
               {/* {/* -------------------------------------Patients Number */}
@@ -270,7 +270,7 @@ const DoctorEdit = ({ id }) => {
                   ref={patientsRef}
                   name="patients"
                   id="patients"
-                  className="border-b border-secondary w-[50%]"
+                  className="border-b border-accent w-[50%]"
                   placeholder={doctor?.patients ? doctor.patients : " "}
                 />
               </div>
