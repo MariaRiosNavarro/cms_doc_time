@@ -66,6 +66,7 @@ const DoctorEdit = ({ id }) => {
     newDoctorFormData.append("name", nameRef.current.value);
     newDoctorFormData.append("speciality", specialityRef.current.value);
     newDoctorFormData.append("description", descriptionRef.current.value);
+    newDoctorFormData.append("address", addressRef.current.value);
 
     try {
       const response = await fetch(

@@ -85,7 +85,7 @@ const DoctorDetail = ({ id, btnFunction, btnMessage }) => {
           <div className="stat w-[120px] relative h-[7rem]">
             <div className="stat-title">Rating</div>
             <div className="stat-value text-accent text-center ">
-              {doctor?.rating ? doctor.rating : "?"}
+              {doctor?.rating ? doctor.rating : "✷"}
             </div>
           </div>
         </div>

@@ -9,7 +9,6 @@ const PatientDetail = ({ id }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // setLoading(true)
     const fetchOnePatient = async () => {
       try {
         const response = await fetch(
@@ -28,7 +27,6 @@ const PatientDetail = ({ id }) => {
     };
 
     fetchOnePatient();
-    // console.log(patient);
   }, []);
 
   const placeholder = "https://picsum.photos/300/300";

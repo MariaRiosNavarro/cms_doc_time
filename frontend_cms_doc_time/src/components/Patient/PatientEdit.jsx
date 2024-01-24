@@ -1,11 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-// import Loading from "../General/Loading";
 
 const PatientEdit = ({ id }) => {
   const [patient, setPatient] = useState("");
-  // const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -18,7 +16,6 @@ const PatientEdit = ({ id }) => {
   const placeholder = "https://picsum.photos/200/200";
   // ----------------------------------------------- FETCH DATA
   useEffect(() => {
-    // setLoading(true);
     const fetchOnePatient = async () => {
       try {
         const response = await fetch(
@@ -28,7 +25,6 @@ const PatientEdit = ({ id }) => {
         if (!response.ok) {
           console.log("response no", responseData);
         } else {
-          // setLoading(false);
           setPatient(responseData.data);
         }
       } catch (error) {
