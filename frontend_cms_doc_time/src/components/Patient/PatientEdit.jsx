@@ -45,6 +45,7 @@ const PatientEdit = ({ id }) => {
 
     if (avatarRef.current && avatarRef.current.files.length > 0) {
       patientForm.append("avatar", avatarRef.current.files[0]);
+      console.log("file");
     }
 
     const nameValue = nameRef.current.value;
@@ -52,25 +53,14 @@ const PatientEdit = ({ id }) => {
       patientForm.append("name", nameValue);
     }
 
-    patientForm.append("age", ageRef.current.value);
-    patientForm.append("gender", genderRef.current.value);
-
-    // ESTOS LOGS SE VEN EN LA CONSOLA con valores
-
-    console.log("nameRef value:", nameRef.current.value);
-    console.log("ageRef value:", ageRef.current.value);
-    console.log("genderRef value:", genderRef.current.value);
-
-    // ESTE SOLO FormData{}, necesitamos quizas stringify?
-    console.log("FORM VALUES", patientForm);
-    if (patientForm.has("name")) {
-      console.log("Form has name:", patientForm.get("name"));
+    const ageValue = ageRef.current.value;
+    if (ageValue !== "" && ageValue !== null) {
+      patientForm.append("age", Number(ageValue));
     }
-    if (patientForm.has("age")) {
-      console.log("Form has age:", patientForm.get("age"));
-    }
-    if (patientForm.has("gender")) {
-      console.log("Form has gender:", patientForm.get("gender"));
+
+    const genderValue = genderRef.current.value;
+    if (genderValue !== "" && genderValue !== null) {
+      patientForm.append("gender", genderValue);
     }
 
     try {
@@ -82,15 +72,12 @@ const PatientEdit = ({ id }) => {
           body: patientForm,
         }
       );
-
       const json = await response.json();
       if (response.ok) {
         console.log("✅", json.data);
-        console.log("✅", json.message);
       } else {
         console.log("Request failed with status:👺-", response.status);
-        const errorBody = await response.text();
-        console.log("Error Body:", errorBody);
+        console.log("Error Body:", json.message);
       }
     } catch (error) {
       console.log(error.message);
@@ -113,7 +100,6 @@ const PatientEdit = ({ id }) => {
         onSubmit={updateAccount}
         className="flex flex-col justify-center items-center w-[100%] my-0 mx-0 gap-[2rem] mt-8 "
         // -------------------------------------------------------------------------------------DONT FORGET encType="multipart/form-data" & remove "content-type":"application/json" from header
-        // Comente esto pero con o sin el problema permanece
         encType="multipart/form-data"
       >
         {/*--------------------------------------- AVATAR Preview */}
@@ -146,7 +132,7 @@ const PatientEdit = ({ id }) => {
                   ref={nameRef}
                   name="name"
                   id="name"
-                  className="border-b border-secondary w-[50%]"
+                  className="border-b border-accent w-[50%]"
                   placeholder={patient?.name ? patient.name : ""}
                 />
               </div>
@@ -161,7 +147,7 @@ const PatientEdit = ({ id }) => {
                   ref={ageRef}
                   name="age"
                   id="age"
-                  className="border-b border-secondary w-[50%]"
+                  className="border-b border-accent w-[50%]"
                   placeholder={patient?.age ? patient.age : ""}
                 ></input>
               </div>

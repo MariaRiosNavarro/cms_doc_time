@@ -74,7 +74,7 @@ const DoctorDetail = ({ id, btnFunction, btnMessage }) => {
           {/* Stat years */}
           <div className="stat w-[120px] relative h-[7rem]">
             <div className="stat-title">Experience</div>
-            <div className="stat-value text-secondary text-center ">
+            <div className="stat-value text-primary text-center ">
               {doctor?.years ? doctor.years : "?"}
             </div>
             <div className="stat-title text-center">Years</div>
@@ -95,26 +95,26 @@ const DoctorDetail = ({ id, btnFunction, btnMessage }) => {
           <div className="card-body">
             <h2 className="card-title">About Doctor</h2>
             <h3 className="flex justify-between">
-              Name:{" "}
-              <span className="pl-2 text-secondary font-bold">
+              Name:
+              <span className="pl-2  font-bold">
                 {doctor?.name ? doctor.name : "Unknown"}
               </span>
             </h3>
             <h4 className="flex justify-between">
               Speciality:
-              <span className="pl-2 text-secondary font-bold">
+              <span className="pl-2  font-bold">
                 {doctor?.speciality ? doctor.speciality : "Unknown"}
               </span>
             </h4>
             <div className="flex justify-between ">
               Address:
-              <span className="pl-2 text-secondary font-bold">
+              <span className="pl-2  font-bold">
                 {doctor?.address ? doctor.address : "Unknown"}
               </span>
             </div>
             <div className="flex flex-col pb-8">
               About:
-              <p className="pl-2 text-secondary text-center font-bold">
+              <p className="pl-2  text-center font-bold">
                 {doctor?.description ? doctor.description : "Unknown "}
               </p>
             </div>
