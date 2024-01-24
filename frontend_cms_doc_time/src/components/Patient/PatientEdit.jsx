@@ -13,13 +13,16 @@ const PatientEdit = ({ id }) => {
   const ageRef = useRef();
   // const issuesRef = useRef();
 
-  const placeholder = "https://picsum.photos/200/200";
   // ----------------------------------------------- FETCH DATA
   useEffect(() => {
     const fetchOnePatient = async () => {
       try {
         const response = await fetch(
-          import.meta.env.VITE_BACKEND_URL + "/api/patients/" + id
+          import.meta.env.VITE_BACKEND_URL + "/api/patients/" + id,
+          {
+            method: "GET",
+            credentials: "include",
+          }
         );
         const responseData = await response.json();
         if (!response.ok) {
@@ -38,14 +41,27 @@ const PatientEdit = ({ id }) => {
 
   const updateAccount = async (e) => {
     e.preventDefault();
-    const newPatientFormData = new FormData();
+    const patientForm = new FormData();
 
     if (avatarRef.current && avatarRef.current.files.length > 0) {
-      newPatientFormData.append("avatar", avatarRef.current.files[0]);
+      patientForm.append("avatar", avatarRef.current.files[0]);
+      console.log("file");
     }
-    newPatientFormData.append("name", nameRef.current.value);
-    newPatientFormData.append("age", ageRef.current.value);
-    newPatientFormData.append("gender", genderRef.current.value);
+
+    const nameValue = nameRef.current.value;
+    if (nameValue !== "") {
+      patientForm.append("name", nameValue);
+    }
+
+    const ageValue = ageRef.current.value;
+    if (ageValue !== "" && ageValue !== null) {
+      patientForm.append("age", Number(ageValue));
+    }
+
+    const genderValue = genderRef.current.value;
+    if (genderValue !== "" && genderValue !== null) {
+      patientForm.append("gender", genderValue);
+    }
 
     try {
       const response = await fetch(
@@ -53,16 +69,15 @@ const PatientEdit = ({ id }) => {
         {
           method: "PUT",
           credentials: "include",
-          body: newPatientFormData,
+          body: patientForm,
         }
       );
-
+      const json = await response.json();
       if (response.ok) {
-        console.log("✅", await response.json());
+        console.log("✅", json.data);
       } else {
         console.log("Request failed with status:👺-", response.status);
-        const errorBody = await response.text();
-        console.log("Error Body:", errorBody);
+        console.log("Error Body:", json.message);
       }
     } catch (error) {
       console.log(error.message);
@@ -72,6 +87,8 @@ const PatientEdit = ({ id }) => {
   const deleteAccount = () => {
     navigate("/");
   };
+
+  const placeholder = "https://picsum.photos/200/200";
 
   // if (loading) {
   //   return <Loading />;
@@ -115,7 +132,7 @@ const PatientEdit = ({ id }) => {
                   ref={nameRef}
                   name="name"
                   id="name"
-                  className="border-b border-secondary w-[50%]"
+                  className="border-b border-accent w-[50%]"
                   placeholder={patient?.name ? patient.name : ""}
                 />
               </div>
@@ -130,7 +147,7 @@ const PatientEdit = ({ id }) => {
                   ref={ageRef}
                   name="age"
                   id="age"
-                  className="border-b border-secondary w-[50%]"
+                  className="border-b border-accent w-[50%]"
                   placeholder={patient?.age ? patient.age : ""}
                 ></input>
               </div>

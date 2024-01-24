@@ -8,6 +8,7 @@ const patientSchema = new mongoose.Schema({
   gender: { type: String },
   age: { type: Number },
   issues: { type: Array },
+  avatar: { type: String },
 
   // patient_appointments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Appointment' }],
 });

@@ -54,3 +54,17 @@ CMD [ "node","--watch","server.js" ]
 
 
 
+
+# Recommendations
+
+### DONT FORGET MULTER in your FORMS !!!!!!
+
+otherwise the empty req.body will be sent to your controller.
+
+```
+import multer from "multer";
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+router.put("/:id", checkToken, upload.single("avatar"), editOnePatient);

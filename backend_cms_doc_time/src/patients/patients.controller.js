@@ -1,4 +1,20 @@
 import { PatientModel } from "./patients.model.js";
+import { v2 as cloudinary } from "cloudinary";
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
+});
+
+// --------------handle Images-----------cloudinary functions
+
+async function handleUpload(file) {
+  const res = await cloudinary.uploader.upload(file, {
+    resource_type: "image",
+  });
+  return res;
+}
 
 // --------------------------------------------------------------------GET ALL
 
@@ -30,9 +46,12 @@ export const getAllPatients = async (req, res) => {
 export const getOnePatient = async (req, res) => {
   try {
     const { id } = req.params;
+    console.log("PAYLOAD", req.payload);
     //Wait & recibe Data
     const patient = await PatientModel.findOne({ _id: id });
     // No Response handling
+
+    console.log(patient);
 
     if (!patient) {
       return res.status(404).json({ message: "patient not found" });
@@ -45,6 +64,8 @@ export const getOnePatient = async (req, res) => {
     });
   } catch (error) {
     // Handle errors
+    console.log(error);
+
     console.error("Error retrieving all Patients -------🤒", error);
     res.status(500).json({
       success: false,
@@ -68,6 +89,8 @@ export const editOnePatient = async (req, res) => {
 
     //save new data & add image if it is in the request
     const newPatientData = req.body;
+
+    console.log("------------------BACKEND BODY", req.body);
 
     if (req.file) {
       console.log("file");

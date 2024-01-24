@@ -106,6 +106,11 @@ export const logout = async (req, res) => {
 
 // is only called with a valid jwt
 export const checkAndSendReqWithUserAndRole = (req, res) => {
+  console.log(
+    "-----------❌-----req in checkAndSendReqWithUserAndRole❌ ",
+    req
+  );
+
   res.json({
     userId: req.payload.userId,
     role: req.payload.role,

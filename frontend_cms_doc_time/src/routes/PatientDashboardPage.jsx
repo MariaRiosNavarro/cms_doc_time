@@ -30,7 +30,7 @@ const PatientDashboardPage = () => {
           <p>User: </p>
           <span className="text-primary pl-2">{loginUser}</span>
         </div>
-        <button className="btn btn-secondary" onClick={handleLogout}>
+        <button className="btn btn-accent" onClick={handleLogout}>
           logout
         </button>
       </div>

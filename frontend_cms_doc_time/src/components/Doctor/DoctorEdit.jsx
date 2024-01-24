@@ -20,8 +20,7 @@ const DoctorEdit = ({ id }) => {
   const descriptionRef = useRef();
   const addressRef = useRef();
 
-  const placeholder =
-    "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg";
+  const placeholder = "https://picsum.photos/200/200";
 
   // ----------------------------------------------- FETCH DATA
   useEffect(() => {
@@ -56,17 +55,61 @@ const DoctorEdit = ({ id }) => {
     e.preventDefault();
     const newDoctorFormData = new FormData();
 
+    // !-------------------------------Check and add propierties only if it is not empty input,so as not to overwrite the database with empty values
+
     if (avatarRef.current && avatarRef.current.files.length > 0) {
       newDoctorFormData.append("avatar", avatarRef.current.files[0]);
     }
 
-    newDoctorFormData.append("schedule", JSON.stringify(scheduleData));
-    newDoctorFormData.append("patients", Number(patientsRef.current.value));
-    newDoctorFormData.append("years", Number(yearsRef.current.value));
-    newDoctorFormData.append("name", nameRef.current.value);
-    newDoctorFormData.append("speciality", specialityRef.current.value);
-    newDoctorFormData.append("description", descriptionRef.current.value);
-    newDoctorFormData.append("address", addressRef.current.value);
+    if (scheduleData.length > 0) {
+      newDoctorFormData.append("schedule", JSON.stringify(scheduleData));
+    }
+
+    const patientsValue = patientsRef.current.value;
+    if (
+      patientsValue !== null &&
+      patientsValue !== undefined &&
+      patientsValue !== ""
+    ) {
+      newDoctorFormData.append("patients", Number(patientsValue));
+    }
+
+    const yearsValue = yearsRef.current.value;
+    if (yearsValue !== null && yearsValue !== undefined && yearsValue !== "") {
+      newDoctorFormData.append("years", Number(yearsValue));
+    }
+
+    const nameValue = nameRef.current.value;
+    if (nameValue !== null && nameValue !== undefined && nameValue !== "") {
+      newDoctorFormData.append("name", nameValue);
+    }
+
+    const specialityValue = specialityRef.current.value;
+    if (
+      specialityValue !== null &&
+      specialityValue !== undefined &&
+      specialityValue !== ""
+    ) {
+      newDoctorFormData.append("speciality", specialityValue);
+    }
+
+    const descriptionValue = descriptionRef.current.value;
+    if (
+      descriptionValue !== null &&
+      descriptionValue !== undefined &&
+      descriptionValue !== ""
+    ) {
+      newDoctorFormData.append("description", descriptionValue);
+    }
+
+    const addressValue = addressRef.current.value;
+    if (
+      addressValue !== null &&
+      addressValue !== undefined &&
+      addressValue !== ""
+    ) {
+      newDoctorFormData.append("address", addressValue);
+    }
 
     try {
       const response = await fetch(
@@ -112,7 +155,7 @@ const DoctorEdit = ({ id }) => {
     <>
       <form
         onSubmit={updateAccount}
-        className="flex flex-col justify-center items-center w-[100%] my-0 mx-0 gap-[2rem]"
+        className="flex flex-col justify-center items-center w-[100%] my-0 mx-0 gap-[2rem] mt-8"
         // -------------------------------------------------------------------------------------DONT FORGET encType="multipart/form-data" & remove "content-type":"application/json" from header
         encType="multipart/form-data"
       >
@@ -122,7 +165,7 @@ const DoctorEdit = ({ id }) => {
             <img src={doctor?.avatar ? doctor.avatar : placeholder} />
           </div>
         </article>
-        <p>{id}</p>
+
         <h2>Change Image</h2>
         <input
           type="file"
@@ -131,7 +174,7 @@ const DoctorEdit = ({ id }) => {
           name="avatar"
           ref={avatarRef}
         />
-        <h3>click on the line to edit</h3>
+        <h3>Click on the line to edit</h3>
         {/* INFOs */}
         <article>
           <div className="card w-96 bg-base-100 shadow-xl">
@@ -147,7 +190,7 @@ const DoctorEdit = ({ id }) => {
                   ref={nameRef}
                   name="name"
                   id="name"
-                  className="border-b border-secondary w-[50%]"
+                  className="border-b border-accent w-[50%]"
                   placeholder={doctor?.name ? doctor.name : ""}
                 />
               </div>
@@ -162,7 +205,7 @@ const DoctorEdit = ({ id }) => {
                   ref={specialityRef}
                   name="speciality"
                   id="speciality"
-                  className="border-b border-secondary w-[50%]"
+                  className="border-b border-accent w-[50%]"
                   placeholder={doctor?.speciality ? doctor.speciality : ""}
                 ></input>
               </div>
@@ -178,7 +221,7 @@ const DoctorEdit = ({ id }) => {
                   ref={descriptionRef}
                   id="description"
                   name="description"
-                  className="border-b border-secondary w-[50%]"
+                  className="border-b border-accent w-[50%]"
                   placeholder={doctor?.description ? doctor.description : ""}
                 ></input>
               </div>
@@ -193,7 +236,7 @@ const DoctorEdit = ({ id }) => {
                   ref={addressRef}
                   id="address"
                   name="address"
-                  className="border-b border-secondary w-[50%]"
+                  className="border-b border-accent w-[50%]"
                   placeholder={doctor?.address ? doctor.address : ""}
                 ></input>
               </div>
@@ -211,7 +254,7 @@ const DoctorEdit = ({ id }) => {
                   name="years"
                   id="years"
                   placeholder={doctor?.years ? doctor.years : ""}
-                  className="border-b border-secondary w-[50%]"
+                  className="border-b border-accent w-[50%]"
                 />
               </div>
               {/* {/* -------------------------------------Patients Number */}
@@ -227,7 +270,7 @@ const DoctorEdit = ({ id }) => {
                   ref={patientsRef}
                   name="patients"
                   id="patients"
-                  className="border-b border-secondary w-[50%]"
+                  className="border-b border-accent w-[50%]"
                   placeholder={doctor?.patients ? doctor.patients : " "}
                 />
               </div>
