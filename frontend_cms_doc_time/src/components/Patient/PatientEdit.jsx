@@ -18,7 +18,11 @@ const PatientEdit = ({ id }) => {
     const fetchOnePatient = async () => {
       try {
         const response = await fetch(
-          import.meta.env.VITE_BACKEND_URL + "/api/patients/" + id
+          import.meta.env.VITE_BACKEND_URL + "/api/patients/" + id,
+          {
+            method: "GET",
+            credentials: "include",
+          }
         );
         const responseData = await response.json();
         if (!response.ok) {
@@ -76,7 +80,6 @@ const PatientEdit = ({ id }) => {
           method: "PUT",
           credentials: "include",
           body: patientForm,
-          headers: {},
         }
       );
 

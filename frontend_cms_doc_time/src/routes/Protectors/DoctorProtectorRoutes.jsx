@@ -22,6 +22,7 @@ const DoctorProtectorRoutes = () => {
 
         if (response.ok && (role === "admin" || role === "doctor")) {
           setAuthorized(true);
+          console.log("doctor autorized in PROTECTOR /api/auth/check");
         }
 
         setLoading(false);

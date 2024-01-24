@@ -7,7 +7,7 @@ import { UserLoginProvider } from "../../context/UserContext";
 const PatientProtectorRoutes = () => {
   const navigate = useNavigate();
   const [authorized, setAuthorized] = useState(false);
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const checkBackendJWTToken = async () => {
       try {
@@ -20,11 +20,12 @@ const PatientProtectorRoutes = () => {
         const json = await response.json();
         const role = json.role;
 
-        if (response.ok && (role === "patient" || role === "admin")) {
-          // setLoading(false);
+        if (response.ok && (role === "admin" || role === "patient")) {
           setAuthorized(true);
-          console.log("-----------response OKOKOKOKOO in PROTECTOR-------");
+          console.log("patient autorized in PROTECTOR /api/auth/check");
         }
+
+        setLoading(false);
 
         // setLoading(false);
       } catch (error) {
@@ -34,13 +35,13 @@ const PatientProtectorRoutes = () => {
     checkBackendJWTToken();
   }, []);
 
-  // if (loading) {
-  //   return <Loading />;
-  // }
+  if (loading) {
+    return <Loading />;
+  }
 
-  // if (!authorized && !loading) {
-  //   return navigate("/");
-  // }
+  if (!authorized && !loading) {
+    return navigate("/");
+  }
   return (
     <UserLoginProvider>
       <Outlet />

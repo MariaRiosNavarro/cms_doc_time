@@ -39,7 +39,7 @@ const UserLogin = () => {
           navigate("/doctor-dashboard/" + roleIdRef);
         } else if (json.role === "patient") {
           navigate("/patient-dashboard/" + roleIdRef);
-          console.log("HEEEEEEEREEEEEEE___________________");
+          console.log("_______PATIENTLOGIN-------ok____________");
         } else {
           navigate("/sign-up");
         }

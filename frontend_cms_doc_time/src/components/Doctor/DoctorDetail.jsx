@@ -29,7 +29,7 @@ const DoctorDetail = ({ id, btnFunction, btnMessage }) => {
     };
 
     fetchOneDoctor();
-    console.log(dbScheduleData);
+    // console.log(dbScheduleData);
   }, []);
 
   const placeholder = "https://picsum.photos/200/200";
@@ -60,7 +60,7 @@ const DoctorDetail = ({ id, btnFunction, btnMessage }) => {
           <img src={doctor.avatar ? doctor.avatar : placeholder} />
         </div>
       </article>
-      <p>{id}</p>
+      {/* <p>{id}</p> */}
       <article>
         <div className="stats shadow max-w-[375px] min-h-[7rem]">
           {/* Stat patients */}
