@@ -22,7 +22,7 @@ const PatientDashboardPage = () => {
 
   return (
     <>
-      <div className="card-actions justify-around items-center">
+      <div className="card-actions justify-around items-center ">
         <button onClick={toggleEdit} className="btn btn-primary">
           {edit ? "Close Edit" : "Open Edit"}
         </button>

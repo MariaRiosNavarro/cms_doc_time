@@ -2,11 +2,13 @@
 import { Link } from "react-router-dom";
 
 const DoctorCard = (props) => {
-  const placeholder =
-    "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg";
+  const placeholder = "https://picsum.photos/200/200";
 
   return (
-    <div key={props._id} className="card w-96 bg-base-100 shadow-xl">
+    <div
+      key={props._id}
+      className="card w-96 bg-base-100 shadow-xl mx-auto my-0"
+    >
       <figure className="px-12 pt-12 overflow-hidden">
         <img
           src={props.avatar ? props.avatar : placeholder}

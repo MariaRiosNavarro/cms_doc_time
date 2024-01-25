@@ -98,7 +98,7 @@ const PatientEdit = ({ id }) => {
     <>
       <form
         onSubmit={updateAccount}
-        className="flex flex-col justify-center items-center w-[100%] my-0 mx-0 gap-[2rem] mt-8 "
+        className="flex flex-col justify-center items-center w-[100%] my-0 mx-0 gap-[2rem] mt-8  "
         // -------------------------------------------------------------------------------------DONT FORGET encType="multipart/form-data" & remove "content-type":"application/json" from header
         encType="multipart/form-data"
       >
@@ -187,7 +187,7 @@ const PatientEdit = ({ id }) => {
               </div> */}
             </div>
           </div>
-          <div className="flex justify-center items-center gap-4 mt-4">
+          <div className="flex justify-center items-center gap-4 mt-10">
             <button className="btn btn-error" onClick={deleteAccount}>
               {"Remove Account"}
             </button>

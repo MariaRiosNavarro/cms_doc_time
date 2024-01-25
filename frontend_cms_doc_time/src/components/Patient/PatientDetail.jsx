@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 // import Loading from "../General/Loading";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const PatientDetail = ({ id }) => {
   const [patient, setPatient] = useState("");
@@ -39,17 +39,20 @@ const PatientDetail = ({ id }) => {
 
   const placeholder = "https://picsum.photos/300/300";
 
-  // const navigate = useNavigate();
-  // const checkAppointment = () => {
-  //   navigate("/patient-dashboard/" + id + "/appointments-check");
-  // };
+  const navigate = useNavigate();
+  const checkDoctors = () => {
+    navigate("/doctors");
+  };
 
+  const handelAppointment = () => {
+    navigate("/patient/appointments");
+  };
   // if (loading) {
   //   return <Loading />;
   // }
 
   return (
-    <div className="card w-96 bg-base-100 shadow-xl">
+    <div className="card w-96 bg-base-100 shadow-xl mx-auto my-0">
       <figure className="px-12 pt-12 overflow-hidden">
         <img
           src={patient?.avatar ? patient.avatar : placeholder}
@@ -70,12 +73,18 @@ const PatientDetail = ({ id }) => {
             <li key={index}>{issue}</li>
           ))}
         </ul> */}
-        <div className="card-actions">
+        <div className="card-actions flex-col w-[70%] my-8">
           <button
-            className="btn btn-primary mx-auto my-0"
-            // onClick={checkAppointment}
+            className="btn btn-primary mx-auto my-0 w-[100%]"
+            onClick={checkDoctors}
           >
-            Appointments
+            Doctors
+          </button>
+          <button
+            className="btn btn-primary mx-auto my-0 w-[100%]"
+            onClick={handelAppointment}
+          >
+            Make an Appointment
           </button>
         </div>
       </div>
