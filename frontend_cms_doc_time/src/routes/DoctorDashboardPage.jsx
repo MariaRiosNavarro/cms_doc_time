@@ -8,15 +8,11 @@ import { logout } from "../components/General/logoutFunction";
 const DoctorDashboardPage = () => {
   const { loginUser } = useLoginContext();
   const [edit, setEdit] = useState(false);
-  const { id } = useParams();
+  const { doctorId } = useParams();
   const navigate = useNavigate();
 
   const toggleEdit = () => {
     setEdit((prev) => !prev);
-  };
-
-  const checkAppointment = () => {
-    navigate("/doctor-dashboard/" + id + "/appointments-check");
   };
 
   const handleLogout = async () => {
@@ -39,13 +35,9 @@ const DoctorDashboardPage = () => {
         </button>
       </div>
       {edit ? (
-        <DoctorEdit id={id} />
+        <DoctorEdit doctorId={doctorId} />
       ) : (
-        <DoctorDetail
-          id={id}
-          btnFunction={checkAppointment}
-          btnMessage="Check Appointment"
-        />
+        <DoctorDetail doctorId={doctorId} />
       )}
     </>
   );

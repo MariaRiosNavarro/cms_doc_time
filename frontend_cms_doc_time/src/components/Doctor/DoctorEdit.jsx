@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../General/Loading";
 import ScheduleForm from "./ScheduleForm";
 
-const DoctorEdit = ({ id }) => {
+const DoctorEdit = ({ doctorId }) => {
   const [doctor, setDoctor] = useState("");
   const [loading, setLoading] = useState(false);
   const [scheduleData, setScheduleData] = useState([]);
@@ -28,7 +28,7 @@ const DoctorEdit = ({ id }) => {
     const fetchOneDoctor = async () => {
       try {
         const response = await fetch(
-          import.meta.env.VITE_BACKEND_URL + "/api/doctors/" + id
+          import.meta.env.VITE_BACKEND_URL + "/api/doctors/" + doctorId
         );
         const responseData = await response.json();
         if (!response.ok) {
@@ -43,7 +43,7 @@ const DoctorEdit = ({ id }) => {
       }
     };
     fetchOneDoctor();
-  }, [id]);
+  }, [doctorId]);
 
   if (loading) {
     return <Loading />;
@@ -113,7 +113,7 @@ const DoctorEdit = ({ id }) => {
 
     try {
       const response = await fetch(
-        import.meta.env.VITE_BACKEND_URL + "/api/doctors/" + id,
+        import.meta.env.VITE_BACKEND_URL + "/api/doctors/" + doctorId,
         {
           method: "PUT",
           credentials: "include",

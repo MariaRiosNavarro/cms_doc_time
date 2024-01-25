@@ -10,10 +10,11 @@ import DoctorAppointmentsCheck from "./routes/DoctorAppointmentsCheck.jsx";
 import DoctorList from "./routes/DoctorList.jsx";
 import UserList from "./routes/UserList.jsx";
 import UserForm from "./routes/UserForm.jsx";
-import DoctorDetailPage from "./routes/DoctorDetailPage.jsx";
+// import DoctorDetailPage from "./routes/DoctorDetailPage.jsx";
 import DoctorProtectorRoutes from "./routes/Protectors/DoctorProtectorRoutes.jsx";
 import PatientProtectorRoutes from "./routes/Protectors/PatientProtectorRoutes.jsx";
 import AdminProtectorRoutes from "./routes/Protectors/AdminProtectorRoutes.jsx";
+// import PatientDashboardOneDoctor from "./routes/PatientDashboardOneDoctor.jsx";
 
 function App() {
   return (
@@ -23,27 +24,43 @@ function App() {
         <Routes>
           {/* Free Routes */}
           <Route path="/" element={<Home />} />
-          <Route path="/doctor/:id" element={<DoctorDetailPage />} />
           <Route path="/doctors" element={<DoctorList />} />
           <Route path="/sign-up" element={<UserSignUp />} />
           <Route path="/login" element={<UserLogin />} />
           {/* Protected Routes & LoginProvider to know how is login */}
 
           {/* Route only for Patient */}
-          <Route element={<PatientProtectorRoutes />}>
+          {/* <Route element={<PatientProtectorRoutes />}>
             <Route
-              path="/patient-dashboard/:id"
+              path="/patient-dashboard/:patientId"
               element={<PatientDashboardPage />}
-            />
+            >
+              <Route path="doctor">
+                <Route path=":doctorId" element={<DoctorDetailPage />} />
+              </Route>
+            </Route>
+            
+          </Route> */}
+
+          <Route
+            path="patient-dashboard/:patientId"
+            element={<PatientProtectorRoutes />}
+          >
+            <Route index element={<PatientDashboardPage />} />
+            {/* <Route
+              path="doctor/:doctorId"
+              element={<PatientDashboardOneDoctor />}
+            /> */}
           </Route>
+
           <Route element={<DoctorProtectorRoutes />}>
             {/* Routes only for Doctor*/}
             <Route
-              path="/doctor-dashboard/:id"
+              path="/doctor-dashboard/:doctorId"
               element={<DoctorDashboardPage />}
             />
             <Route
-              path="/doctor-dashboard/:id/appointments-check"
+              path="/doctor-dashboard/:doctorId/appointments-check"
               element={<DoctorAppointmentsCheck />}
             />
           </Route>

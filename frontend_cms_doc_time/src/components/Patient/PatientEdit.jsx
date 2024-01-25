@@ -2,7 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-const PatientEdit = ({ id }) => {
+const PatientEdit = ({ patientId }) => {
   const [patient, setPatient] = useState("");
 
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const PatientEdit = ({ id }) => {
     const fetchOnePatient = async () => {
       try {
         const response = await fetch(
-          import.meta.env.VITE_BACKEND_URL + "/api/patients/" + id,
+          import.meta.env.VITE_BACKEND_URL + "/api/patients/" + patientId,
           {
             method: "GET",
             credentials: "include",
@@ -35,7 +35,7 @@ const PatientEdit = ({ id }) => {
       }
     };
     fetchOnePatient();
-  }, [id]);
+  }, [patientId]);
 
   // ----------------------------------------------- EDIT DATA
 
@@ -65,7 +65,7 @@ const PatientEdit = ({ id }) => {
 
     try {
       const response = await fetch(
-        import.meta.env.VITE_BACKEND_URL + "/api/patients/" + id,
+        import.meta.env.VITE_BACKEND_URL + "/api/patients/" + patientId,
         {
           method: "PUT",
           credentials: "include",
@@ -119,7 +119,7 @@ const PatientEdit = ({ id }) => {
         <h3>click on the line to edit</h3>
         {/* INFOs */}
         <article>
-          <div className="card w-96 bg-base-100 shadow-xl">
+          <div className="card w-96 bg-base-100">
             <div className="card-body justify-around gap-[1rem]">
               <h2 className="card-title text-gray-500 pb-4">About Patient</h2>
               {/* {/* -------------------------------------Patient Name */}
@@ -154,7 +154,7 @@ const PatientEdit = ({ id }) => {
 
               {/* {/* -------------------------------------Patient Description */}
 
-              <div className="flex flex-col justify-center items-center gap-x-8 pb-8">
+              <div className="flex flex-col justify-center items-center gap-x-8 pb-8 pt-4">
                 <label htmlFor="gender" className="font-bold text-primary pb-8">
                   Gender:
                 </label>
@@ -187,8 +187,11 @@ const PatientEdit = ({ id }) => {
               </div> */}
             </div>
           </div>
-          <div className="flex justify-center items-center gap-4 mt-10">
-            <button className="btn btn-error" onClick={deleteAccount}>
+          <div className="flex justify-center items-center gap-4 ">
+            <button
+              className="btn btn-error text-base-200"
+              onClick={deleteAccount}
+            >
               {"Remove Account"}
             </button>
             <button type="submit" className="btn btn-primary">

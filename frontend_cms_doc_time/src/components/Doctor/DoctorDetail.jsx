@@ -3,23 +3,23 @@ import MessageSVG from "../Svg/MessageSvg";
 import Loading from "../General/Loading";
 
 // eslint-disable-next-line react/prop-types
-const DoctorDetail = ({ id, btnFunction, btnMessage }) => {
+const DoctorDetail = ({ doctorId }) => {
   const [doctor, setDoctor] = useState("");
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [dbScheduleData, setDbScheduleData] = useState([]);
 
   useEffect(() => {
-    setLoading(true);
+    // setLoading(true);
     const fetchOneDoctor = async () => {
       try {
         const response = await fetch(
-          import.meta.env.VITE_BACKEND_URL + "/api/doctors/" + id
+          import.meta.env.VITE_BACKEND_URL + "/api/doctors/" + doctorId
         );
         const responseData = await response.json();
         if (!response.ok) {
           console.log("response no", responseData);
         } else {
-          setLoading(false);
+          // setLoading(false);
           setDoctor(responseData.data);
           setDbScheduleData(JSON.parse(responseData.data.schedule));
         }
@@ -34,9 +34,9 @@ const DoctorDetail = ({ id, btnFunction, btnMessage }) => {
 
   const placeholder = "https://picsum.photos/200/200";
 
-  if (loading) {
-    return <Loading />;
-  }
+  // if (loading) {
+  //   return <Loading />;
+  // }
 
   // Helper function to convert numeric day to day name
   const getDayName = (dayNumber) => {
@@ -60,7 +60,7 @@ const DoctorDetail = ({ id, btnFunction, btnMessage }) => {
           <img src={doctor.avatar ? doctor.avatar : placeholder} />
         </div>
       </article>
-      {/* <p>{id}</p> */}
+
       <article>
         <div className="stats shadow max-w-[375px] min-h-[7rem]">
           {/* Stat patients */}
@@ -91,7 +91,7 @@ const DoctorDetail = ({ id, btnFunction, btnMessage }) => {
       </article>
       {/* INFOs */}
       <article>
-        <div className="card w-96 bg-base-100 shadow-xl">
+        <div className="card w-96 bg-base-100 ">
           <div className="card-body">
             <h2 className="card-title">About Doctor</h2>
             <h3 className="flex justify-between">
@@ -148,12 +148,6 @@ const DoctorDetail = ({ id, btnFunction, btnMessage }) => {
               <MessageSVG />
               <a href={`mailto:${doctor?.email}`}>{doctor?.email}</a>
             </div>
-            <button
-              className="btn btn-primary mx-auto my-0"
-              onClick={btnFunction}
-            >
-              {btnMessage}
-            </button>
           </div>
         </div>
       </article>
