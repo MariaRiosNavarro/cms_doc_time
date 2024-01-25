@@ -13,7 +13,7 @@ import PatientAccount from "../components/Patient/PatientAccount";
 const PatientDashboardPage = () => {
   const { loginUser } = useLoginContext();
   const { patientId } = useParams();
-  const [account, setAccount] = useState(false);
+  const [account, setAccount] = useState(true);
   const [doctorsList, setDoctorsList] = useState(false);
   const [appointments, setAppointments] = useState(false);
   // const [oneDoctorDetail, setOneDoctorDetail] = useState(false);

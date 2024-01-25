@@ -47,3 +47,8 @@ CMD [ "npm","run","dev","--","--host" ]
 
 
 ```
+
+
+# Add material icons
+
+npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
