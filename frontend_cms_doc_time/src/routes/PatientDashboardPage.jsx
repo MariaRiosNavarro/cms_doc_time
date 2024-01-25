@@ -6,9 +6,9 @@ import LogoutSharpIcon from "@mui/icons-material/LogoutSharp";
 import MenuSharpIcon from "@mui/icons-material/MenuSharp";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import PatientAccountPage from "./PatientAccountPage";
 import DoctorList from "./DoctorList";
 import PatientAppointments from "../components/Patient/PatientAppointments";
+import PatientAccount from "../components/Patient/PatientAccount";
 
 const PatientDashboardPage = () => {
   const { loginUser } = useLoginContext();
@@ -16,22 +16,33 @@ const PatientDashboardPage = () => {
   const [account, setAccount] = useState(false);
   const [doctorsList, setDoctorsList] = useState(false);
   const [appointments, setAppointments] = useState(false);
+  // const [oneDoctorDetail, setOneDoctorDetail] = useState(false);
 
   const toggleAccount = () => {
+    // setOneDoctorDetail(false);
     setAppointments(false);
     setDoctorsList(false);
     setAccount((prev) => !prev);
   };
   const toggleDoctors = () => {
+    // setOneDoctorDetail(false);
     setAccount(false);
     setAppointments(false);
     setDoctorsList((prev) => !prev);
   };
   const toggleAppointments = () => {
+    // setOneDoctorDetail(false);
     setAccount(false);
     setDoctorsList(false);
     setAppointments((prev) => !prev);
   };
+
+  // const toggleOneDoctorDetail = () => {
+  //   setAccount(false);
+  //   setDoctorsList(false);
+  //   setAppointments(false);
+  //   setOneDoctorDetail((prev) => !prev);
+  // };
 
   const navigate = useNavigate();
 
@@ -88,9 +99,9 @@ const PatientDashboardPage = () => {
           </div>
         </div>
       </div>
-      {account && <PatientAccountPage id={id} />}
-      {doctorsList && <DoctorList id={id} />}
+      {account && <PatientAccount id={id} />}
       {appointments && <PatientAppointments id={id} />}
+      {doctorsList && <DoctorList />}
     </>
   );
 };

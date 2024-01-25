@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import PatientDetail from "../components/Patient/PatientDetail";
-import PatientEdit from "../components/Patient/PatientEdit";
+import PatientDetail from "./PatientDetail";
+import PatientEdit from "./PatientEdit";
 
-const PatientAccountPage = () => {
+const PatientAccount = () => {
   const [edit, setEdit] = useState(false);
   const { id } = useParams();
 
@@ -25,4 +25,4 @@ const PatientAccountPage = () => {
   );
 };
 
-export default PatientAccountPage;
+export default PatientAccount;

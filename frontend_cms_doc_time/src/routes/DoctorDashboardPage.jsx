@@ -15,10 +15,6 @@ const DoctorDashboardPage = () => {
     setEdit((prev) => !prev);
   };
 
-  const checkAppointment = () => {
-    navigate("/doctor-dashboard/" + id + "/appointments-check");
-  };
-
   const handleLogout = async () => {
     await logout();
     navigate("/");
@@ -38,15 +34,7 @@ const DoctorDashboardPage = () => {
           logout
         </button>
       </div>
-      {edit ? (
-        <DoctorEdit id={id} />
-      ) : (
-        <DoctorDetail
-          id={id}
-          btnFunction={checkAppointment}
-          btnMessage="Check Appointment"
-        />
-      )}
+      {edit ? <DoctorEdit id={id} /> : <DoctorDetail id={id} />}
     </>
   );
 };

@@ -3,7 +3,7 @@ import MessageSVG from "../Svg/MessageSvg";
 import Loading from "../General/Loading";
 
 // eslint-disable-next-line react/prop-types
-const DoctorDetail = ({ id, btnFunction, btnMessage }) => {
+const DoctorDetail = ({ id }) => {
   const [doctor, setDoctor] = useState("");
   const [loading, setLoading] = useState(false);
   const [dbScheduleData, setDbScheduleData] = useState([]);
@@ -91,7 +91,7 @@ const DoctorDetail = ({ id, btnFunction, btnMessage }) => {
       </article>
       {/* INFOs */}
       <article>
-        <div className="card w-96 bg-base-100 shadow-xl">
+        <div className="card w-96 bg-base-100 ">
           <div className="card-body">
             <h2 className="card-title">About Doctor</h2>
             <h3 className="flex justify-between">
@@ -148,12 +148,6 @@ const DoctorDetail = ({ id, btnFunction, btnMessage }) => {
               <MessageSVG />
               <a href={`mailto:${doctor?.email}`}>{doctor?.email}</a>
             </div>
-            <button
-              className="btn btn-primary mx-auto my-0"
-              onClick={btnFunction}
-            >
-              {btnMessage}
-            </button>
           </div>
         </div>
       </article>

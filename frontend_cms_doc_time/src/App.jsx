@@ -34,7 +34,7 @@ function App() {
             <Route
               path="/patient-dashboard/:id"
               element={<PatientDashboardPage />}
-            />
+            ></Route>
           </Route>
           <Route element={<DoctorProtectorRoutes />}>
             {/* Routes only for Doctor*/}
