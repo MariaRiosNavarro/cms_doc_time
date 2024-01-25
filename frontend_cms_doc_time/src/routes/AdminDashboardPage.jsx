@@ -3,6 +3,7 @@ import { useLoginContext } from "../context/UserContext";
 import { Outlet } from "react-router-dom";
 import { logout } from "../components/General/logoutFunction";
 import { useNavigate } from "react-router-dom";
+import LogoutSharpIcon from "@mui/icons-material/LogoutSharp";
 
 const AdminDashboardPage = () => {
   const { loginUser } = useLoginContext();
@@ -18,14 +19,11 @@ const AdminDashboardPage = () => {
         <div className="bg-primary ">
           <div className="card-title text-base-100 text-center justify-around p-4">
             <div>
-              User: <span className="text-accent">{loginUser}</span>
+              Admin: <span className="text-accent">{loginUser}</span>
             </div>
-            <button
-              onClick={handleLogout}
-              className="underline decoration-secondary cursor-pointer"
-            >
-              logout
-            </button>
+            <div onClick={handleLogout}>
+              <LogoutSharpIcon className="stroke-base-100 text-base-100 stroke-[0.1px] h-[2rem]" />
+            </div>
           </div>
           <h3 className="text-base-100 text-center text-3xl p-4">
             Admin Dashboard

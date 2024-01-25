@@ -6,7 +6,6 @@ import UserSignUp from "./routes/UserSignUp.jsx";
 import DoctorDashboardPage from "./routes/DoctorDashboardPage.jsx";
 import AdminDashboardPage from "./routes/AdminDashboardPage.jsx";
 import PatientDashboardPage from "./routes/PatientDashboardPage.jsx";
-import DoctorAppointmentsCheck from "./routes/DoctorAppointmentsCheck.jsx";
 import DoctorList from "./routes/DoctorList.jsx";
 import UserList from "./routes/UserList.jsx";
 import UserForm from "./routes/UserForm.jsx";
@@ -30,38 +29,18 @@ function App() {
           {/* Protected Routes & LoginProvider to know how is login */}
 
           {/* Route only for Patient */}
-          {/* <Route element={<PatientProtectorRoutes />}>
+          <Route element={<PatientProtectorRoutes />}>
             <Route
-              path="/patient-dashboard/:patientId"
+              path="patient-dashboard/:patientId"
               element={<PatientDashboardPage />}
-            >
-              <Route path="doctor">
-                <Route path=":doctorId" element={<DoctorDetailPage />} />
-              </Route>
-            </Route>
-            
-          </Route> */}
-
-          <Route
-            path="patient-dashboard/:patientId"
-            element={<PatientProtectorRoutes />}
-          >
-            <Route index element={<PatientDashboardPage />} />
-            {/* <Route
-              path="doctor/:doctorId"
-              element={<PatientDashboardOneDoctor />}
-            /> */}
+            />
           </Route>
 
           <Route element={<DoctorProtectorRoutes />}>
-            {/* Routes only for Doctor*/}
+            {/* Routes only for Doctors*/}
             <Route
               path="/doctor-dashboard/:doctorId"
               element={<DoctorDashboardPage />}
-            />
-            <Route
-              path="/doctor-dashboard/:doctorId/appointments-check"
-              element={<DoctorAppointmentsCheck />}
             />
           </Route>
           {/* Routes only for Admin */}
