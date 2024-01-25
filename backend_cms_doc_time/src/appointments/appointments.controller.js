@@ -91,11 +91,22 @@ export const getOneAppointment = async (req, res) => {
 };
 
 export const getAllAppointmentOneDoctor = async (req, res) => {
-  const { roleId } = req.params;
-
-  const appointmentsOnePerson = await AppointmentModel.find(
-    (roleId = doctorIdRef)
-  );
-
-  res.json({ appointmentsOnePerson });
+  try {
+    const { roleId } = req.params;
+    const appointmentsOnePerson = await AppointmentModel.find(
+      (roleId = doctorIdRef)
+    );
+    res.status(200).json({
+      success: true,
+      boat: appointmentsOnePerson,
+      message: `Appointment from doctor= ${id} sucessfully retrieved ✅`,
+    });
+  } catch (error) {
+    console.error("Error getting appointments");
+    res.status(500).json({
+      success: false,
+      message: "Error retrieving appointments",
+      error,
+    });
+  }
 };
