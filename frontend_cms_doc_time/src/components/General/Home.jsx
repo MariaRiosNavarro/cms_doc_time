@@ -1,19 +1,22 @@
 import { Link } from "react-router-dom";
-import DoctorList from "../../routes/DoctorList";
 
 const Home = () => {
   return (
     <>
       <div className="card">
+        <figure>
+          <img src="../../../public/covid-19.png" alt="" />
+        </figure>
         <div className="card-body">
-          <Link className="btn btn-primary" to="/login">
-            Login
-          </Link>
-          <Link className="btn btn-primary" to="/sign-up">
-            Sign Up
-          </Link>
+          <div className="card-actions justify-center items-stretch">
+            <Link className="btn btn-primary" to="/login">
+              Login
+            </Link>
+            <Link className="btn btn-primary" to="/sign-up">
+              Sign Up
+            </Link>
+          </div>
         </div>
-        <DoctorList />
       </div>
     </>
   );

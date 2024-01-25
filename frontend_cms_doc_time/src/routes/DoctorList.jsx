@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import DoctorCard from "../components/Doctor/DoctorCard";
+import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 
 const DoctorList = () => {
   const [doctors, setDoctors] = useState([]);
@@ -26,10 +27,20 @@ const DoctorList = () => {
 
   return (
     <>
-      <section>
-        {doctors?.map((doc) => (
-          <DoctorCard key={doc._id} {...doc} link="/doctor/" />
-        ))}
+      <section className="flex flex-col justify-center">
+        <div className="flex p-4 mx-auto my-4 bg-gray-200 rounded-xl">
+          <SearchSharpIcon />
+          <input
+            type="text"
+            className=" bg-gray-200  px-4 placeholder:text-gray-400"
+            placeholder="Search for doctors"
+          />
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          {doctors?.map((doc) => (
+            <DoctorCard key={doc._id} {...doc} link="/doctor/" />
+          ))}
+        </div>
       </section>
     </>
   );

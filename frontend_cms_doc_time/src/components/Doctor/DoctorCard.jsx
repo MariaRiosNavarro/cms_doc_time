@@ -5,10 +5,7 @@ const DoctorCard = (props) => {
   const placeholder = "https://picsum.photos/200/200";
 
   return (
-    <div
-      key={props._id}
-      className="card w-96 bg-base-100 shadow-xl mx-auto my-0"
-    >
+    <div key={props._id} className="card  bg-base-100 shadow-xl mx-auto my-0">
       <figure className="px-12 pt-12 overflow-hidden">
         <img
           src={props.avatar ? props.avatar : placeholder}

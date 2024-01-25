@@ -13,12 +13,14 @@ const PatientAccountPage = () => {
 
   return (
     <>
-      <div className="card-actions justify-around items-center ">
-        <button onClick={toggleEdit} className="btn btn-primary">
-          {edit ? "Close Edit" : "Open Edit"}
-        </button>
-      </div>
-      {edit ? <PatientEdit id={id} /> : <PatientDetail id={id} />}
+      <section className="relative">
+        <div className="card-actions justify-around items-center relative left-[35%] top-[2rem] ">
+          <button onClick={toggleEdit} className="underline">
+            {edit ? "Close Edit" : "Open Edit"}
+          </button>
+        </div>
+        {edit ? <PatientEdit id={id} /> : <PatientDetail id={id} />}
+      </section>
     </>
   );
 };
