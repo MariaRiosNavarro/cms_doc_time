@@ -28,9 +28,11 @@ const PatientCard = (props) => {
           </span>
         </p>
         <div className="card-actions">
-          <Link to={props.link + props._id}>
-            <button className="btn btn-primary">More about</button>
-          </Link>
+          <div className="card-actions">
+            <Link to={props.link}>
+              <button className="btn btn-primary">More about</button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

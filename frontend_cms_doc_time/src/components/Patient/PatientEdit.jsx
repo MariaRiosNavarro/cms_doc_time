@@ -2,7 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-const PatientEdit = ({ id }) => {
+const PatientEdit = ({ patientId }) => {
   const [patient, setPatient] = useState("");
 
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const PatientEdit = ({ id }) => {
     const fetchOnePatient = async () => {
       try {
         const response = await fetch(
-          import.meta.env.VITE_BACKEND_URL + "/api/patients/" + id,
+          import.meta.env.VITE_BACKEND_URL + "/api/patients/" + patientId,
           {
             method: "GET",
             credentials: "include",
@@ -35,7 +35,7 @@ const PatientEdit = ({ id }) => {
       }
     };
     fetchOnePatient();
-  }, [id]);
+  }, [patientId]);
 
   // ----------------------------------------------- EDIT DATA
 
@@ -65,7 +65,7 @@ const PatientEdit = ({ id }) => {
 
     try {
       const response = await fetch(
-        import.meta.env.VITE_BACKEND_URL + "/api/patients/" + id,
+        import.meta.env.VITE_BACKEND_URL + "/api/patients/" + patientId,
         {
           method: "PUT",
           credentials: "include",

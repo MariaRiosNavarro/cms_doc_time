@@ -8,7 +8,7 @@ import { logout } from "../components/General/logoutFunction";
 const DoctorDashboardPage = () => {
   const { loginUser } = useLoginContext();
   const [edit, setEdit] = useState(false);
-  const { id } = useParams();
+  const { doctorId } = useParams();
   const navigate = useNavigate();
 
   const toggleEdit = () => {
@@ -34,7 +34,11 @@ const DoctorDashboardPage = () => {
           logout
         </button>
       </div>
-      {edit ? <DoctorEdit id={id} /> : <DoctorDetail id={id} />}
+      {edit ? (
+        <DoctorEdit doctorId={doctorId} />
+      ) : (
+        <DoctorDetail doctorId={doctorId} />
+      )}
     </>
   );
 };

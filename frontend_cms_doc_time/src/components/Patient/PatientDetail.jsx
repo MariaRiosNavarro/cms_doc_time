@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 // import Loading from "../General/Loading";
 
-const PatientDetail = ({ id }) => {
+const PatientDetail = ({ patientId }) => {
   const [patient, setPatient] = useState("");
   // const [loading, setLoading] = useState(false);
 
@@ -11,7 +11,7 @@ const PatientDetail = ({ id }) => {
     const fetchOnePatient = async () => {
       try {
         const response = await fetch(
-          import.meta.env.VITE_BACKEND_URL + "/api/patients/" + id,
+          import.meta.env.VITE_BACKEND_URL + "/api/patients/" + patientId,
           {
             method: "GET",
             credentials: "include",

@@ -5,7 +5,7 @@ import PatientEdit from "./PatientEdit";
 
 const PatientAccount = () => {
   const [edit, setEdit] = useState(false);
-  const { id } = useParams();
+  const { patientId } = useParams();
 
   const toggleEdit = () => {
     setEdit((prev) => !prev);
@@ -19,7 +19,11 @@ const PatientAccount = () => {
             {edit ? "Close Edit" : "Open Edit"}
           </button>
         </div>
-        {edit ? <PatientEdit id={id} /> : <PatientDetail id={id} />}
+        {edit ? (
+          <PatientEdit patientId={patientId} />
+        ) : (
+          <PatientDetail patientId={patientId} />
+        )}
       </section>
     </>
   );

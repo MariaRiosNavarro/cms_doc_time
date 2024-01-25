@@ -12,7 +12,7 @@ import PatientAccount from "../components/Patient/PatientAccount";
 
 const PatientDashboardPage = () => {
   const { loginUser } = useLoginContext();
-  const { id } = useParams();
+  const { patientId } = useParams();
   const [account, setAccount] = useState(false);
   const [doctorsList, setDoctorsList] = useState(false);
   const [appointments, setAppointments] = useState(false);
@@ -99,8 +99,8 @@ const PatientDashboardPage = () => {
           </div>
         </div>
       </div>
-      {account && <PatientAccount id={id} />}
-      {appointments && <PatientAppointments id={id} />}
+      {account && <PatientAccount patientId={patientId} />}
+      {appointments && <PatientAppointments patientId={patientId} />}
       {doctorsList && <DoctorList />}
     </>
   );
