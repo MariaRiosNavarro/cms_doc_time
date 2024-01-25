@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const DoctorAppointmentsCheck = () => {
+const DoctorAppointments = () => {
   const [count, setCount] = useState(0);
   useEffect(() => {
     console.log(count);
@@ -27,4 +27,4 @@ const DoctorAppointmentsCheck = () => {
   );
 };
 
-export default DoctorAppointmentsCheck;
+export default DoctorAppointments;

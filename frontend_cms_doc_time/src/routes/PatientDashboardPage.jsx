@@ -19,30 +19,20 @@ const PatientDashboardPage = () => {
   // const [oneDoctorDetail, setOneDoctorDetail] = useState(false);
 
   const toggleAccount = () => {
-    // setOneDoctorDetail(false);
     setAppointments(false);
     setDoctorsList(false);
     setAccount((prev) => !prev);
   };
   const toggleDoctors = () => {
-    // setOneDoctorDetail(false);
     setAccount(false);
     setAppointments(false);
     setDoctorsList((prev) => !prev);
   };
   const toggleAppointments = () => {
-    // setOneDoctorDetail(false);
     setAccount(false);
     setDoctorsList(false);
     setAppointments((prev) => !prev);
   };
-
-  // const toggleOneDoctorDetail = () => {
-  //   setAccount(false);
-  //   setDoctorsList(false);
-  //   setAppointments(false);
-  //   setOneDoctorDetail((prev) => !prev);
-  // };
 
   const navigate = useNavigate();
 
