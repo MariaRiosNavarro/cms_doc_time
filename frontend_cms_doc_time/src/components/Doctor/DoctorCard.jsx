@@ -15,13 +15,15 @@ const DoctorCard = (props) => {
         />
       </figure>
       <div className="card-body items-center text-center">
-        <h2 className="card-title">{props?.name ? props.name : ""}</h2>
-        <p>{props?.email ? props.email : ""}</p>
-        <p>
-          <span className="first-letter:uppercase pr-4">Doctor</span>
-          {props?.speciality ? props.speciality : ""}
-        </p>
-        <p>{props?.description ? props.description : ""}</p>
+        <h2 className="card-title">
+          Dr.{" "}
+          <span className="first-letter:capitalize">
+            {props?.name ? props.name : ""}
+          </span>{" "}
+        </h2>
+        {/* <p>{props?.email ? props.email : ""}</p> */}
+        <p>{props?.speciality ? props.speciality : ""}</p>
+        <p>{props?.rating ? props.rating : "✩"}</p>
         <div className="card-actions">
           <Link to={props.link + props._id}>
             <button className="btn btn-primary">More about</button>
