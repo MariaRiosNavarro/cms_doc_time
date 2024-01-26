@@ -5,7 +5,11 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   salt: { type: String, required: true },
   roleIdRef: { type: Object },
-  role: { type: String, enum: ["admin", "doctor", "patient"], required: true },
+  role: {
+    type: String,
+    enum: ["admin", "doctor", "patient"],
+    required: true,
+  },
 });
 
 export const UserModel = mongoose.model("user", userSchema);

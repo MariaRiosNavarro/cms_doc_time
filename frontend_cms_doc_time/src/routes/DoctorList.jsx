@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import DoctorCard from "../components/Doctor/DoctorCard";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import DoctorDetail from "../components/Doctor/DoctorDetail";
 import ArrowBackIosNewSharpIcon from "@mui/icons-material/ArrowBackIosNewSharp";
+import AppointmentForm from "../components/General/AppointmentForm";
 
 const DoctorList = () => {
-  // const { patientId } = useParams();
+  const { patientId } = useParams();
   const [doctors, setDoctors] = useState([]);
   const [selectedDoctorId, setSelectedDoctorId] = useState(null);
   const [detail, setDetail] = useState(false);
@@ -50,6 +51,7 @@ const DoctorList = () => {
             onClick={backToList}
           />
           <DoctorDetail doctorId={selectedDoctorId} />
+          <AppointmentForm doctorId={selectedDoctorId} patientId={patientId} />
         </section>
       ) : (
         <section className="flex flex-col justify-center">

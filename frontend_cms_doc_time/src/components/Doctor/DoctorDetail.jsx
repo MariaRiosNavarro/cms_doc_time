@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import MessageSVG from "../Svg/MessageSvg";
-import Loading from "../General/Loading";
+// import Loading from "../General/Loading";
 
 // eslint-disable-next-line react/prop-types
 const DoctorDetail = ({ doctorId }) => {
   const [doctor, setDoctor] = useState("");
+
   // const [loading, setLoading] = useState(false);
   const [dbScheduleData, setDbScheduleData] = useState([]);
 

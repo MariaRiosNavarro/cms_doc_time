@@ -8,6 +8,7 @@ import { router as authRouter } from "./auth/auth.routes.js";
 import { router as doctorsRouter } from "./doctors/doctors.routes.js";
 import { router as usersRouter } from "./users/users.routes.js";
 import { router as patientsRouter } from "./patients/patients.routes.js";
+import { router as appointmentsRouter } from "./appointments/appointments.routes.js";
 
 await mongoose.connect(process.env.MONGO_ATLAS_URI);
 
@@ -32,3 +33,4 @@ app.use("/api/auth", authRouter);
 app.use("/api/doctors", doctorsRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/patients", patientsRouter);
+app.use("/api/appointments", appointmentsRouter);

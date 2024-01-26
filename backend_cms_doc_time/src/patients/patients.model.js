@@ -9,8 +9,6 @@ const patientSchema = new mongoose.Schema({
   age: { type: Number },
   issues: { type: Array },
   avatar: { type: String },
-
-  // patient_appointments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Appointment' }],
 });
 
 export const PatientModel = mongoose.model("patient", patientSchema);
