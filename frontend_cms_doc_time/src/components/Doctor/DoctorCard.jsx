@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const DoctorCard = (props) => {
   const placeholder = "https://picsum.photos/200/200";

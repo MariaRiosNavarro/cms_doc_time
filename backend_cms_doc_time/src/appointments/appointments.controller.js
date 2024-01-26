@@ -78,7 +78,7 @@ export const getOneAppointment = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      boat: appointment,
+      data: appointment,
       message: `Appointment with id= ${id} sucessfully retrieved ✅`,
     });
   } catch (error) {
@@ -98,7 +98,9 @@ export const getAllAppointmentOneDoctor = async (req, res) => {
       doctorIdRef: doctorId,
     });
 
-    // Populate self, becouse .populate("patientIdRef").exec() dont work
+    console.log(doctorId);
+
+    //  Populate self, becouse .populate("patientIdRef").exec() dont work
     const newData = await Promise.all(
       appointmentsOnePerson.map(async (item) => {
         const patientId = item.patientIdRef;
@@ -110,7 +112,7 @@ export const getAllAppointmentOneDoctor = async (req, res) => {
     res.status(200).json({
       success: true,
       data: newData,
-      message: `Appointment from doctor= ${id} sucessfully retrieved ✅`,
+      message: `Appointment from doctor= ${doctorId} sucessfully retrieved ✅`,
     });
   } catch (error) {
     console.error("Error getting appointments");
@@ -150,6 +152,45 @@ export const getAllAppointmentOnePatient = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Error retrieving appointments",
+      error,
+    });
+  }
+};
+
+export const changeAppointment = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ error: " ID is missing" });
+    }
+
+    const newData = req.body;
+
+    if (!newData) {
+      throw new Error("Request body is undefined or not an object");
+    }
+
+    console.log("newData------------------🟢------", newData);
+
+    const newAppointment = await AppointmentModel.findByIdAndUpdate(
+      id,
+      newData,
+      {
+        new: true,
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: `Appointment with id= ${id} successfully updated ✅`,
+      data: newAppointment,
+    });
+  } catch (error) {
+    // Handle errors
+    console.error("Error editing one appointment");
+    res.status(500).json({
+      success: false,
+      message: "Error editing one appointment",
       error,
     });
   }
