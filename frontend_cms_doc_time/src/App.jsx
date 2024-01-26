@@ -6,7 +6,7 @@ import UserSignUp from "./routes/UserSignUp.jsx";
 import DoctorDashboardPage from "./routes/DoctorDashboardPage.jsx";
 import AdminDashboardPage from "./routes/AdminDashboardPage.jsx";
 import PatientDashboardPage from "./routes/PatientDashboardPage.jsx";
-import DoctorList from "./routes/DoctorList.jsx";
+// import DoctorList from "./routes/DoctorList.jsx";
 import UserList from "./routes/UserList.jsx";
 import UserForm from "./routes/UserForm.jsx";
 // import DoctorDetailPage from "./routes/DoctorDetailPage.jsx";
@@ -23,7 +23,7 @@ function App() {
         <Routes>
           {/* Free Routes */}
           <Route path="/" element={<Home />} />
-          <Route path="/doctors" element={<DoctorList />} />
+          {/* <Route path="/doctors" element={<DoctorList />} /> */}
           <Route path="/sign-up" element={<UserSignUp />} />
           <Route path="/login" element={<UserLogin />} />
           {/* Protected Routes & LoginProvider to know how is login */}

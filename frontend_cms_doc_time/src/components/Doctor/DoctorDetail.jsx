@@ -5,6 +5,7 @@ import MessageSVG from "../Svg/MessageSvg";
 // eslint-disable-next-line react/prop-types
 const DoctorDetail = ({ doctorId }) => {
   const [doctor, setDoctor] = useState("");
+
   // const [loading, setLoading] = useState(false);
   const [dbScheduleData, setDbScheduleData] = useState([]);
 

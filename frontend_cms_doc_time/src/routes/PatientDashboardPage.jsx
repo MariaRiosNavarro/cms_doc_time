@@ -4,7 +4,6 @@ import { useLoginContext } from "../context/UserContext";
 import { logout } from "../components/General/logoutFunction";
 import LogoutSharpIcon from "@mui/icons-material/LogoutSharp";
 import MenuSharpIcon from "@mui/icons-material/MenuSharp";
-import { useParams } from "react-router-dom";
 import { useState } from "react";
 import DoctorList from "./DoctorList";
 import PatientAppointments from "../components/Patient/PatientAppointments";
@@ -12,7 +11,6 @@ import PatientAccount from "../components/Patient/PatientAccount";
 
 const PatientDashboardPage = () => {
   const { loginUser } = useLoginContext();
-  const { patientId } = useParams();
   const [account, setAccount] = useState(true);
   const [doctorsList, setDoctorsList] = useState(false);
   const [appointments, setAppointments] = useState(false);
@@ -89,8 +87,8 @@ const PatientDashboardPage = () => {
           </div>
         </div>
       </div>
-      {account && <PatientAccount patientId={patientId} />}
-      {appointments && <PatientAppointments patientId={patientId} />}
+      {account && <PatientAccount />}
+      {appointments && <PatientAppointments />}
       {doctorsList && <DoctorList />}
     </>
   );
