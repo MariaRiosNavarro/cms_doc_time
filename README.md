@@ -10,7 +10,7 @@ Both doctors and patients can edit their profile as soon as they register and up
 
 The user can choose a doctor from the list of doctors and make an appointment, the appointment will appear on the dashboard of both doctors with the property to be confirmed. This appointment can be confirmed or cancelled by the doctor.
 
-Email sending, style finalisation and docker deployment still to be integrated.
+Email sending, style finalisation, docker deployment & testing still to be integrated.
 
 # Setup info
 
