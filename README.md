@@ -1,26 +1,31 @@
-# Docker Compose - cms_doc_time
+# cms_doc_time (docker compose)
+
+4 collections, when the user registers he/she is saved in users and in the corresponding collection. In the user collection we store the reference id of the collection. I.e. patients and doctors are stored both in users (only password + salt) and in their collection (patients/doctors) with their more specific data.
+
+Appointments have their own collection with id reference to the corresponding patient and doctor.
+
+Admin are only reflected in the user collection.  Admins can only be created internally (e.g. thunder client) or an existing user can create an admin user in her/his dashboard. Each group has its own dashboard with its own path, where you always see at the top whether you are logged in or not and can log out at any time.
+
+# Setup info
 
 Frontend Container:  React + React Router + Vite + Tailwind + DaisyUI
 
-Backend Container : Express (+ dotenv multer mongoose nodemailer cookie-parser jsonwebtoken cloudinary jest supertest)
+Backend Container : Express (+ dotenv multer mongoose nodemailer cookie-parser jsonwebtoken cloudinary jest supertest). 4 Colletions. Users for only email password and role (with id role reference in the collection id)
 
 ## For now works:
 
--User register, 3 roles (admin, doctor, patient) (frontend & backend)
--Login (with salt & token/cookie) (frontend & backend)
--Frontend: Doctor Dashboard & Editpage done, but i need to fix the Put route.
+Sign-up & login for admin, patients & doctors works (json token)
 
-Issues:
-Admin dashboard: users will be created but admins, has a internal (500) issue, maybe because has not roleId
+Protected Routes for for admin, patients & doctors works
 
+Only Admin can delete users.
 
-# To do:
+# TO DO
 
-fix in register auth ( main-id save in role-collection as reference and not as string like now. role-id in main-user-collection save as reference und not as object like now)
+email implementation
+deployment in docker?
+style finish
 
-Add delete route Doctor & patient
-Add patient Edit Page
-Frontend/Design - patient+admin dashboard, home, 
 
 # Structure, Miro Board  & Design
 
@@ -28,7 +33,7 @@ Frontend/Design - patient+admin dashboard, home,
 
 [Miro Structure & Board](https://miro.com/welcomeonboard/SDRNQko1V2tnSWFnVWhZNkR2SlFNWlJvR0RTVURNNldEeTRMWkZ3M0RZTWRlNmp2TmtCZmY0elRIalZWckRsU3wzNDU4NzY0NTUxMDYyNTY5MTUyfDI=?share_link_id=233654990445)
 
-# SETUP
+# Docker SETUP
 
 ## Docker Frontend DEV
 
@@ -262,10 +267,5 @@ if you can open it, works
 -------
 
 
-# REGISTER & LOGIN 
 
 
-# SEGURITY ROUTES BACKEND & FRONTEND
-
-
-# ROLES LOGIN
