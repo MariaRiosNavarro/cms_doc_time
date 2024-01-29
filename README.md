@@ -6,9 +6,15 @@ Appointments have their own collection with id reference to the corresponding pa
 
 Admin are only reflected in the user collection.  Admins can only be created internally (e.g. thunder client) or an existing user can create an admin user in her/his dashboard. Each group has its own dashboard with its own path, where you always see at the top whether you are logged in or not and can log out at any time.
 
+Both doctors and patients can edit their profile as soon as they register and upload a current photo to cloudinary, a placeholder is shown at the beginning.
+
+The user can choose a doctor from the list of doctors and make an appointment, the appointment will appear on the dashboard of both doctors with the property to be confirmed. This appointment can be confirmed or cancelled by the doctor.
+
+Email sending, style finalisation and docker deployment still to be integrated.
+
 # Setup info
 
-Frontend Container:  React + React Router + Vite + Tailwind + DaisyUI
+Frontend Container:  React + React Router + Vite + Tailwind + DaisyUI (darkmode available)
 
 Backend Container : Express (+ dotenv multer mongoose nodemailer cookie-parser jsonwebtoken cloudinary jest supertest). 4 Colletions. Users for only email password and role (with id role reference in the collection id)
 

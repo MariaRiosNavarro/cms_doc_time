@@ -46,11 +46,16 @@ const AppointmentForm = ({ doctorId, patientId }) => {
     <>
       <form
         onSubmit={addAppointment}
-        className="flex flex-col justify-center items-center"
+        className="flex flex-col justify-center items-center gap-4"
       >
-        <label htmlFor="date">Day</label>
+        <h3 className="text-3xl text-center bg-primary text-base-100 w-[100%] mb-4 p-4">
+          Book an appointment
+        </h3>
+        <label className="font-bold" htmlFor="date">
+          Day
+        </label>
         <input ref={dayRef} required name="date" type="date" />
-        <label htmlFor="time" required>
+        <label className="font-bold" htmlFor="time" required>
           Time
         </label>
         <input ref={timeStartRef} name="time" type="time" />
