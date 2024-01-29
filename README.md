@@ -19,20 +19,6 @@ Frontend Container:  React + React Router + Vite + Tailwind + DaisyUI (darkmode 
 
 Backend Container : Express (+ dotenv multer mongoose nodemailer cookie-parser jsonwebtoken cloudinary jest supertest). 4 Colletions. Users for only email password and role (with id role reference in the collection id)
 
-## For now works:
-
-Sign-up & login for admin, patients & doctors works (json token)
-
-Protected Routes for for admin, patients & doctors works
-
-Only Admin can delete users.
-
-# TO DO
-
-email implementation
-deployment in docker?
-style finish
-
 
 # Images
 
