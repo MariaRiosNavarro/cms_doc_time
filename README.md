@@ -33,6 +33,32 @@ deployment in docker?
 style finish
 
 
+# Images
+
+# Home , login , sign-up
+
+![Home](/assets/1.png)
+![Home](/assets/2.png)
+![Home](/assets/3.png)
+![Home](/assets/4.png)
+# Patients
+
+![Home](/assets/p1.png)
+![Home](/assets/p2.png)
+![Home](/assets/p3.png)
+![Home](/assets/p4.png)
+![Home](/assets/p5.png)
+![Home](/assets/p6.png)
+![Home](/assets/p7.png)
+
+
+
+# Doctors
+
+![Home](/assets/d1.png)
+![Home](/assets/d2.png)
+
+
 # Structure, Miro Board  & Design
 
 [Figma Design](https://www.figma.com/file/sWpX4BUzxivFq5kUfn5x3k/Doctor-Appointments-UI-KIt-(Community)-(Copy)?type=design&node-id=0-72&mode=design&t=BjXYiEBLQiw1or6I-0)
