@@ -1,6 +1,7 @@
 # cms_doc_time (docker compose)
+(App is not finished)
 
-4 collections, when the user registers he/she is saved in users and in the corresponding collection. In the user collection we store the reference id of the collection. I.e. patients and doctors are stored both in users (only password + salt) and in their collection (patients/doctors) with their more specific data.
+There are 4 collections, when the user registers he/she is saved in users and in the corresponding collection. In the user collection we store the reference id of the collection. I.e. patients and doctors are stored both in users (only password + salt) and in their collection (patients/doctors) with their more specific data.
 
 Appointments have their own collection with id reference to the corresponding patient and doctor.
 
@@ -57,6 +58,11 @@ style finish
 
 ![Home](/assets/d1.png)
 ![Home](/assets/d2.png)
+
+# Admin
+
+![Home](/assets/a1.png)
+![Home](/assets/a2.png)
 
 
 # Structure, Miro Board  & Design
