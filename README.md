@@ -1,11 +1,12 @@
 # cms_doc_time (docker compose)
+
 (App is not finished)
 
 There are 4 collections, when the user registers he/she is saved in users and in the corresponding collection. In the user collection we store the reference id of the collection. I.e. patients and doctors are stored both in users (only password + salt) and in their collection (patients/doctors) with their more specific data.
 
 Appointments have their own collection with id reference to the corresponding patient and doctor.
 
-Admin are only reflected in the user collection.  Admins can only be created internally (e.g. thunder client) or an existing user can create an admin user in her/his dashboard. Each group has its own dashboard with its own path, where you always see at the top whether you are logged in or not and can log out at any time.
+Admin are only reflected in the user collection. Admins can only be created internally (e.g. thunder client) or an existing user can create an admin user in her/his dashboard. Each group has its own dashboard with its own path, where you always see at the top whether you are logged in or not and can log out at any time.
 
 Both doctors and patients can edit their profile as soon as they register and upload a current photo to cloudinary, a placeholder is shown at the beginning.
 
@@ -15,10 +16,9 @@ Email sending, style finalisation, docker deployment & testing still to be integ
 
 # Setup info
 
-Frontend Container:  React + React Router + Vite + Tailwind + DaisyUI (darkmode available)
+Frontend Container: React + React Router + Vite + Tailwind + DaisyUI (darkmode available)
 
 Backend Container : Express (+ dotenv multer mongoose nodemailer cookie-parser jsonwebtoken cloudinary jest supertest). 4 Colletions. Users for only email password and role (with id role reference in the collection id)
-
 
 # Images
 
@@ -28,6 +28,7 @@ Backend Container : Express (+ dotenv multer mongoose nodemailer cookie-parser j
 ![Home](/assets/2.png)
 ![Home](/assets/3.png)
 ![Home](/assets/4.png)
+
 # Patients
 
 ![Home](/assets/p1.png)
@@ -37,8 +38,6 @@ Backend Container : Express (+ dotenv multer mongoose nodemailer cookie-parser j
 ![Home](/assets/p5.png)
 ![Home](/assets/p6.png)
 ![Home](/assets/p7.png)
-
-
 
 # Doctors
 
@@ -50,10 +49,9 @@ Backend Container : Express (+ dotenv multer mongoose nodemailer cookie-parser j
 ![Home](/assets/a1.png)
 ![Home](/assets/a2.png)
 
+# Structure, Miro Board & Design
 
-# Structure, Miro Board  & Design
-
-[Figma Design](https://www.figma.com/file/sWpX4BUzxivFq5kUfn5x3k/Doctor-Appointments-UI-KIt-(Community)-(Copy)?type=design&node-id=0-72&mode=design&t=BjXYiEBLQiw1or6I-0)
+[Figma Design](<https://www.figma.com/file/sWpX4BUzxivFq5kUfn5x3k/Doctor-Appointments-UI-KIt-(Community)-(Copy)?type=design&node-id=0-72&mode=design&t=BjXYiEBLQiw1or6I-0>)
 
 [Miro Structure & Board](https://miro.com/welcomeonboard/SDRNQko1V2tnSWFnVWhZNkR2SlFNWlJvR0RTVURNNldEeTRMWkZ3M0RZTWRlNmp2TmtCZmY0elRIalZWckRsU3wzNDU4NzY0NTUxMDYyNTY5MTUyfDI=?share_link_id=233654990445)
 
@@ -63,10 +61,11 @@ Backend Container : Express (+ dotenv multer mongoose nodemailer cookie-parser j
 
 Follow this [intructions(readme)](https://github.com/MariaRiosNavarro/docker_react_vite_DEV) to create a DEV react container
 
-- Summary : 
-Create a node container, install vite-react(npm i) in it and copy the content to our frontend folder.
+- Summary :
+  Create a node container, install vite-react(npm i) in it and copy the content to our frontend folder.
 
 terminal 1:
+
 ```sh
 docker run -it node:alpine sh
 ls-l
@@ -76,7 +75,7 @@ create vite@latest frontend_cms_doc_time -- --template react
 yes
 cd frontend_cms_doc_time
 npm i
-````
+```
 
 terminal 2 (in the root yours project, inside only the backend empty folder):
 
@@ -99,7 +98,6 @@ npm i -D daisyui@latest
 ### tailwind.config.js
 
 ```javascript
-
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -108,7 +106,6 @@ export default {
   },
   plugins: [require("daisyui")],
 };
-
 ```
 
 ## Backend Basic Setup
@@ -119,7 +116,8 @@ npm i express dotenv multer mongoose nodemailer cookie-parser jsonwebtoken morga
 npm i cloudinary
 npm i -D jest supertest
 
-````
+```
+
 ### package.json
 
 ```json
@@ -131,6 +129,7 @@ npm i -D jest supertest
 ```
 node_modules/
 ```
+
 ### Create a basic server.js
 
 ```javascript
@@ -143,7 +142,7 @@ app.listen(process.env.PORT, () => {
 });
 ```
 
-# Create the Docker Compose 
+# Create the Docker Compose
 
 ## Docker files in Frontend
 
@@ -152,10 +151,11 @@ app.listen(process.env.PORT, () => {
 ```
 node_modules/
 ```
+
 ### Dockerfile
 
 ```docker
-FROM node:alpine   
+FROM node:alpine
 WORKDIR /app
 COPY . .
 RUN npm i
@@ -171,10 +171,11 @@ CMD [ "npm","run","dev","--","--host" ]
 ```
 node_modules/
 ```
+
 ### Dockerfile
 
 ```docker
-FROM node:alpine   
+FROM node:alpine
 WORKDIR /app
 COPY . .
 RUN npm i
@@ -183,18 +184,15 @@ EXPOSE ${PORT}
 CMD [ "node","--watch","server.js" ]
 ```
 
-
-
 ## Docker-compose file in the root
 
-
-### Create the compose file in the root 
+### Create the compose file in the root
 
 2 posibilities:
 
 -With mongodb local:
 
-````
+```
 version: '3.8'
 services:
   backend:
@@ -232,9 +230,10 @@ volumes:
 networks:
   backend_network:
   frontend_network:
-````
+```
 
 -With mongodb Atlas(Cloud):
+
 ```
 version: '3.8'
 services:
@@ -271,25 +270,22 @@ networks:
 docker compose up
 ```
 
-
-
 ### Test the compose in terminal:
-
 
 Open the Backend and Frontend Ports in your Browser to check if works
 
-Here 
+Here
 
 9999 for Backend
 
-80 for frontend 
+80 for frontend
 
 For 27019 at MongoDB (open MongoDB Compass in your computer and open port 27019)
 if you can open it, works
 
+---
 
--------
+NOTES:
 
-
-
-
+![notes](./assets/n1.png)
+![notes](./assets/n2.png)

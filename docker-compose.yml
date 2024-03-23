@@ -1,6 +1,33 @@
 # I USE MONGO ATLAS, i dont need a image of the mongo:latest to use it
 
-version: '3.8'
+# version: '3.8'
+# services:
+#   backend:
+#     build: ./backend_cms_doc_time
+#     container_name: backend_cms_doc_time
+#     environment:
+#       - MONGODB_URI=$MONGO_ATLAS_URI
+#     ports:
+#       - $BACKENDPORT:9999
+#     volumes:
+#       - ./backend_cms_doc_time:/app
+#     networks:
+#       - backend_network
+#       - frontend_network
+#   frontend:
+#     build: ./frontend_cms_doc_time
+#     container_name: frontend_cms_doc_time
+#     ports:
+#       - $FRONTENDPORT:5173
+#     volumes:
+#       - ./frontend_cms_doc_time:/app
+#     networks:
+#       - frontend_network
+# networks:
+#   backend_network:
+#   frontend_network:
+
+version: "3.8"
 services:
   backend:
     build: ./backend_cms_doc_time
@@ -9,8 +36,6 @@ services:
       - MONGODB_URI=$MONGO_ATLAS_URI
     ports:
       - $BACKENDPORT:9999
-    volumes:
-      - ./backend_cms_doc_time:/app
     networks:
       - backend_network
       - frontend_network
@@ -19,8 +44,6 @@ services:
     container_name: frontend_cms_doc_time
     ports:
       - $FRONTENDPORT:5173
-    volumes:
-      - ./frontend_cms_doc_time:/app
     networks:
       - frontend_network
 networks:
